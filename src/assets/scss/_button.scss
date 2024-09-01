@@ -1,0 +1,33 @@
+@import "./variables";
+
+@mixin btn() {
+  border: none;
+  border-radius: $base-border-radius;
+  background-color: transparent;
+  padding: $base-font-size $base-normal-padding;
+  cursor: pointer;
+}
+
+.btn {
+  @include btn();
+
+  &__primary {
+    // background-color: $primary-color;
+    background-image: linear-gradient(90deg, $primary-color, $primary-color-50);
+    background-size: 400% 400%;
+    background-position: left;
+    color: $primary-dark;
+    font-weight: 700;
+    transition: $base-transition-spd;
+
+    &:hover {
+      //   background-color: $primary-color-50;
+      background-position: right;
+      color: $primary-light;
+    }
+  }
+
+  &__secondary {
+    color: $primary-color;
+  }
+}

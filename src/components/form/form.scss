@@ -1,0 +1,197 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/button";
+.form {
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //   background-image: url(https://images.unsplash.com/photo-1695950695168-f4038b55a9ca?q=80&w=2076&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  //   background-size: cover;
+
+  .form__els {
+    min-height: 468px;
+    width: 900px;
+    max-width: 900px;
+    // border: 2px solid $primary-color;
+    display: flex;
+    border-radius: $base-border-radius;
+    box-shadow: 3px 3px 8px -5px $primary-dark-70,
+      -3px -3px 8px -5px $primary-dark-70;
+    background-color: $primary-dark;
+    overflow: hidden;
+
+    .image {
+      width: 100%;
+      min-width: 50%;
+      background-image: url(https://images.unsplash.com/photo-1695950695168-f4038b55a9ca?q=80&w=2076&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+      background-size: cover;
+
+      @media (max-width: 660px) {
+        display: none;
+      }
+
+      .overlay {
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+
+        color: $primary-light;
+
+        h1 {
+          color: $primary-color;
+          font-size: $font-size-xxl;
+        }
+
+        h2 {
+          font-size: $font-size-lg;
+        }
+
+        h3 {
+          font-size: $font-size-sm;
+        }
+      }
+    }
+
+    .fields {
+      width: 100%;
+      min-width: 50%;
+      padding: $base-normal-padding;
+      display: grid;
+      gap: $base-normal-padding;
+
+      h1 {
+        color: $primary-color;
+      }
+
+      hr {
+        border-color: $primary-light;
+      }
+
+      .input__field {
+        border-bottom: 1px solid $primary-light;
+        width: 100%;
+        height: $input-height;
+        position: relative;
+        transition: $base-transition-spd;
+
+        &.filled input,
+        &:focus-within input {
+          color: $primary-color;
+        }
+
+        .field {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          line-height: $base-font-size * 2;
+
+          input {
+            background-color: transparent;
+            outline: none;
+            border: none;
+            color: $primary-light;
+            line-height: $base-font-size * 2;
+            position: relative;
+
+            z-index: 99;
+            width: 90%;
+            transition: $base-transition-spd;
+
+            &:-webkit-autofill,
+            &:-webkit-autofill:hover,
+            &:-webkit-autofill:focus,
+            &:-webkit-autofill:active {
+              -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+              -webkit-text-fill-color: $primary-light !important;
+              transition: background-color 5000s ease-in-out 0s;
+            }
+
+            &:autofill,
+            &:autofill:hover,
+            &:autofill:focus,
+            &:autofill:active {
+              box-shadow: 0 0 0 1rem transparent inset !important;
+            }
+          }
+
+          .icon {
+            align-self: flex-end;
+            color: $primary-light;
+            height: 1.5rem;
+            width: 1.5rem;
+            margin-bottom: $base-font-size * 0.2;
+          }
+        }
+
+        .err {
+          font-size: $font-size-sm;
+          width: fit-content;
+          margin-left: auto;
+          color: rgba(242, 132, 132, 0.889);
+          font-weight: 500;
+        }
+
+        label {
+          color: $primary-light;
+          line-height: $base-font-size * 2;
+          position: absolute;
+          top: 0;
+          left: 0;
+          transition: $base-transition-spd;
+          z-index: 98;
+        }
+
+        &:focus-within {
+          border-bottom-color: $primary-color;
+        }
+
+        &:focus-within input,
+        &:focus-within label,
+        &:focus-within .icon {
+          color: $primary-color;
+        }
+
+        &.filled label,
+        &:focus-within label {
+          transform: translateY(-2rem);
+          font-size: $base-font-size * 0.75;
+        }
+      }
+
+      .login__links {
+        display: flex;
+        justify-content: space-between;
+        p {
+          color: $primary-light;
+          font-size: $font-size-sm;
+        }
+
+        a {
+          text-decoration: none;
+          transition: $base-transition-spd;
+          font-size: $font-size-sm;
+          color: $primary-color-50;
+          cursor: pointer;
+
+          &:hover {
+            color: $primary-color;
+          }
+        }
+      }
+    }
+  }
+}
+
+// For Firefox
+@-moz-document url-prefix() {
+  .form .input__field input:-moz-autofill,
+  .form .input__field input:-moz-autofill:focus {
+    background: transparent !important;
+  }
+}
