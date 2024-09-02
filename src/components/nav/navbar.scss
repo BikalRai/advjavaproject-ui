@@ -1,0 +1,44 @@
+@import '../../assets/scss/variables';
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $base-padding $base-normal-padding;
+
+  ul {
+    list-style: none;
+  }
+
+  .navbar__logo {
+    .logo {
+      color: $primary-color;
+      font-weight: 700;
+      font-size: $font-size-xl;
+    }
+  }
+
+  .navbar__nav--links {
+    display: flex;
+    align-items: center;
+    gap: $base-padding;
+
+    .navbar__nav--links-link {
+      a {
+        text-decoration: none;
+        color: $primary-light;
+        font-size: $font-size-sm;
+        transition: $base-transition-spd;
+
+        &:hover {
+          color: $primary-color;
+        }
+      }
+
+      //   .active {
+      //     color: $primary-color;
+      //     font-weight: 600;
+      //   }
+    }
+  }
+}
