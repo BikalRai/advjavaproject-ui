@@ -1,4 +1,5 @@
 import Card from "../card/Card";
+import MatchCard from "../card/MatchCard";
 import "./home.scss";
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
         <Card />
         <Card />
         <Card />
+        <MatchCard />
       </div>
     </div>
   );

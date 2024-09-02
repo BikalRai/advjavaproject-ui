@@ -9,7 +9,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className='container'>
       <div className='logo'>
         <p className='logo__text'>KickSpot</p>
         <p>©️ 2024 RaiCode</p>

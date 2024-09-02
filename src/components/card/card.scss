@@ -43,8 +43,25 @@
       font-weight: 600;
     }
 
-    &--desc {
+    &--desc,
+    &--time {
       font-size: $font-size-sm;
     }
+
+    &--day {
+      font-size: $font-size-md;
+      font-weight: 600;
+      color: $primary-danger;
+      animation: dangerflash 1s infinite;
+    }
+  }
+}
+
+@keyframes dangerflash {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
   }
 }
