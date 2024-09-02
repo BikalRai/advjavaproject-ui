@@ -1,0 +1,39 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/container";
+.hero {
+  background-color: $primary-light;
+  .container {
+    display: flex;
+    justify-content: space-between;
+
+    max-height: 640px;
+    // overflow: hidden;
+    margin-bottom: 5rem;
+
+    .hero__details {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: $base-padding;
+      padding: 0 10rem;
+
+      .btn {
+        width: max-content;
+        padding: $base-padding * 0.5 $base-normal-padding;
+      }
+    }
+
+    .hero__image {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        margin-top: 10rem;
+        height: 800px;
+      }
+    }
+  }
+}
