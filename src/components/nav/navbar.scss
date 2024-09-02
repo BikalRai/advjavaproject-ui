@@ -1,10 +1,12 @@
-@import '../../assets/scss/variables';
+@import "../../assets/scss/variables";
 
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: $base-padding $base-normal-padding;
+  padding: $base-padding $base-normal-padding * 2;
+  background-color: $primary-bg;
+  box-shadow: 0 3px 10px -3px $primary-color-50;
 
   ul {
     list-style: none;
@@ -19,9 +21,49 @@
   }
 
   .navbar__nav--links {
-    display: flex;
-    align-items: center;
-    gap: $base-padding;
+    display: none;
+    position: absolute;
+    // top: 0;
+    // right: -500px;
+    width: fit-content;
+    animation: navanimation 1s forwards;
+
+    @media (min-width: 970px) {
+      position: initial;
+    }
+
+    .closeIcon {
+      color: $primary-light;
+      font-size: $font-size-xl;
+      position: absolute;
+      top: 1rem;
+      right: 2rem;
+      cursor: pointer;
+      transition: $base-transition-spd;
+
+      &:hover {
+        color: $primary-color;
+      }
+
+      @media (min-width: 970px) {
+        display: none;
+      }
+    }
+
+    &.on {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $base-padding;
+      min-height: 100dvh;
+      position: fixed;
+      top: 0;
+      right: 0;
+      padding: $base-padding;
+      background-color: $primary-dark;
+      width: 268px;
+      animation: navanimation 1s forwards;
+    }
 
     .navbar__nav--links-link {
       a {
@@ -30,15 +72,91 @@
         font-size: $font-size-sm;
         transition: $base-transition-spd;
 
+        &::after {
+          content: "";
+          display: block;
+          width: 0%;
+          height: 2px;
+          border-radius: $base-border-radius;
+          background-color: $primary-color;
+          transition: $base-transition-spd;
+        }
+
+        &:hover::after {
+          width: 100%;
+        }
+
         &:hover {
           color: $primary-color;
         }
       }
 
-      //   .active {
-      //     color: $primary-color;
-      //     font-weight: 600;
-      //   }
+      .active {
+        color: $primary-color;
+        font-weight: 600;
+
+        &::after {
+          content: "";
+          display: block;
+          width: 100%;
+          height: 2px;
+          border-radius: $base-border-radius;
+          background-color: $primary-color;
+          transition: $base-transition-spd;
+        }
+      }
     }
+
+    @media (min-width: 970px) {
+      display: flex;
+      align-items: center;
+      gap: $base-normal-padding;
+    }
+  }
+
+  .navbar__btns {
+    display: flex;
+    align-items: center;
+    gap: $base-padding;
+
+    @media (max-width: 970px) {
+      margin-top: 2rem;
+    }
+  }
+
+  .hamburger {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: block;
+
+    .lines {
+      color: $primary-color;
+      font-size: $font-size-xl;
+    }
+
+    @media (min-width: 970px) {
+      display: none;
+    }
+  }
+}
+
+.stickyNav {
+  position: sticky;
+  top: 0;
+}
+
+main {
+  height: 2000px;
+  background-color: $primary-bg;
+}
+
+@keyframes navanimation {
+  0% {
+    right: -100%; /* Start off-screen to the right */
+  }
+  100% {
+    right: 0; /* End at the visible position */
   }
 }
