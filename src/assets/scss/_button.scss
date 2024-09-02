@@ -1,4 +1,4 @@
-@import "./variables";
+@import './variables';
 
 @mixin btn() {
   border: none;
@@ -29,5 +29,13 @@
 
   &__secondary {
     color: $primary-color;
+    border: 1px solid $primary-color;
+    transition: $base-transition-spd;
+
+    &:hover {
+      background-color: $primary-color;
+      color: $primary-light;
+      border-color: none;
+    }
   }
 }
