@@ -1,16 +1,14 @@
 import Card from "../card/Card";
 import MatchCard from "../card/MatchCard";
+import Hero from "../hero/Hero";
+import HeroCarousel from "../heroCarousel/HeroCarousel";
 import "./home.scss";
 
 const Home = () => {
   return (
     <div className='home'>
-      <div className='container'>
-        <Card />
-        <Card />
-        <Card />
-        <MatchCard />
-      </div>
+      <Hero />
+      <div className='container'></div>
     </div>
   );
 };

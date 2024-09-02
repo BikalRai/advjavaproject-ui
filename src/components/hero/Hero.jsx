@@ -15,7 +15,7 @@ const Hero = () => {
           <PrimaryButton btnText='GET STARTED' />
         </div>
         <div className='hero__image'>
-          <img src='/images/heroimg.png' alt='' />
+          {/* <img src='/images/heroimg.png' alt='' /> */}
         </div>
       </div>
     </div>
