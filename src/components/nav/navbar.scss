@@ -6,7 +6,6 @@
   align-items: center;
   padding: $base-padding $base-normal-padding * 2;
   background-color: $primary-bg;
-  box-shadow: 0 3px 10px -3px $primary-color-50;
 
   ul {
     list-style: none;
@@ -142,15 +141,10 @@
   }
 }
 
-.stickyNav {
-  position: sticky;
-  top: 0;
-}
-
-main {
-  height: 2000px;
-  background-color: $primary-bg;
-}
+// .stickyNav {
+//   position: sticky;
+//   top: 0;
+// }
 
 @keyframes navanimation {
   0% {

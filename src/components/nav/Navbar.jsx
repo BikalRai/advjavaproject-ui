@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import PrimaryButton from "../button/PrimaryButton";
 import SecondaryButton from "../button/SecondaryButton";
@@ -8,40 +8,19 @@ import { IoClose } from "react-icons/io5";
 
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState("home");
-  const [stickyNav, setStickyNav] = useState(false);
   const [visible, setVisible] = useState(false);
 
   const handleActiveLink = (linkName) => {
     setActiveLink(linkName);
   };
 
-  const handleScroll = () => {
-    const scrollY = window.scrollY;
-
-    if (scrollY > 50) {
-      setStickyNav(true);
-    } else {
-      setStickyNav(false);
-    }
-  };
-
   const handleVisiblity = () => {
     setVisible((prev) => !prev);
   };
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  console.log(visible);
-
   return (
     <>
-      <nav className={`navbar ${stickyNav ? "stickyNav" : ""}`}>
+      <nav className={`navbar `}>
         <div className='navbar__logo'>
           {/* <img src="" alt="" /> */}
           <p className='logo'>KickSpot</p>
@@ -107,7 +86,6 @@ const Navbar = () => {
           <GiHamburgerMenu className='lines' onClick={handleVisiblity} />
         </div>
       </nav>
-      <main></main>
     </>
   );
 };
