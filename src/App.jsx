@@ -1,11 +1,12 @@
-import Navbar from './components/nav/Navbar';
-import SiteRoutes from './components/routes/SiteRoutes';
+import UserAppLayout from "./components/layout/UserAppLayout";
+import SiteRoutes from "./components/routes/SiteRoutes";
 
 function App() {
   return (
-    <div className="app">
-      {/* <SiteRoutes /> */}
-      <Navbar />
+    <div className='app'>
+      <UserAppLayout>
+        <SiteRoutes />
+      </UserAppLayout>
     </div>
   );
 }
