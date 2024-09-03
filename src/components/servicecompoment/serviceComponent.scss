@@ -1,0 +1,23 @@
+@import "../../assets/scss/variables";
+
+.serviceComponent {
+  padding-bottom: 5rem;
+
+  &__cards {
+    display: grid;
+    place-items: center;
+    gap: $base-font-size;
+
+    @media (min-width: 630px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 900px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (min-width: 1100px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
