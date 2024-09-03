@@ -1,5 +1,7 @@
 @import "../../assets/scss/variables";
 
 .faq {
-  padding: 3rem 0;
+  padding: 1rem 0 3rem;
+  border-bottom: 1px solid $primary-color;
+  border-top: 1px solid $primary-color;
 }

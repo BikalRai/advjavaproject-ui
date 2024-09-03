@@ -3,8 +3,8 @@ import PropType from "prop-types";
 import "./card.scss";
 
 const MatchCard = ({
-  imgUrl,
-  venue,
+  imgUrl = "https://lh3.googleusercontent.com/p/AF1QipOVVsOhMHBkKGdM5tS5dO9DQX-OIJzsdybNhi9W=s1360-w1360-h1020",
+  venue = "Binayak Futsal",
   time,
   day = "today",
   btnText = "More Details",
