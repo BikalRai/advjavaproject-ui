@@ -2,10 +2,12 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import "./faq.scss";
 
 export default function AccordionUsage() {
   return (
-    <div>
+    <div className='faq'>
+      <h2>FAQ</h2>
       <Accordion
         sx={{ backgroundColor: "#393e46", color: "#f3f6ed" }}
         defaultExpanded

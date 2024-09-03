@@ -1,10 +1,6 @@
 import AccordionUsage from "../accordion/Faq";
-import Card from "../card/Card";
-import MatchCard from "../card/MatchCard";
 import EventCarousel from "../carousel/EventCarousel";
-import ContactForm from "../form/ContactForm";
 import Hero from "../hero/Hero";
-import HeroCarousel from "../heroCarousel/HeroCarousel";
 import HomeContact from "../homeContact/HomeContact";
 import "./home.scss";
 
@@ -13,8 +9,11 @@ const Home = () => {
     <div className='home'>
       <Hero />
       <div className='container'>
+        <h2>Events</h2>
         <EventCarousel />
         <AccordionUsage />
+
+        <h2 className='section__headers'>Contact Us</h2>
         <HomeContact />
       </div>
     </div>

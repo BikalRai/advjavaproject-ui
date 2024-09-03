@@ -5,6 +5,8 @@
   flex-direction: column;
   align-items: center;
   overflow: hidden;
+  border-radius: $base-border-radius;
+  margin-bottom: 3rem;
 
   iframe {
     flex-grow: 1;

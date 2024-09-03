@@ -1,2 +1,11 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/container";
+
+.home {
+  h2 {
+    margin-bottom: 3rem;
+    color: $primary-color;
+    font-size: $font-size-xl;
+    text-align: center;
+  }
+}
