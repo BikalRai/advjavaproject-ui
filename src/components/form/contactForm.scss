@@ -1,2 +1,25 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/button";
+
+.contact__form {
+  form {
+    display: grid;
+    gap: $base-font-size;
+    background-color: $primary-dark;
+    padding: $base-normal-padding;
+
+    h1 {
+      font-size: $font-size-xl;
+      font-weight: 600;
+      color: $primary-color;
+    }
+
+    textarea {
+      padding: $base-font-size;
+      border-radius: $base-border-radius;
+      border: none;
+      outline: none;
+      resize: none;
+    }
+  }
+}
