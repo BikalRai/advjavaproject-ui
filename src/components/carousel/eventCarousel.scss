@@ -1,0 +1,60 @@
+@import "../../assets/scss/variables";
+
+.carousel {
+  width: $event-carousel-width;
+  height: 500px;
+  max-height: 500px;
+  min-height: 200px;
+
+  margin: 5rem auto;
+  padding: $base-padding;
+  position: relative;
+
+  &__img {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: $base-border-radius;
+    box-shadow: 0 4px 8px -3px $primary-dark;
+    transition: $base-transition-spd;
+  }
+
+  .prevArrow,
+  .nextArrow {
+    color: $primary-light;
+    font-size: 3rem;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
+  .prevArrow {
+    left: -3rem;
+  }
+
+  .nextArrow {
+    right: -3rem;
+  }
+
+  &__indicators {
+    // width: fit-content;
+    // margin: $base-padding auto;
+    display: flex;
+    gap: $base-font-size * 0.2;
+    align-items: center;
+    justify-content: center;
+    margin-top: $base-padding;
+
+    .dot {
+      color: $primary-light;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .activeSlide {
+      color: $primary-color;
+    }
+  }
+}
