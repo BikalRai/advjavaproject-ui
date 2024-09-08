@@ -1,0 +1,46 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/button";
+.profileField {
+  background-color: transparent !important;
+  display: flex;
+  align-items: center;
+  padding: $base-font-size * 0.3 !important;
+  min-width: 385px !important;
+  width: max-content !important;
+
+  &__field {
+    color: $primary-light;
+    display: flex;
+    align-items: center;
+    gap: $font-size-xl;
+    font-weight: 600;
+    border-bottom: 1px solid $primary-color;
+    border-radius: 0 !important;
+    padding: 0 !important;
+
+    label {
+      min-width: 6rem;
+    }
+
+    input {
+      flex: 1;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      color: $primary-light;
+      font-size: $base-font-size;
+    }
+  }
+
+  &__icon {
+    font-size: $font-size-xl;
+    color: $primary-color-50;
+    cursor: pointer;
+
+    transition: $base-transition-spd;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}

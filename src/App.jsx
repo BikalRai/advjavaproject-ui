@@ -1,12 +1,14 @@
 import UserAppLayout from "./components/layout/UserAppLayout";
+import UserProfile from "./components/pages/profile/UserProfile";
 import SiteRoutes from "./components/routes/SiteRoutes";
 
 function App() {
   return (
     <div className='app'>
-      <UserAppLayout>
+      {/* <UserAppLayout>
         <SiteRoutes />
-      </UserAppLayout>
+      </UserAppLayout> */}
+      <UserProfile />
     </div>
   );
 }

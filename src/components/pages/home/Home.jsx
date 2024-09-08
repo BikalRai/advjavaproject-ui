@@ -1,9 +1,9 @@
-import AccordionUsage from "../accordion/Faq";
-import EventCarousel from "../carousel/EventCarousel";
-import Hero from "../hero/Hero";
-import HomeContact from "../homeContact/HomeContact";
-import HomeMatchComponent from "../matchComponent/HomeMatchComponent";
-import ServiceComponent from "../servicecompoment/ServiceComponent";
+import AccordionUsage from "../../accordion/Faq";
+import EventCarousel from "../../carousel/EventCarousel";
+import Hero from "../../hero/Hero";
+import HomeContact from "../../homeContact/HomeContact";
+import HomeMatchComponent from "../../matchComponent/HomeMatchComponent";
+import ServiceComponent from "../../servicecompoment/ServiceComponent";
 import "./home.scss";
 
 const Home = () => {

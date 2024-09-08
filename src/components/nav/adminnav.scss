@@ -1,0 +1,28 @@
+@import "../../assets/scss/variables";
+
+.adminNav {
+  &__horizontal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &--logo {
+      color: $primary-color;
+      font-size: $font-size-xl;
+      font-weight: 700;
+    }
+
+    &--search {
+      &-container {
+        display: flex;
+        gap: $font-size-sm;
+
+        background-color: red;
+        input {
+          border: none;
+          outline: none;
+        }
+      }
+    }
+  }
+}

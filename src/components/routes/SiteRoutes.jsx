@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import LoginForm from "../form/LoginForm";
 import Register from "../form/Register";
-import Home from "../pages/Home";
+import Home from "../pages/home/Home";
 
 const SiteRoutes = () => {
   return (
