@@ -1,32 +1,112 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import ProfileField from "../../inputfield/ProfileField";
 import "./userprofile.scss";
-import { useState } from "react";
+import { BiSolidImageAdd } from "react-icons/bi";
 
 const UserProfile = () => {
   const [userDetails, setUserDetails] = useState({
-    username: "Sabin Thapa",
-    address: "Nakhipot - 14, Lalitpur",
-    contact: "9818271811",
-    team: "Kondo FC",
+    username: "",
+    mobile: "",
+    team: "",
+    email: "",
   });
+
   const [isReadOnly, setIsReadOnly] = useState({
-    usernam: true,
-    address: true,
-    contact: true,
+    username: true,
+    mobile: true,
     team: true,
+    email: true,
   });
+
+  const [img, setImg] = useState("");
+  const [imgBase64, setImgBase64] = useState("");
+
+  const usernameArr = userDetails.username.split(" ");
+  const firstName = usernameArr[0];
+  const lastName = usernameArr[1];
 
   const handleFunction = ({ target }) => {
     const { name, value } = target;
 
     setUserDetails((prev) => ({ ...prev, [name]: value }));
+    target.focus();
   };
 
   const handleEditState = ({ target }) => {
     const { name } = target;
     setIsReadOnly((prev) => ({ ...prev, [name]: !prev[name] }));
   };
+
+  const handleImageUpload = ({ target }) => {
+    const file = target.files[0];
+
+    // Create a local URL for immediate display
+    setImg(URL.createObjectURL(file));
+
+    // Read the file as ArrayBuffer for sending to the server
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const base64String = btoa(
+        new Uint8Array(event.target.result).reduce(
+          (data, byte) => data + String.fromCharCode(byte),
+          ""
+        )
+      );
+      // Store the base64 string in a separate state variable
+      setImgBase64(base64String);
+    };
+    reader.readAsArrayBuffer(file);
+  };
+
+  const getUserData = async (userId) => {
+    try {
+      const res = await axios.get(`http://localhost:8080/api/users/${userId}`);
+
+      setUserDetails((prev) => ({
+        ...prev,
+        username: `${res?.data?.firstName} ${res?.data?.lastName}`,
+        mobile: res?.data?.mobile || "Enter mobile",
+        team: res?.data?.team || "Enter team",
+        email: res?.data?.email || "Enter email",
+      }));
+
+      // setImg(res?.data?.image);
+
+      if (res?.data?.image) {
+        setImg(`data:image/jpeg;base64,${res?.data?.image}`);
+        setImgBase64(res.data.image);
+      }
+
+      console.log(res?.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault;
+
+    try {
+      const res = await axios.put(`http://localhost:8080/api/updateUser/${1}`, {
+        firstName: firstName,
+        lastName: lastName,
+        mobile: userDetails.mobile,
+        team: userDetails.team,
+        email: userDetails.email,
+        image: imgBase64,
+      });
+
+      console.log(res);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getUserData(1);
+  }, []);
 
   return (
     <div className='userProfile'>
@@ -35,22 +115,21 @@ const UserProfile = () => {
         <button className='btn__secondary back'>
           <IoMdArrowRoundBack className=' back__btn' />
         </button>
-        <form
-          action=''
-          className='userProfile__img--form'
-          title='Click to change picture'
-        >
-          <div className='userProfile__img--form-upload'>
-            <input type='file' />
 
-            <img
-              src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-              alt=''
-              className='avatar__default'
-            />
+        <form className='userProfile__details'>
+          <div className='userProfile__details--avatar'>
+            <div
+              className='userProfile__img--form-upload'
+              title='Click to change picture'
+            >
+              <input type='file' onChange={handleImageUpload} />
+              {img ? (
+                <img src={img} alt='User avatar' className='avatar__default' />
+              ) : (
+                <BiSolidImageAdd className='avatar__default--icon' />
+              )}
+            </div>
           </div>
-        </form>
-        <form action='' className='userProfile__details'>
           {Object.keys(userDetails).map((field) => (
             <ProfileField
               key={field}
@@ -63,7 +142,9 @@ const UserProfile = () => {
             />
           ))}
 
-          <button className='btn__primary'>Update</button>
+          <button className='btn__primary' onClick={handleSubmit}>
+            Update
+          </button>
         </form>
       </div>
     </div>

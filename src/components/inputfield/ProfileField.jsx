@@ -12,8 +12,8 @@ const ProfileField = ({
 }) => {
   return (
     <div className='profileField'>
-      <div className='profileField__field'>
-        <label htmlFor={name}>{name[0].toUpperCase() + name.slice(1)}: </label>
+      <div className={`profileField__field ${isEditable ? "" : "editable"}`}>
+        <label htmlFor={name}>{name[0]?.toUpperCase() + name.slice(1)}: </label>
         <input
           type={type}
           value={value}
@@ -23,11 +23,13 @@ const ProfileField = ({
           readOnly={isEditable}
         />
       </div>
-      <MdEditSquare className='profileField__icon' onClick={setIsEditable} />
+      <MdEditSquare
+        className='profileField__icon'
+        onClick={() => setIsEditable({ target: { name } })}
+      />
     </div>
   );
 };
-
 ProfileField.propTypes = {
   type: PropType.string,
   name: PropType.string,

@@ -30,8 +30,22 @@
       color: $primary-light;
       font-size: $base-font-size;
     }
+
+    // input[readonly] {
+    //   background-color: transparent;
+    //   color: $primary-light;
+    // }
+
+    // input:not([readonly]) {
+    //   background-color: $primary-light;
+    //   color: $primary-dark;
+    //   border-radius: 0;
+    // }
   }
 
+  .editable {
+    border: 3px solid $primary-light;
+  }
   &__icon {
     font-size: $font-size-xl;
     color: $primary-color-50;
