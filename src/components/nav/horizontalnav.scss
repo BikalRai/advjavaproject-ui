@@ -1,0 +1,80 @@
+@import "../../assets/scss/variables";
+
+.adminNav__horizontal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $base-padding;
+
+  @media (min-width: 600px) {
+    padding: $base-normal-padding;
+  }
+
+  &_left {
+    display: flex;
+    flex-direction: column;
+    gap: $base-font-size * 0.5;
+
+    @media (min-width: 600px) {
+      flex-direction: row;
+      align-items: center;
+      gap: $base-font-size;
+    }
+
+    &--logo {
+      color: $primary-color;
+    }
+
+    &--search {
+      &-container {
+        background-color: $primary-color;
+        border-radius: $base-border-radius;
+        display: flex;
+        align-items: center;
+        padding: $base-font-size * 0.4 $base-font-size;
+
+        input {
+          background-color: transparent;
+          border: none;
+          outline: none;
+
+          &::placeholder {
+            color: $primary-dark !important;
+            opacity: 1;
+          }
+        }
+
+        button {
+          background-color: transparent;
+          border: none;
+
+          .icon {
+            color: $primary-dark;
+            font-size: $font-size-md;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  &--userdetails {
+    display: flex;
+    align-items: center;
+    gap: $base-font-size * 0.3;
+    &-details {
+      display: flex;
+      flex-direction: column;
+      color: $primary-light;
+      font-size: $base-font-size * 0.75;
+
+      .name {
+        font-weight: 700;
+      }
+    }
+
+    .user__avatar {
+      cursor: pointer !important;
+    }
+  }
+}

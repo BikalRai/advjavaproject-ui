@@ -1,6 +1,4 @@
-import UserAppLayout from "./components/layout/UserAppLayout";
-import UserProfile from "./components/pages/profile/UserProfile";
-import SiteRoutes from "./components/routes/SiteRoutes";
+import AdminNavHorizontral from "./components/nav/AdminNavHorizontral";
 
 function App() {
   return (
@@ -8,7 +6,8 @@ function App() {
       {/* <UserAppLayout>
         <SiteRoutes />
       </UserAppLayout> */}
-      <UserProfile />
+      {/* <UserProfile /> */}
+      <AdminNavHorizontral />
     </div>
   );
 }
