@@ -2,14 +2,18 @@
 @import "../../assets/scss/button";
 
 .verticalNav {
-  padding: $base-normal-padding;
+  padding: $base-normal-padding * 0.5;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  min-height: 90dvh;
+  min-height: 100%;
   max-width: fit-content;
   box-shadow: 1px 0 3px -2px $primary-light;
+
+  @media (min-width: 800px) {
+    padding: $base-normal-padding;
+  }
 
   &__links {
     list-style-type: none;
@@ -52,7 +56,7 @@
           }
         }
 
-        @media (min-width: 660px) {
+        @media (min-width: 800px) {
           span {
             display: inline;
           }
@@ -64,7 +68,7 @@
   .btn__primary {
     display: none;
 
-    @media (min-width: 660px) {
+    @media (min-width: 800px) {
       display: block;
     }
   }
@@ -75,7 +79,7 @@
     cursor: pointer;
     transition: $base-transition-spd;
 
-    @media (min-width: 660px) {
+    @media (min-width: 800px) {
       display: none;
     }
 
