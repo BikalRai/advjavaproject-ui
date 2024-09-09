@@ -2,8 +2,17 @@ import { FaSearch } from "react-icons/fa";
 
 import "./horizontalnav.scss";
 import UserAvatar from "../useravatar/UserAvatar";
+import ModalUser from "../modal/ModalUser";
+import { useState } from "react";
 
 const AdminNavHorizontral = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const handleModalIsOpen = () => {
+    setModalIsOpen((prev) => !prev);
+  };
+
+  console.log(modalIsOpen);
   return (
     <nav className='adminNav__horizontal'>
       <div className='adminNav__horizontal_left'>
@@ -27,7 +36,15 @@ const AdminNavHorizontral = () => {
           <p>Logged in as:</p>
           <p className='name'>Full Name</p>
         </div>
-        <UserAvatar />
+        <button className='btn__modal' onClick={handleModalIsOpen}>
+          <UserAvatar />
+        </button>
+
+        <ModalUser
+          // className={`${modalIsOpen ? "open" : "close"}`}
+          isOpen={modalIsOpen}
+          modalState={handleModalIsOpen}
+        />
       </div>
     </nav>
   );

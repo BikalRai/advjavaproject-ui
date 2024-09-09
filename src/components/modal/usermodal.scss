@@ -1,0 +1,60 @@
+@import "../../assets/scss/variables";
+
+.modalUser {
+  background-color: $primary-bg;
+  min-width: 385px;
+  width: 400px;
+  color: $primary-light;
+  border-radius: $base-border-radius * 0.2;
+  box-shadow: 1px 2px 4px -3px $primary-light, -1px -1px 4px -3px $primary-light;
+  transform: translateY(-400px);
+  max-height: auto;
+  overflow: hidden;
+  transition: 0.5s;
+
+  &__name {
+    padding: $base-padding;
+    text-align: center;
+    font-size: $font-size-sm;
+  }
+
+  &__close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    cursor: pointer;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+
+  &__link {
+    border-top: 1px solid $primary-color;
+    padding: $base-padding $base-normal-padding;
+    display: flex;
+    align-items: center;
+    gap: $font-size-sm;
+    cursor: pointer;
+    transition: 0.4s;
+
+    &:hover,
+    &:hover a {
+      color: $primary-color;
+    }
+
+    a {
+      color: $primary-light;
+      text-decoration: none;
+      font-size: $base-font-size * 0.8;
+    }
+
+    &--icon {
+      font-size: $base-font-size;
+    }
+  }
+}
+
+.open {
+  transform: translateY(0);
+}
