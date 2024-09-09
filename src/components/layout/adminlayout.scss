@@ -1,0 +1,29 @@
+@import "../../assets/scss/variables";
+
+.adminLayout {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+
+  &__top {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  &__bottom {
+    flex: 1;
+    display: grid;
+    grid-template-columns: auto 1fr;
+
+    &--sideNav {
+      position: sticky;
+      top: 103px;
+      height: calc(100vh - 103px);
+    }
+
+    &--content {
+      height: 1000px;
+    }
+  }
+}

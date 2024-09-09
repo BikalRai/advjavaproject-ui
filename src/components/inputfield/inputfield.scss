@@ -1,0 +1,52 @@
+@import "../../assets/scss/variables";
+
+.inputField {
+  margin-top: 2rem;
+  position: relative;
+  border: 1px solid $primary-light;
+  width: 325px;
+  border-radius: $base-border-radius;
+  z-index: 1;
+
+  input,
+  textarea {
+    background-color: transparent;
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: $base-padding;
+    color: $primary-light;
+    font-size: $font-size-sm;
+    position: relative;
+    z-index: 3;
+  }
+
+  label {
+    position: absolute;
+    top: 0;
+    left: $base-padding;
+    line-height: $base-font-size * 3;
+    pointer-events: none;
+    color: $primary-light;
+    transition: $base-transition-spd;
+    z-index: 2;
+  }
+
+  &.float label,
+  input:focus ~ label {
+    font-size: $base-font-size * 0.8;
+    color: $primary-color;
+    background-color: $primary-bg;
+    transform: translateY(-1.5rem);
+  }
+
+  &:focus-within {
+    border-color: $primary-color;
+  }
+
+  &:focus-within label {
+    transform: translateY(-1.5rem);
+    background-color: $primary-bg;
+    font-size: $base-font-size * 0.6;
+  }
+}

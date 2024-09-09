@@ -1,0 +1,89 @@
+@import "../../../assets/scss/variables";
+
+.appService {
+  display: flex;
+  flex-direction: column;
+  gap: $base-font-size;
+  padding: $base-padding;
+  background-color: $primary-dark;
+  height: 100%;
+
+  @media (min-width: 800px) {
+    padding: $base-normal-padding;
+  }
+
+  h1 {
+    font-size: $font-size-lg;
+    font-weight: 700;
+    color: $primary-color;
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    form {
+      background-color: $primary-light;
+      padding: $base-padding * 0.5 $base-padding;
+      border-radius: $base-border-radius;
+      display: flex;
+      align-items: center;
+
+      input[type="search"] {
+        background-color: transparent;
+        outline: none;
+        border: none;
+      }
+    }
+
+    .add {
+      width: fit-content;
+    }
+  }
+
+  &__services {
+    color: $primary-dark;
+    background-color: $primary-light;
+    border-radius: $base-border-radius;
+
+    tr {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: $base-font-size * 0.5;
+      padding: $base-padding $base-padding * 0.5;
+      border-bottom: 2px solid $primary-color-50;
+      text-align: center;
+    }
+
+    thead {
+      font-weight: 600;
+      font-size: $font-size-sm;
+    }
+
+    tbody {
+      font-size: $font-size-sm;
+
+      tr {
+        .actions {
+          font-size: $font-size-md;
+          display: flex;
+          justify-content: center;
+          gap: $base-font-size * 0.3;
+
+          @media (min-width: 660px) {
+            font-size: $font-size-lg;
+          }
+
+          &__icons {
+            cursor: pointer;
+
+            :hover {
+              opacity: 0.8;
+            }
+          }
+        }
+      }
+    }
+  }
+}

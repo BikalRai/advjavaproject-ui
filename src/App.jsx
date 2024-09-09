@@ -1,5 +1,4 @@
-import AdminNavHorizontral from "./components/nav/AdminNavHorizontral";
-import VerticalNav from "./components/nav/VerticalNav";
+import AdminLayout from "./components/layout/AdminLayout";
 
 function App() {
   return (
@@ -8,8 +7,9 @@ function App() {
         <SiteRoutes />
       </UserAppLayout> */}
       {/* <UserProfile /> */}
-      <AdminNavHorizontral />
-      <VerticalNav />
+      {/* <AdminNavHorizontral /> */}
+      {/* <VerticalNav /> */}
+      <AdminLayout />
     </div>
   );
 }

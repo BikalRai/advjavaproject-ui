@@ -1,0 +1,15 @@
+@import "../../../assets/scss/variables";
+
+.addService {
+  padding: $base-padding;
+
+  h1 {
+    font-size: $font-size-lg;
+    color: $primary-color;
+
+    &__form {
+      display: grid;
+      gap: $base-padding;
+    }
+  }
+}
