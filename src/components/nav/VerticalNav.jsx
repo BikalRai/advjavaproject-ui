@@ -5,6 +5,7 @@ import { RiCalendarScheduleFill } from "react-icons/ri";
 import { FaUsers } from "react-icons/fa";
 import { FaHandshakeSimple, FaMapLocation } from "react-icons/fa6";
 import "./verticalnav.scss";
+import { IoLogOut } from "react-icons/io5";
 
 const VerticalNav = () => {
   const [activeLink, setActiveLink] = useState("dashboard");
@@ -23,6 +24,7 @@ const VerticalNav = () => {
           <NavLink
             to='/dashboard'
             className={activeLink === "dashboard" ? "active" : ""}
+            title='dashboard'
           >
             <MdSpaceDashboard className='icon' />
             <span>Dashboard</span>
@@ -35,6 +37,7 @@ const VerticalNav = () => {
           <NavLink
             to='/bookings'
             className={activeLink === "bookings" ? "active" : ""}
+            title='bookings'
           >
             <RiCalendarScheduleFill className='icon' />
             <span>Bookings</span>
@@ -47,6 +50,7 @@ const VerticalNav = () => {
           <NavLink
             to='/users'
             className={activeLink === "users" ? "active" : ""}
+            title='users'
           >
             <FaUsers className='icon' />
             <span>Users</span>
@@ -59,6 +63,7 @@ const VerticalNav = () => {
           <NavLink
             to='/venues'
             className={activeLink === "venues" ? "active" : ""}
+            title='venues'
           >
             <FaMapLocation className='icon' />
             <span>Venues</span>
@@ -71,6 +76,7 @@ const VerticalNav = () => {
           <NavLink
             to='/services'
             className={activeLink === "services" ? "active" : ""}
+            title='services'
           >
             <FaHandshakeSimple className='icon' />
             <span>Services</span>
@@ -78,6 +84,7 @@ const VerticalNav = () => {
         </li>
       </ul>
       <button className='btn__primary'>Logout</button>
+      <IoLogOut className='logout__icon' title='logout' />
     </nav>
   );
 };

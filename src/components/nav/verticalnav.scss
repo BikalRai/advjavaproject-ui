@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   min-height: 90dvh;
   max-width: fit-content;
   box-shadow: 1px 0 3px -2px $primary-light;
@@ -30,6 +31,11 @@
 
         .icon {
           color: $primary-light;
+          font-size: $font-size-lg;
+        }
+
+        span {
+          display: none;
         }
 
         &:hover {
@@ -45,7 +51,36 @@
             color: $primary-dark;
           }
         }
+
+        @media (min-width: 660px) {
+          span {
+            display: inline;
+          }
+        }
       }
+    }
+  }
+
+  .btn__primary {
+    display: none;
+
+    @media (min-width: 660px) {
+      display: block;
+    }
+  }
+
+  .logout__icon {
+    font-size: $font-size-xl;
+    color: $primary-light;
+    cursor: pointer;
+    transition: $base-transition-spd;
+
+    @media (min-width: 660px) {
+      display: none;
+    }
+
+    &:hover {
+      color: $primary-color;
     }
   }
 }
