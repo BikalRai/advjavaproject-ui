@@ -1,0 +1,51 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/button";
+
+.verticalNav {
+  padding: $base-normal-padding;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 90dvh;
+  max-width: fit-content;
+  box-shadow: 1px 0 3px -2px $primary-light;
+
+  &__links {
+    list-style-type: none;
+    display: grid;
+    gap: $base-normal-padding;
+
+    &--link {
+      cursor: pointer;
+
+      a {
+        display: flex;
+        align-items: center;
+        gap: $base-padding;
+        text-decoration: none;
+        color: $primary-light;
+        padding: $base-padding * 0.75;
+        border-radius: $base-border-radius;
+        transition: $base-transition-spd;
+
+        .icon {
+          color: $primary-light;
+        }
+
+        &:hover {
+          background-color: $primary-color;
+        }
+
+        &.active {
+          background-color: $primary-color;
+          font-weight: 700;
+          color: $primary-dark;
+
+          .icon {
+            color: $primary-dark;
+          }
+        }
+      }
+    }
+  }
+}
