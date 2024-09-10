@@ -1,52 +1,49 @@
 import { useState } from "react";
+import { BiSolidImageAdd } from "react-icons/bi";
 import "./imageUpload.scss";
 
 const ImageUpload = ({ onImageUpload }) => {
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null);
+  const [img, setImg] = useState("");
+  const [imgBase64, setImgBase64] = useState("");
 
-  // Handles image selection
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setSelectedImage(file);
-      setPreviewUrl(URL.createObjectURL(file));
-      onImageUpload(file); // Call the callback function if provided
-    }
-  };
+  const handleImageUpload = ({ target }) => {
+    const file = target.files[0];
 
-  // Clears the selected image
-  const handleClearImage = () => {
-    setSelectedImage(null);
-    setPreviewUrl(null);
-    onImageUpload(null); // Clear the callback data
+    // Create a local URL for immediate display
+    setImg(URL.createObjectURL(file));
+
+    // Read the file as ArrayBuffer for sending to the server
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const base64String = btoa(
+        new Uint8Array(event.target.result).reduce(
+          (data, byte) => data + String.fromCharCode(byte),
+          ""
+        )
+      );
+      // Store the base64 string and pass it to the parent component
+      setImgBase64(base64String);
+      onImageUpload(base64String);
+    };
+    reader.readAsArrayBuffer(file);
   };
 
   return (
-    <div className='image-upload'>
-      <label htmlFor='imageInput' className='image-upload__label'>
-        {previewUrl ? (
-          <img
-            src={previewUrl}
-            alt='Preview'
-            className='image-upload__preview'
-          />
+    <div className='image-upload-container'>
+      <div className='image-upload-area' title='Click to upload image'>
+        <input
+          type='file'
+          onChange={handleImageUpload}
+          accept='image/*'
+          className='file-input'
+        />
+        {img ? (
+          <img src={img} alt='Uploaded image' className='uploaded-image' />
         ) : (
-          <span>Click to upload an image</span>
+          <BiSolidImageAdd className='upload-icon' />
         )}
-      </label>
-      <input
-        type='file'
-        id='imageInput'
-        className='image-upload__input'
-        accept='image/*'
-        onChange={handleImageChange}
-      />
-      {previewUrl && (
-        <button className='image-upload__clear' onClick={handleClearImage}>
-          Remove Image
-        </button>
-      )}
+      </div>
+      {img && <p className='img_upload--msg'>Image uploaded successfully!</p>}
     </div>
   );
 };
