@@ -5,11 +5,12 @@ import {
   MdOutlineVisibilityOff,
 } from "react-icons/md";
 // import { RxAvatar } from "react-icons/rx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./form.scss";
 import { AiOutlinePhone } from "react-icons/ai";
 import { errReducer, initialErrors } from "../../utils/registerErrrutils";
 import axios from "axios";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 const Register = () => {
   const [userDetails, setUserDetails] = useState({
@@ -72,6 +73,8 @@ const Register = () => {
     ",",
     ".",
   ];
+
+  const navigate = useNavigate();
 
   const handleFunction = ({ target }) => {
     const { name, value } = target;
@@ -188,6 +191,7 @@ const Register = () => {
         }
       );
 
+      navigate("/login");
       console.log(res);
     } catch (error) {
       console.log(error.message);
@@ -196,7 +200,19 @@ const Register = () => {
 
   return (
     <div className='form'>
-      <form action='' className='form__els' name='register' method='POST'>
+      <form
+        className='form__els'
+        name='register'
+        method='POST'
+        onSubmit={handleSubmit}
+      >
+        <button
+          className='btn__primary back_btn'
+          type='button'
+          onClick={() => navigate("/")}
+        >
+          <IoMdArrowRoundBack />
+        </button>
         <div className='fields'>
           <h1>SIGN UP</h1>
 
@@ -312,11 +328,7 @@ const Register = () => {
               {cPasswordErr && `Confirm Password is required!!`}
             </p>
           </div>
-          <button
-            type='submit'
-            className='btn btn__primary'
-            onClick={handleSubmit}
-          >
+          <button type='submit' className='btn btn__primary'>
             SIGN UP
           </button>
 

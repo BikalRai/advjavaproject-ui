@@ -1,9 +1,12 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { RxAvatar } from "react-icons/rx";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
-import { Link } from "react-router-dom";
-import "./form.scss";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../../utils/AuthProvider";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { jwtDecode } from "jwt-decode";
+import "./form.scss";
 
 const LoginForm = () => {
   const [loginDetails, setLoginDetails] = useState({
@@ -26,6 +29,11 @@ const LoginForm = () => {
     emptyUserError,
     emptyPasswordError,
   } = loginDetails;
+
+  // auth provider context
+  const { setToken, setIsloggedInStatus, setRoles } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   const handleUsernameOrEmail = ({ target: { value } }) => {
     setLoginDetails((prev) => ({ ...prev, emailOrMobile: value }));
@@ -75,23 +83,6 @@ const LoginForm = () => {
 
     if (isError) return;
 
-    // if (emailOrMobile === "sam" && password === "123") {
-    //   console.log("Login");
-    //   setLoginDetails((prev) => ({
-    //     ...prev,
-    //     usernameOrEmail: "",
-    //     password: "",
-    //     loginError: false,
-    //     emptyError: false,
-    //   }));
-    // } else {
-    //   setLoginDetails((prev) => ({
-    //     ...prev,
-    //     loginError: true,
-    //     emptyError: false,
-    //   }));
-    // }
-
     if (usernameRef.current) {
       usernameRef.current.blur();
     }
@@ -99,6 +90,7 @@ const LoginForm = () => {
       passwordRef.current.blur();
     }
 
+    // user login and setting token
     try {
       const res = await axios.post(
         "http://localhost:8080/api/v1/auth/authenticate",
@@ -108,7 +100,16 @@ const LoginForm = () => {
         }
       );
 
-      const token = res.data.token;
+      const token = res?.data?.token;
+
+      if (token) {
+        setToken(token);
+        localStorage.setItem("authToken", token);
+        setIsloggedInStatus(true);
+        const decodedToken = jwtDecode(token);
+        setRoles(decodedToken.roles);
+        navigate("/");
+      }
 
       console.log(res);
       console.log(token);
@@ -119,7 +120,19 @@ const LoginForm = () => {
 
   return (
     <div className='form'>
-      <form action='' className='form__els' name='login' method='POST'>
+      <form
+        className='form__els'
+        name='login'
+        method='POST'
+        onSubmit={handleSubmit}
+      >
+        <button
+          type='button'
+          className='btn__secondary back_btn'
+          onClick={() => navigate("/")}
+        >
+          <IoMdArrowRoundBack />
+        </button>
         <div className='image'>
           <div className='overlay'>
             <h2>Welcome To</h2>
@@ -176,11 +189,7 @@ const LoginForm = () => {
             {emptyPasswordError && <p>Password Required</p>}
             <label htmlFor='password'>Password</label>
           </div>
-          <button
-            type='submit'
-            className='btn btn__primary'
-            onClick={handleSubmit}
-          >
+          <button type='submit' className='btn btn__primary'>
             SIGN IN
           </button>
 

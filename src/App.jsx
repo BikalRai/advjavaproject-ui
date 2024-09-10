@@ -1,13 +1,27 @@
-import { AuthProvider } from "./utils/AuthProvider";
+import { AuthContext, AuthProvider } from "./utils/AuthProvider";
 import UserAppLayout from "./components/layout/UserAppLayout";
 import SiteRoutes from "./components/routes/SiteRoutes";
+import { useContext } from "react";
+import AdminLayout from "./components/layout/AdminLayout";
 
 function App() {
+  const { roles, loggedInStatus } = useContext(AuthContext);
+
+  console.log(roles, loggedInStatus);
   return (
     <div className='app'>
-      <UserAppLayout>
-        <SiteRoutes />
-      </UserAppLayout>
+      {!loggedInStatus ? (
+        <UserAppLayout>
+          <SiteRoutes />
+        </UserAppLayout>
+      ) : roles.includes("ROLE_USER") ? (
+        <UserAppLayout>
+          <SiteRoutes />
+        </UserAppLayout>
+      ) : (
+        <AdminLayout />
+      )}
+
       {/* <UserProfile /> */}
       {/* <AdminNavHorizontral /> */}
       {/* <VerticalNav /> */}
