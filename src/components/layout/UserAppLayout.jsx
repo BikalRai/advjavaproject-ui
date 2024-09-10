@@ -4,9 +4,11 @@ import PropType from "prop-types";
 import "./userlayout.scss";
 import Footer from "../footer/Footer";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const UserAppLayout = ({ children }) => {
   const [stickyNav, setStickyNav] = useState(false);
+  const location = useLocation();
 
   const handleScroll = () => {
     const scrollY = window.scrollY;
@@ -16,8 +18,6 @@ const UserAppLayout = ({ children }) => {
     } else {
       setStickyNav(false);
     }
-
-    console.log(scrollY);
   };
 
   useEffect(() => {
@@ -31,11 +31,19 @@ const UserAppLayout = ({ children }) => {
   return (
     <div className='user__layout'>
       <div className={`nav ${stickyNav ? "stickyNav" : ""}`}>
-        <Navbar />
+        {location.pathname === "/login" || location.pathname === "/signup" ? (
+          ""
+        ) : (
+          <Navbar />
+        )}
       </div>
       <div className='content'>{children}</div>
       <div className='footer'>
-        <Footer />
+        {location.pathname === "/login" || location.pathname === "/signup" ? (
+          ""
+        ) : (
+          <Footer />
+        )}
       </div>
     </div>
   );

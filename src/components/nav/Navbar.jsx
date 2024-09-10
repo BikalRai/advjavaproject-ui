@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import PrimaryButton from "../button/PrimaryButton";
 import SecondaryButton from "../button/SecondaryButton";
 import "./navbar.scss";
@@ -77,8 +77,12 @@ const Navbar = () => {
             </NavLink>
           </li>
           <div className='navbar__btns'>
-            <PrimaryButton btnText='Sign In' />
-            <SecondaryButton btnText='Sign Up' />
+            <Link to='/login'>
+              <PrimaryButton btnText='Sign In' />
+            </Link>
+            <Link to='/signup'>
+              <SecondaryButton btnText='Sign Up' />
+            </Link>
           </div>
         </ul>
 

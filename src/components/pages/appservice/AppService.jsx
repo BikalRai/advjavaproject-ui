@@ -1,7 +1,6 @@
 import { FaDeleteLeft } from "react-icons/fa6";
 import "./appservice.scss";
 import { MdEditSquare } from "react-icons/md";
-import AppServiceTable from "./AppServiceTable";
 import { FaSearch } from "react-icons/fa";
 
 const AppService = () => {
