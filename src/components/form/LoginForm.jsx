@@ -3,10 +3,11 @@ import { RxAvatar } from "react-icons/rx";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 import { Link } from "react-router-dom";
 import "./form.scss";
+import axios from "axios";
 
 const LoginForm = () => {
   const [loginDetails, setLoginDetails] = useState({
-    usernameOrEmail: "",
+    emailOrMobile: "",
     password: "",
     showPassword: false,
     loginError: false,
@@ -18,7 +19,7 @@ const LoginForm = () => {
   const passwordRef = useRef(null);
 
   const {
-    usernameOrEmail,
+    emailOrMobile,
     password,
     showPassword,
     loginError,
@@ -27,7 +28,7 @@ const LoginForm = () => {
   } = loginDetails;
 
   const handleUsernameOrEmail = ({ target: { value } }) => {
-    setLoginDetails((prev) => ({ ...prev, usernameOrEmail: value }));
+    setLoginDetails((prev) => ({ ...prev, emailOrMobile: value }));
   };
 
   const handlePassword = ({ target: { value } }) => {
@@ -42,12 +43,12 @@ const LoginForm = () => {
     setLoginDetails((prev) => ({ ...prev, showPassword: !prev.showPassword }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     let isError = false;
 
-    if (usernameOrEmail === "") {
+    if (emailOrMobile === "") {
       setLoginDetails((prev) => ({
         ...prev,
         emptyUserError: true,
@@ -74,28 +75,45 @@ const LoginForm = () => {
 
     if (isError) return;
 
-    if (usernameOrEmail === "sam" && password === "123") {
-      console.log("Login");
-      setLoginDetails((prev) => ({
-        ...prev,
-        usernameOrEmail: "",
-        password: "",
-        loginError: false,
-        emptyError: false,
-      }));
-    } else {
-      setLoginDetails((prev) => ({
-        ...prev,
-        loginError: true,
-        emptyError: false,
-      }));
-    }
+    // if (emailOrMobile === "sam" && password === "123") {
+    //   console.log("Login");
+    //   setLoginDetails((prev) => ({
+    //     ...prev,
+    //     usernameOrEmail: "",
+    //     password: "",
+    //     loginError: false,
+    //     emptyError: false,
+    //   }));
+    // } else {
+    //   setLoginDetails((prev) => ({
+    //     ...prev,
+    //     loginError: true,
+    //     emptyError: false,
+    //   }));
+    // }
 
     if (usernameRef.current) {
       usernameRef.current.blur();
     }
     if (passwordRef.current) {
       passwordRef.current.blur();
+    }
+
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/api/v1/auth/authenticate",
+        {
+          emailOrMobile: emailOrMobile,
+          password: password,
+        }
+      );
+
+      const token = res.data.token;
+
+      console.log(res);
+      console.log(token);
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
@@ -117,7 +135,7 @@ const LoginForm = () => {
 
           {/* <hr /> */}
 
-          <div className={`input__field ${usernameOrEmail ? "filled" : ""}`}>
+          <div className={`input__field ${emailOrMobile ? "filled" : ""}`}>
             <div className='field'>
               <input
                 type='text'
@@ -125,12 +143,12 @@ const LoginForm = () => {
                 name='usernameoremail'
                 ref={usernameRef}
                 onChange={handleUsernameOrEmail}
-                value={usernameOrEmail}
+                value={emailOrMobile}
               />
               <RxAvatar className='icon' />
             </div>
-            {emptyUserError && <p>Username or Email Required</p>}
-            <label htmlFor='usernameoremail'>Username or Email</label>
+            {emptyUserError && <p>Email or Mobile Required</p>}
+            <label htmlFor='usernameoremail'>Email or Mobile</label>
           </div>
 
           <div className={`input__field ${password ? "filled" : ""}`}>

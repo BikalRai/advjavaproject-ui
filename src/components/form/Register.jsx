@@ -4,15 +4,16 @@ import {
   MdOutlineVisibility,
   MdOutlineVisibilityOff,
 } from "react-icons/md";
-import { RxAvatar } from "react-icons/rx";
+// import { RxAvatar } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import "./form.scss";
 import { AiOutlinePhone } from "react-icons/ai";
 import { errReducer, initialErrors } from "../../utils/registerErrrutils";
+import axios from "axios";
 
 const Register = () => {
   const [userDetails, setUserDetails] = useState({
-    username: "",
+    // username: "",
     email: "",
     phone: "",
     password: "",
@@ -28,7 +29,7 @@ const Register = () => {
   const cPasswordRef = useRef(null);
 
   const {
-    username,
+    // username,
     email,
     phone,
     cPassword,
@@ -38,7 +39,7 @@ const Register = () => {
   } = userDetails;
 
   const {
-    usernameErr,
+    // usernameErr,
     passwordErr,
     cPasswordErr,
     phoneErr,
@@ -158,11 +159,11 @@ const Register = () => {
     return hasError;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const fields = [
-      { field: "username", value: username },
+      // { field: "username", value: username },
       { field: "email", value: email },
       { field: "phone", value: phone },
       { field: "password", value: password },
@@ -177,17 +178,29 @@ const Register = () => {
       return;
     }
 
-    console.log("login!!");
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/api/v1/auth/register",
+        {
+          email: email,
+          mobile: phone,
+          password: password,
+        }
+      );
+
+      console.log(res);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
-  console.log(errors);
   return (
     <div className='form'>
       <form action='' className='form__els' name='register' method='POST'>
         <div className='fields'>
           <h1>SIGN UP</h1>
 
-          <div className={`input__field ${username ? "filled" : ""}`}>
+          {/* <div className={`input__field ${username ? "filled" : ""}`}>
             <div className='field'>
               <input
                 type='text'
@@ -201,7 +214,7 @@ const Register = () => {
             </div>
             <p className='err'>{usernameErr && `Username is required!!`}</p>
             <label htmlFor='usernameoremail'>Username </label>
-          </div>
+          </div> */}
 
           <div className={`input__field ${email ? "filled" : ""}`}>
             <div className='field'>
@@ -304,7 +317,7 @@ const Register = () => {
             className='btn btn__primary'
             onClick={handleSubmit}
           >
-            SIGN IN
+            SIGN UP
           </button>
 
           <div className='login__links'>
