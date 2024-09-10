@@ -1,3 +1,5 @@
+import LoginForm from "./components/form/LoginForm";
+import Register from "./components/form/Register";
 import AdminLayout from "./components/layout/AdminLayout";
 
 function App() {
@@ -9,7 +11,9 @@ function App() {
       {/* <UserProfile /> */}
       {/* <AdminNavHorizontral /> */}
       {/* <VerticalNav /> */}
-      <AdminLayout />
+      {/* <AdminLayout /> */}
+      {/* <Register /> */}
+      <LoginForm />
     </div>
   );
 }
