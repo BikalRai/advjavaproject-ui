@@ -1,21 +1,28 @@
-import LoginForm from "./components/form/LoginForm";
-import Register from "./components/form/Register";
-import AdminLayout from "./components/layout/AdminLayout";
+import { AuthProvider } from "./utils/AuthProvider";
+import UserAppLayout from "./components/layout/UserAppLayout";
+import SiteRoutes from "./components/routes/SiteRoutes";
 
 function App() {
   return (
     <div className='app'>
-      {/* <UserAppLayout>
+      <UserAppLayout>
         <SiteRoutes />
-      </UserAppLayout> */}
+      </UserAppLayout>
       {/* <UserProfile /> */}
       {/* <AdminNavHorizontral /> */}
       {/* <VerticalNav /> */}
       {/* <AdminLayout /> */}
       {/* <Register /> */}
-      <LoginForm />
+      {/* <LoginForm /> */}
     </div>
   );
 }
+const AppWrapper = () => {
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  );
+};
 
-export default App;
+export default AppWrapper;
