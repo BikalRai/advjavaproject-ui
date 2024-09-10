@@ -10,7 +10,7 @@ function App() {
   console.log(roles, loggedInStatus);
   return (
     <div className='app'>
-      {!loggedInStatus ? (
+      {/* {!loggedInStatus ? (
         <UserAppLayout>
           <SiteRoutes />
         </UserAppLayout>
@@ -20,12 +20,12 @@ function App() {
         </UserAppLayout>
       ) : (
         <AdminLayout />
-      )}
+      )} */}
 
       {/* <UserProfile /> */}
       {/* <AdminNavHorizontral /> */}
       {/* <VerticalNav /> */}
-      {/* <AdminLayout /> */}
+      <AdminLayout />
       {/* <Register /> */}
       {/* <LoginForm /> */}
     </div>

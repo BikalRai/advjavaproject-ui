@@ -3,13 +3,24 @@
 .addService {
   padding: $base-padding;
 
+  @media (min-width: 800px) {
+    padding: $base-normal-padding;
+  }
+
   h1 {
     font-size: $font-size-lg;
     color: $primary-color;
+  }
 
-    &__form {
-      display: grid;
-      gap: $base-padding;
+  &__form {
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: 800px) {
+      padding: $base-normal-padding;
+      background-color: $primary-dark;
+      border-radius: $base-border-radius;
+      // align-items: center;
     }
   }
 }

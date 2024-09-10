@@ -13,7 +13,7 @@ const AddService = () => {
   return (
     <div className='addService'>
       <h1>Add a service</h1>
-      <form action='' className='addService__form'>
+      <form className='addService__form'>
         <InputField
           name='Service name'
           handleOnChange={handleInputValue}
@@ -27,6 +27,8 @@ const AddService = () => {
           rows={2}
         />
         <ImageUpload />
+
+        <button className='btn__secondary'>Add</button>
       </form>
     </div>
   );
