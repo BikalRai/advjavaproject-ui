@@ -52,7 +52,7 @@
       grid-template-columns: repeat(4, 1fr);
       gap: $base-font-size * 0.5;
       padding: $base-padding $base-padding * 0.5;
-      border-bottom: 2px solid $primary-color-50;
+      border-bottom: 2px solid $primary-dark;
       text-align: center;
     }
 
@@ -69,6 +69,7 @@
           font-size: $font-size-md;
           display: flex;
           justify-content: center;
+          align-items: center;
           gap: $base-font-size * 0.3;
 
           @media (min-width: 660px) {
@@ -81,6 +82,12 @@
             :hover {
               opacity: 0.8;
             }
+          }
+        }
+
+        td {
+          img {
+            width: 100px;
           }
         }
       }

@@ -3,6 +3,7 @@ import UserAppLayout from "./components/layout/UserAppLayout";
 import SiteRoutes from "./components/routes/SiteRoutes";
 import { useContext } from "react";
 import AdminLayout from "./components/layout/AdminLayout";
+import AdminRoutes from "./components/routes/AdminRoutes";
 
 function App() {
   const { roles, loggedInStatus } = useContext(AuthContext);
@@ -19,7 +20,9 @@ function App() {
           <SiteRoutes />
         </UserAppLayout>
       ) : (
-        <AdminLayout />
+        <AdminLayout>
+          <AdminRoutes />
+        </AdminLayout>
       )}
 
       {/* <UserProfile /> */}
