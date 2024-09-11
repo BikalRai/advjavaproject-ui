@@ -9,9 +9,9 @@ const ServiceComponent = () => {
 
   const getServices = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/users");
+      const res = await axios.get("http://localhost:8080/api/services");
 
-      console.log(res);
+      setServices(res.data);
     } catch (error) {
       console.log(error.message);
     }
@@ -25,10 +25,15 @@ const ServiceComponent = () => {
     <div className='serviceComponent'>
       <h2>Our Services</h2>
       <div className='serviceComponent__cards'>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {services?.map((service) => (
+          <Card
+            key={service.id}
+            img={service.image}
+            header={service.serviceName}
+            desc={service.description}
+            btnText='Browse Venues'
+          />
+        ))}
       </div>
     </div>
   );
