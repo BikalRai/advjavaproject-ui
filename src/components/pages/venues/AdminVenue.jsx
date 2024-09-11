@@ -11,7 +11,9 @@ const AdminVenue = () => {
           <input type='search' placeholder='search' />
           <FaSearch />
         </form>
-        <Link className='btn__primary'>Add</Link>
+        <Link to='/venues/add' className='btn__primary'>
+          Add
+        </Link>
       </div>
       <table className='adminVenue__venues'>
         <thead>

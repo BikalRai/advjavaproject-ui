@@ -9,6 +9,7 @@ const AddService = () => {
     serviceName: "",
     description: "",
   });
+
   const [uploadImage, setUploadImage] = useState("");
 
   const handleInputValue = ({ target }) => {
@@ -35,7 +36,6 @@ const AddService = () => {
     }
   };
 
-  console.log(inputValue);
   return (
     <div className='addService'>
       <h1>Add a service</h1>
