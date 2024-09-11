@@ -1,17 +1,26 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useContext, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { MdSpaceDashboard } from "react-icons/md";
 import { RiCalendarScheduleFill } from "react-icons/ri";
 import { FaUsers } from "react-icons/fa";
 import { FaHandshakeSimple, FaMapLocation } from "react-icons/fa6";
 import "./verticalnav.scss";
 import { IoLogOut } from "react-icons/io5";
+import { AuthContext } from "../../utils/AuthProvider";
 
 const VerticalNav = () => {
   const [activeLink, setActiveLink] = useState("dashboard");
 
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const handleActiveLink = (linkName) => {
     setActiveLink(linkName);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
   };
 
   return (
@@ -83,7 +92,9 @@ const VerticalNav = () => {
           </NavLink>
         </li>
       </ul>
-      <button className='btn__primary'>Logout</button>
+      <button type='button' onClick={handleLogout} className='btn__primary'>
+        Logout
+      </button>
       <IoLogOut className='logout__icon' title='logout' />
     </nav>
   );
