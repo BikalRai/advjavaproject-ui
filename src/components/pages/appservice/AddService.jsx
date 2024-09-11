@@ -60,6 +60,11 @@ const AddService = () => {
             },
             "& input": {
               color: "#f3f6ed", // Change input text color
+              // Styles for autofill
+              "&:-webkit-autofill": {
+                WebkitBoxShadow: "0 0 0 1000px #1e1e1e inset", // Change background color to match your design
+                WebkitTextFillColor: "#f3f6ed", // Change text color for autofill
+              },
             },
             "& .MuiInputLabel-root": {
               color: "#f3f6ed", // Change label color
