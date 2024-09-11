@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BiSolidImageAdd } from "react-icons/bi";
+import PropType from "prop-types";
 import "./imageUpload.scss";
 
 const ImageUpload = ({ onImageUpload }) => {
@@ -44,8 +45,13 @@ const ImageUpload = ({ onImageUpload }) => {
         )}
       </div>
       {img && <p className='img_upload--msg'>Image uploaded successfully!</p>}
+      <input type='text' value={imgBase64} hidden />
     </div>
   );
+};
+
+ImageUpload.propTypes = {
+  onImageUpload: PropType.func,
 };
 
 export default ImageUpload;
