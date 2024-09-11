@@ -45,7 +45,7 @@ const ImageUpload = ({ onImageUpload }) => {
         )}
       </div>
       {img && <p className='img_upload--msg'>Image uploaded successfully!</p>}
-      <input type='text' value={imgBase64} hidden />
+      {/* <input type='text' value={imgBase64} hidden /> */}
     </div>
   );
 };

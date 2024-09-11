@@ -8,8 +8,8 @@ export const textFieldStyle = {
   "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
     borderColor: "rgb(39, 212, 131)", // Change border color when focused
   },
-  "& input": {
-    color: "#f3f6ed", // Change input text color
+  "& .MuiSelect-select": {
+    color: "#f3f6ed", // Change text color of selected value
     // Styles for autofill
     "&:-webkit-autofill": {
       WebkitBoxShadow: "0 0 0 1000px #1e1e1e inset", // Change background color to match your design

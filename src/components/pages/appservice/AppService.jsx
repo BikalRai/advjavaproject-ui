@@ -27,6 +27,7 @@ const AppService = () => {
         `http://localhost:8080/api/services/delete/${id}`
       );
 
+      setServices((prev) => prev.filter((service) => service.id !== id));
       console.log(res.status);
     } catch (error) {
       console.log(error);
@@ -35,7 +36,7 @@ const AppService = () => {
 
   useEffect(() => {
     getAllServices();
-  }, [services]);
+  }, []);
 
   return (
     <div className='appService'>
