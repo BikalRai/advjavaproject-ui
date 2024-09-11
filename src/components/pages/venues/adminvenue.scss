@@ -1,0 +1,64 @@
+@import "../../../assets/scss/variables";
+@import "../../../assets/scss/button";
+
+.adminVenue {
+  color: $primary-light;
+  display: grid;
+  gap: $base-normal-padding;
+  padding: $base-padding;
+
+  h1 {
+    font-size: $font-size-xl;
+    color: $primary-color;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    form {
+      //   background-color: green;
+      border: 1px solid $primary-light;
+      padding: $base-padding * 0.5 $base-padding;
+      border-radius: $base-border-radius;
+      display: flex;
+      align-items: center;
+
+      input {
+        background-color: transparent;
+        color: $primary-light;
+
+        ::placeholder {
+          color: $primary-light !important;
+          opacity: 1;
+        }
+      }
+    }
+    a {
+      text-decoration: none;
+    }
+  }
+
+  &__venues {
+    display: grid;
+    width: 100%;
+    overflow-x: scroll;
+    border-collapse: collapse;
+    border: 1px solid $primary-light;
+    border-radius: $base-border-radius;
+    padding: $base-padding;
+
+    thead > tr,
+    tbody > tr {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      border-bottom: 1px solid $primary-color;
+    }
+
+    thead > tr > th,
+    tbody > tr > td {
+      padding: $base-padding;
+    }
+  }
+}

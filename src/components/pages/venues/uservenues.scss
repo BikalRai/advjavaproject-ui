@@ -3,7 +3,7 @@
 
 .userVenues {
   &__venues {
-    padding: $base-normal-padding;
+    padding: $base-normal-padding * 2 $base-normal-padding;
 
     h1 {
       color: $primary-color;
