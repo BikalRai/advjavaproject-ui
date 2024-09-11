@@ -1,0 +1,55 @@
+@import "../../../assets/scss/variables";
+@import "../../../assets/scss/button";
+
+.addVenue {
+  padding: $base-normal-padding;
+
+  h1 {
+    font-size: $font-size-xxl;
+    color: $primary-color;
+    margin-bottom: $base-normal-padding;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    a {
+      text-decoration: none;
+      color: $primary-color;
+    }
+  }
+
+  &__add {
+    &--fields {
+      display: grid;
+      gap: $font-size-lg;
+
+      @media (min-width: 1000px) {
+        grid-template-columns: repeat(2, 1fr);
+        width: 345px;
+      }
+
+      .field {
+        border: 1px solid $primary-light;
+        border-radius: 2px;
+        color: $primary-light;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 $base-padding;
+
+        @media (min-width: 700px) {
+          width: 345px;
+        }
+
+        input {
+          background-color: $primary-light;
+          border-radius: 0;
+
+          ::placeholder {
+            color: $primary-light;
+          }
+        }
+      }
+    }
+  }
+}
