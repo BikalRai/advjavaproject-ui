@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import AppService from "../pages/appservice/AppService";
 import AddService from "../pages/appservice/AddService";
+import AdminVenue from "../pages/venues/AdminVenue";
 
 const AdminRoutes = () => {
   return (
@@ -10,6 +11,7 @@ const AdminRoutes = () => {
 
         <Route path='services' element={<AppService />} />
         <Route path='services/add' element={<AddService />} />
+        <Route path='venues' element={<AdminVenue />} />
       </Routes>
     </div>
   );
