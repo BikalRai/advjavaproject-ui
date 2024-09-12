@@ -37,6 +37,10 @@ const AddVenue = () => {
     setVenueDetails((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleImageRemove = () => {
+    setUploadImage("");
+  };
+
   const handleVenueDetailsSubmit = async (e) => {
     e.preventDefault();
 
@@ -52,6 +56,20 @@ const AddVenue = () => {
         slotDurationMinutes: 60,
         image: uploadImage,
       });
+
+      setVenueDetails((prev) => ({
+        ...prev,
+        venueName: "",
+        location: "",
+        description: "",
+        amenities: "",
+        openingTime: "",
+        closingTime: "",
+        price: "",
+        slotDurationMinutes: 60,
+      }));
+
+      setUploadImage("");
 
       console.log(res);
     } catch (error) {
@@ -162,7 +180,10 @@ const AddVenue = () => {
           </FormControl>
         </div>
 
-        <ImageUpload onImageUpload={handleImageUpload} />
+        <ImageUpload
+          onImageUpload={handleImageUpload}
+          onImageRemove={handleImageRemove}
+        />
 
         <button className='btn__primary'>Add</button>
       </form>
