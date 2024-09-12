@@ -9,14 +9,13 @@ const VenueCard = ({ title, location, price, img, venueId }) => {
   console.log(venueId);
 
   const generateTimeSlot = async (id) => {
-    console.log(id, "generation");
     try {
       const res = await axios.post(
         `http://localhost:8080/api/venues/${id}/timeslots`
       );
 
       if (res) {
-        // navigate(`/venues/${id}/timeslots`);
+        navigate(`/venues/${id}/timeslots`);
         console.log(res.data);
       }
 

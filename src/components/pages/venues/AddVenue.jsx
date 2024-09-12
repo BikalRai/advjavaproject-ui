@@ -69,7 +69,7 @@ const AddVenue = () => {
         slotDurationMinutes: 60,
       }));
 
-      setUploadImage("");
+      handleImageRemove();
 
       console.log(res);
     } catch (error) {
