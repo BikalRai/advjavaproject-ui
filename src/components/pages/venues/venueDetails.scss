@@ -61,5 +61,41 @@
   }
 
   &__timeslots {
+    padding: $base-normal-padding 0;
+    border-top: 1px solid $primary-color;
+    margin-top: 3rem;
+
+    h1 {
+      font-size: $font-size-xxl;
+      color: $primary-color;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    &--slots {
+      display: grid;
+      gap: $base-font-size;
+
+      @media (min-width: 660px) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: $base-normal-padding;
+      }
+
+      @media (min-width: 960px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      @media (min-width: 1200px) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .timecard {
+        margin: auto;
+
+        @media (min-width: 960px) {
+          margin: 0;
+        }
+      }
+    }
   }
 }

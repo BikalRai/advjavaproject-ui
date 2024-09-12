@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import TimeCard from "../../card/TimeCard";
 import "./venueDetails.scss";
 
 const UserVenueTime = () => {
@@ -71,9 +72,19 @@ const UserVenueTime = () => {
 
       <div className='venue__timeslots container '>
         <h1>Available Time Slots</h1>
-        {/* {timeslots.map((timeslot) => (
-          
-        ))} */}
+        <div className='venue__timeslots--slots'>
+          {timeslots.map(
+            (timeslot) =>
+              timeslot.available && (
+                <TimeCard
+                  key={timeslot.id}
+                  startTime={timeslot.startTime}
+                  endTime={timeslot.endTime}
+                  price={venueDetails.price}
+                />
+              )
+          )}
+        </div>
       </div>
     </div>
   );

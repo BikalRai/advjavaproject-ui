@@ -1,0 +1,29 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/button";
+
+.timecard {
+  max-width: 315px;
+  display: grid;
+  padding: $base-normal-padding;
+  border-radius: $base-border-radius;
+  background-color: $primary-light;
+  gap: $base-normal-padding;
+  color: $primary-dark;
+  font-weight: 600;
+
+  &__icon {
+    font-size: $base-font-size * 5;
+    color: $primary-color;
+    margin: auto;
+  }
+
+  &__timing {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  hr {
+    border: 2px solid $primary-color;
+  }
+}
