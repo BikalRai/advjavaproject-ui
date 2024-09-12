@@ -3,9 +3,8 @@ import { BiSolidImageAdd } from "react-icons/bi";
 import PropType from "prop-types";
 import "./imageUpload.scss";
 
-const ImageUpload = ({ onImageUpload }) => {
+const ImageUpload = ({ onImageUpload, onImageRemove }) => {
   const [img, setImg] = useState("");
-  const [imgBase64, setImgBase64] = useState("");
 
   const handleImageUpload = ({ target }) => {
     const file = target.files[0];
@@ -22,11 +21,15 @@ const ImageUpload = ({ onImageUpload }) => {
           ""
         )
       );
-      // Store the base64 string and pass it to the parent component
-      setImgBase64(base64String);
+      // Pass the base64 string to the parent component
       onImageUpload(base64String);
     };
     reader.readAsArrayBuffer(file);
+  };
+
+  const handleImageRemove = () => {
+    setImg("");
+    onImageRemove();
   };
 
   return (
@@ -39,19 +42,24 @@ const ImageUpload = ({ onImageUpload }) => {
           className='file-input'
         />
         {img ? (
-          <img src={img} alt='Uploaded image' className='uploaded-image' />
+          <>
+            <img src={img} alt='Uploaded image' className='uploaded-image' />
+            <button className='remove-btn' onClick={handleImageRemove}>
+              Remove
+            </button>
+          </>
         ) : (
           <BiSolidImageAdd className='upload-icon' />
         )}
       </div>
       {img && <p className='img_upload--msg'>Image uploaded successfully!</p>}
-      {/* <input type='text' value={imgBase64} hidden /> */}
     </div>
   );
 };
 
 ImageUpload.propTypes = {
   onImageUpload: PropType.func,
+  onImageRemove: PropType.func,
 };
 
 export default ImageUpload;
