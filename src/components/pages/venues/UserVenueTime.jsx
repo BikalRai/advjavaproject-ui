@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
+
 import axios from "axios";
 import TimeCard from "../../card/TimeCard";
 import "./venueDetails.scss";
+import { useParams } from "react-router-dom";
 
 const UserVenueTime = () => {
   const [venueDetails, setVenueDetails] = useState({});
   const [timeslots, setTimeSlots] = useState([]);
+
+  const { venueId } = useParams();
 
   const getAllVenueData = async (id) => {
     try {
@@ -29,13 +33,20 @@ const UserVenueTime = () => {
     }
   };
 
-  useEffect(() => {
-    getAllVenueData(1);
-    getAllVenueTimeSlots(1);
-  }, []);
+  const handleBookingComplete = (timeId) => {
+    // Update the local state to reflect the booking
+    setTimeSlots((prevTimeSlots) =>
+      prevTimeSlots.map((slot) =>
+        slot.id === timeId ? { ...slot, available: false } : slot
+      )
+    );
+  };
 
-  console.log(venueDetails);
-  console.log(timeslots);
+  useEffect(() => {
+    getAllVenueData(venueId);
+    getAllVenueTimeSlots(venueId);
+  }, [venueId]);
+
   return (
     <div className='venue'>
       <div className='venue__details container'>
@@ -73,7 +84,7 @@ const UserVenueTime = () => {
       <div className='venue__timeslots container '>
         <h1>Available Time Slots</h1>
         <div className='venue__timeslots--slots'>
-          {timeslots.map(
+          {/* {timeslots.map(
             (timeslot) =>
               timeslot.available && (
                 <TimeCard
@@ -81,9 +92,27 @@ const UserVenueTime = () => {
                   startTime={timeslot.startTime}
                   endTime={timeslot.endTime}
                   price={venueDetails.price}
+                  timeId={timeslot.id}
+                  venueId={venueDetails.id}
+                  bookDate={timeslot.date}
                 />
               )
-          )}
+          )} */}
+
+          {timeslots
+            .filter((time) => time.available)
+            .map((timeslot) => (
+              <TimeCard
+                key={timeslot.id}
+                startTime={timeslot.startTime}
+                endTime={timeslot.endTime}
+                price={venueDetails.price}
+                timeId={timeslot.id}
+                venueId={venueDetails.id}
+                bookDate={timeslot.date}
+                onBookingComplete={handleBookingComplete}
+              />
+            ))}
         </div>
       </div>
     </div>

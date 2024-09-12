@@ -62,29 +62,30 @@ const AdminVenue = () => {
           </tr>
         </thead>
         <tbody>
-          {venues?.map((venue) => (
-            <tr key={venue.id}>
-              <td>{venue.name}</td>
-              <td>{venue.location}</td>
-              <td>{venue.description}</td>
-              <td>{venue.amenities}</td>
-              <td>{venue.price}</td>
-              <td>{`${venue.openingTime} to ${venue.closingTime}`}</td>
-              <td>
-                <img
-                  src={`data:image/jpeg;base64, ${venue.image}`}
-                  alt={venue.name}
-                />
-              </td>
-              <td>
-                <RiEditBoxFill className='icon' />
-                <MdDeleteForever
-                  className='icon'
-                  onClick={() => handleDeleteVenue(venue.id)}
-                />
-              </td>
-            </tr>
-          ))}
+          {Array.isArray(venues) &&
+            venues?.map((venue) => (
+              <tr key={venue.id}>
+                <td>{venue.name}</td>
+                <td>{venue.location}</td>
+                <td>{venue.description}</td>
+                <td>{venue.amenities}</td>
+                <td>{venue.price}</td>
+                <td>{`${venue.openingTime} to ${venue.closingTime}`}</td>
+                <td>
+                  <img
+                    src={`data:image/jpeg;base64, ${venue.image}`}
+                    alt={venue.name}
+                  />
+                </td>
+                <td>
+                  <RiEditBoxFill className='icon' />
+                  <MdDeleteForever
+                    className='icon'
+                    onClick={() => handleDeleteVenue(venue.id)}
+                  />
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

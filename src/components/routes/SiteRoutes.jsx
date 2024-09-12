@@ -13,7 +13,7 @@ const SiteRoutes = () => {
         <Route path='/login' element={<LoginForm />} />
         <Route path='/signup' element={<Register />} />
         <Route path='/venues' element={<UserVenue />} />
-        <Route path='/venues/:id' element={<UserVenueTime />} />
+        <Route path='/venues/:venueId' element={<UserVenueTime />} />
       </Routes>
     </>
   );
