@@ -6,9 +6,10 @@ import AdminLayout from "./components/layout/AdminLayout";
 import AdminRoutes from "./components/routes/AdminRoutes";
 
 function App() {
-  const { roles, loggedInStatus } = useContext(AuthContext);
+  const { roles, loggedInStatus, email, user } = useContext(AuthContext);
 
-  console.log(roles, loggedInStatus);
+  console.log(roles, loggedInStatus, email);
+  console.log(user);
   return (
     <div className='app'>
       {!loggedInStatus ? (

@@ -15,7 +15,7 @@ const VenueCard = ({ title, location, price, img, venueId }) => {
       );
 
       if (res) {
-        navigate(`/venues/${id}/timeslots`);
+        navigate(`/venues/${id}`);
         console.log(res.data);
       }
 

@@ -31,7 +31,8 @@ const LoginForm = () => {
   } = loginDetails;
 
   // auth provider context
-  const { setToken, setIsloggedInStatus, setRoles } = useContext(AuthContext);
+  const { setToken, setIsloggedInStatus, setRoles, setUser } =
+    useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -107,7 +108,22 @@ const LoginForm = () => {
         localStorage.setItem("authToken", token);
         setIsloggedInStatus(true);
         const decodedToken = jwtDecode(token);
+        console.log(decodedToken.sub, "decoded");
         setRoles(decodedToken.roles);
+
+        console.log(decodedToken.sub, "mobile number");
+        console.log("trying to fetch user details");
+        const userRes = await axios.get(
+          `http://localhost:8080/api/users/mobile`,
+          {
+            params: {
+              mobile: decodedToken.sub,
+            },
+          }
+        );
+        console.log(userRes, "user RES");
+        setUser(userRes.data);
+
         navigate("/");
       }
 
