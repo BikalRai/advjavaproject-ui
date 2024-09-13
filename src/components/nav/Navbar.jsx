@@ -6,6 +6,7 @@ import "./navbar.scss";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
 import { AuthContext } from "../../utils/AuthProvider";
+import MenuShow from "../useravatar/MenuShow";
 
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState("home");
@@ -79,14 +80,24 @@ const Navbar = () => {
               My Bookings
             </NavLink>
           </li>
-          <div className='navbar__btns'>
-            <Link to='/login'>
-              <PrimaryButton btnText='Sign In' />
-            </Link>
-            <Link to='/signup'>
-              <SecondaryButton btnText='Sign Up' />
-            </Link>
-          </div>
+          {loggedInStatus ? (
+            <div className='navbar__avatar'>
+              {/* <UserAvatar
+                name={`${user.firstName} ${user.lastName}`}
+                img={user.image}
+              /> */}
+              <MenuShow />
+            </div>
+          ) : (
+            <div className='navbar__btns'>
+              <Link to='/login'>
+                <PrimaryButton btnText='Sign In' />
+              </Link>
+              <Link to='/signup'>
+                <SecondaryButton btnText='Sign Up' />
+              </Link>
+            </div>
+          )}
         </ul>
 
         <div className='hamburger'>
