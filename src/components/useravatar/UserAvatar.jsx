@@ -1,13 +1,19 @@
 import { Avatar } from "@mui/material";
+import PropType from "prop-types";
 
-const UserAvatar = () => {
+const UserAvatar = ({ name, img }) => {
   return (
     <Avatar
-      alt='Remy Sharp'
-      src='/static/images/avatar/1.jpg'
+      alt={name || "User Avatar"}
+      src={`data:image/jpeg;base64,${img}`}
       className='user__avatar'
     />
   );
+};
+
+UserAvatar.propTypes = {
+  name: PropType.string,
+  img: PropType.string,
 };
 
 export default UserAvatar;

@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import ProfileField from "../../inputfield/ProfileField";
 import "./userprofile.scss";
 import { BiSolidImageAdd } from "react-icons/bi";
+import { AuthContext } from "../../../utils/AuthProvider";
 
 const UserProfile = () => {
   const [userDetails, setUserDetails] = useState({
@@ -22,6 +23,8 @@ const UserProfile = () => {
 
   const [img, setImg] = useState("");
   const [imgBase64, setImgBase64] = useState("");
+
+  const { setUser } = useContext(AuthContext);
 
   const usernameArr = userDetails.username.split(" ");
   const firstName = usernameArr[0];
@@ -86,7 +89,7 @@ const UserProfile = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault;
+    e.preventDefault();
 
     try {
       const res = await axios.put(`http://localhost:8080/api/updateUser/${1}`, {
@@ -98,11 +101,15 @@ const UserProfile = () => {
         image: imgBase64,
       });
 
+      setUser(userDetails);
       console.log(res);
     } catch (error) {
       console.log(error.message);
     }
   };
+
+  console.log(userDetails);
+  console.log(userDetails.email);
 
   useEffect(() => {
     getUserData(1);
@@ -112,11 +119,11 @@ const UserProfile = () => {
     <div className='userProfile'>
       <h1>Your Profile</h1>
       <div className='container'>
-        <button className='btn__secondary back'>
+        <button type='button' className='btn__secondary back'>
           <IoMdArrowRoundBack className=' back__btn' />
         </button>
 
-        <form className='userProfile__details'>
+        <form className='userProfile__details' onSubmit={handleSubmit}>
           <div className='userProfile__details--avatar'>
             <div
               className='userProfile__img--form-upload'
@@ -142,9 +149,7 @@ const UserProfile = () => {
             />
           ))}
 
-          <button className='btn__primary' onClick={handleSubmit}>
-            Update
-          </button>
+          <button className='btn__primary'>Update</button>
         </form>
       </div>
     </div>

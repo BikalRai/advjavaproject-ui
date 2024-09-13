@@ -1,0 +1,30 @@
+@import "../../../assets/scss/variables";
+@import "../../../assets/scss/button";
+@import "../../../assets/scss/container";
+
+.view {
+  border-radius: $base-border-radius;
+
+  h1 {
+    color: $primary-color;
+    font-size: $font-size-xxl;
+    margin: 2rem 0;
+  }
+
+  .view__form {
+    display: grid;
+    gap: $base-normal-padding;
+    background-color: $primary-dark;
+    padding: $base-font-size * 5 $base-normal-padding;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    &--btns {
+      display: flex;
+      align-items: center;
+      gap: $base-normal-padding;
+    }
+  }
+}
