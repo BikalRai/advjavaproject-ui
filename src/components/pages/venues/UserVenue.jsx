@@ -10,7 +10,8 @@ const UserVenue = () => {
     try {
       const res = await axios.get("http://localhost:8080/api/venues");
 
-      setVenues(res.data);
+      console.log(res.data);
+      setVenues(res?.data);
     } catch (error) {
       console.log(error.message);
     }
@@ -20,6 +21,8 @@ const UserVenue = () => {
     getAllVenues();
   }, []);
 
+  console.log(venues);
+
   return (
     <div className='userVenues'>
       <div className='userVenues__hero'></div>
@@ -27,16 +30,17 @@ const UserVenue = () => {
       <div className='userVenues__venues container'>
         <h1>Venues</h1>
         <div className='userVenues__venues--display'>
-          {venues.map((venue) => (
-            <VenueCard
-              key={venue.id}
-              venueId={venue.id}
-              title={venue.name}
-              location={venue.location}
-              price={venue.price}
-              img={venue.image}
-            />
-          ))}
+          {Array.isArray(venues) &&
+            venues.map((venue) => (
+              <VenueCard
+                key={venue.id}
+                venueId={venue.id}
+                title={venue.name}
+                location={venue.location}
+                price={venue.price}
+                img={venue.image}
+              />
+            ))}
         </div>
       </div>
     </div>
