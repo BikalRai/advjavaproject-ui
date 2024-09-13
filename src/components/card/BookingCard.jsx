@@ -34,17 +34,19 @@ const BookingCard = ({
           <p>{location}</p>
         </div>
         <div className='bookingCard__details--body'>
-          <p>{date}</p>
-          <p>{startTime}</p>
-          <p>{endTime}</p>
-          <p>rs. {price}</p>
+          <p>Date: {date}</p>
+          <p>From: {startTime}</p>
+          <p>To: {endTime}</p>
+          <p className='price'>rs. {price}</p>
         </div>
 
-        <MdDeleteForever
-          className='bookingCard__details--action'
-          title='Cancel Booking'
-          onClick={() => deleteBooking(bookingId)}
-        />
+        <div className='bookingCard__details--action'>
+          <MdDeleteForever
+            className='icon'
+            title='Cancel Booking'
+            onClick={() => deleteBooking(bookingId)}
+          />
+        </div>
       </div>
     </div>
   );

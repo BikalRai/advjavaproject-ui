@@ -13,36 +13,49 @@
   transition: $base-transition-spd;
 
   &__details {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex: 1;
-
     &--title {
+      font-size: $font-size-lg;
+      font-weight: 600;
       padding: $base-normal-padding;
       background-color: $primary-color-50;
-      flex: 1;
     }
 
     &--body {
       padding: $base-normal-padding;
-      flex: 1;
-      background-color: $primary-danger;
+      font-weight: 500;
+      color: $primary-color-50;
+      border-bottom: 1px solid $primary-color;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: $base-padding;
+
+      .price {
+        background-color: $primary-color;
+        color: $primary-dark;
+        border-radius: $base-border-radius;
+        width: fit-content;
+        padding: $base-border-radius;
+        font-weight: 600;
+      }
     }
 
     &--action {
-      flex: 1;
-      cursor: pointer;
-      font-size: $font-size-xxxl;
-      transition: $base-transition-spd;
+      display: flex;
+      justify-content: center;
+      .icon {
+        cursor: pointer;
+        font-size: $font-size-xxxl;
+        transition: $base-transition-spd;
+        margin: 2rem auto;
 
-      &:hover {
-        color: $primary-color;
+        &:hover {
+          color: $primary-color;
+        }
       }
     }
   }
 
   &:hover {
-    transform: perspective(1000px) translateY(-10px) rotateY(-20deg);
+    transform: perspective(1000px) translateY(-10px) rotateY(-10deg);
   }
 }
