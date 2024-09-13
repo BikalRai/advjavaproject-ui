@@ -24,7 +24,7 @@ const TimeCard = ({
         {
           bookingDate: bookDate,
           price: price,
-          status: "Confirmed",
+          status: false,
           timeSlotId: timeId,
           userId: user.id,
           venueId: venueId,

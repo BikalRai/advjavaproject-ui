@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import PrimaryButton from "../button/PrimaryButton";
 import SecondaryButton from "../button/SecondaryButton";
 import "./navbar.scss";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
+import { AuthContext } from "../../utils/AuthProvider";
 
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState("home");
   const [visible, setVisible] = useState(false);
+
+  const { loggedInStatus } = useContext(AuthContext);
 
   const handleActiveLink = (linkName) => {
     setActiveLink(linkName);
@@ -57,7 +60,7 @@ const Navbar = () => {
             </NavLink>
           </li>
 
-          <li className='navbar__nav--links-link'>
+          {/* <li className='navbar__nav--links-link'>
             <NavLink
               to='/matches'
               className={activeLink === "matches" ? "active" : ""}
@@ -65,7 +68,7 @@ const Navbar = () => {
             >
               Matches
             </NavLink>
-          </li>
+          </li> */}
 
           <li className='navbar__nav--links-link'>
             <NavLink

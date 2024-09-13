@@ -4,6 +4,7 @@ import Register from "../form/Register";
 import Home from "../pages/home/Home";
 import UserVenue from "../pages/venues/UserVenue";
 import UserVenueTime from "../pages/venues/UserVenueTime";
+import MyBooking from "../pages/booking/MyBooking";
 
 const SiteRoutes = () => {
   return (
@@ -14,6 +15,7 @@ const SiteRoutes = () => {
         <Route path='/signup' element={<Register />} />
         <Route path='/venues' element={<UserVenue />} />
         <Route path='/venues/:venueId' element={<UserVenueTime />} />
+        <Route path='/mybookings' element={<MyBooking />} />
       </Routes>
     </>
   );

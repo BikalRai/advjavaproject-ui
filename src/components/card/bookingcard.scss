@@ -1,0 +1,48 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/button";
+@import "../../assets/scss/container";
+
+.bookingCard {
+  color: $primary-light;
+  background-color: $primary-dark;
+  border-radius: $base-border-radius;
+  width: 400px;
+  min-width: 360px;
+  box-shadow: 0 1px 5px rgba(255, 255, 255, 0.3), 0 2px 10px rgba(0, 0, 0, 0.5),
+    0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: $base-transition-spd;
+
+  &__details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+
+    &--title {
+      padding: $base-normal-padding;
+      background-color: $primary-color-50;
+      flex: 1;
+    }
+
+    &--body {
+      padding: $base-normal-padding;
+      flex: 1;
+      background-color: $primary-danger;
+    }
+
+    &--action {
+      flex: 1;
+      cursor: pointer;
+      font-size: $font-size-xxxl;
+      transition: $base-transition-spd;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+
+  &:hover {
+    transform: perspective(1000px) translateY(-10px) rotateY(-20deg);
+  }
+}
