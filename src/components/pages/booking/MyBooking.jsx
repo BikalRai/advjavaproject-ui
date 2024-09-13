@@ -53,7 +53,6 @@ const MyBooking = () => {
                 onDelete={handleDeleteBooking}
               />
             ))}
-          <BookingCard />
         </div>
       </div>
     </div>
