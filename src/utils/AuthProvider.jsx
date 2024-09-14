@@ -9,20 +9,16 @@ const AuthProvider = ({ children }) => {
   const [roles, setRoles] = useState([]);
   const [user, setUser] = useState({});
 
-  const login = () => {
-    const token = localStorage.getItem("authToken");
-
-    if (token) {
-      setIsloggedInStatus(true);
-    }
-  };
-
   const logout = () => {
     const token = localStorage.getItem("authToken");
 
     if (token) {
       localStorage.removeItem("authToken");
+      localStorage.removeItem("userRoles");
       setIsloggedInStatus(false);
+      setRoles([]);
+      setUser({});
+      setToken("");
     }
   };
   return (
@@ -30,7 +26,6 @@ const AuthProvider = ({ children }) => {
       value={{
         loggedInStatus,
         setIsloggedInStatus,
-        login,
         logout,
         token,
         setToken,

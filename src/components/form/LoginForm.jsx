@@ -31,7 +31,8 @@ const LoginForm = () => {
   } = loginDetails;
 
   // auth provider context
-  const { setToken, setRoles, setUser, login } = useContext(AuthContext);
+  const { setToken, setRoles, setUser, setIsloggedInStatus } =
+    useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -104,16 +105,20 @@ const LoginForm = () => {
 
       if (token) {
         setToken(token);
-        localStorage.setItem("authToken", token);
-
-        login(token);
+        setIsloggedInStatus(true);
 
         const decodedToken = jwtDecode(token);
         setRoles(decodedToken.roles);
 
+        localStorage.setItem("authToken", token);
+        localStorage.setItem("userRoles", decodedToken.roles);
+
         const userRes = await axios.get(
           `http://localhost:8080/api/users/mobile`,
           {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
             params: {
               mobile: decodedToken.sub,
             },
