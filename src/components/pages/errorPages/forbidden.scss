@@ -3,12 +3,14 @@
 @import "../../../assets/scss/container";
 
 .forbidden {
-  min-height: 100dvh;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  min-height: 70dvh;
   display: grid;
   place-items: center;
 
   img {
-    width: 50%;
+    width: 40%;
   }
 
   a {

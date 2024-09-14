@@ -6,6 +6,7 @@ import UserVenue from "../pages/venues/UserVenue";
 import UserVenueTime from "../pages/venues/UserVenueTime";
 import MyBooking from "../pages/booking/MyBooking";
 import ViewUser from "../pages/user/ViewUser";
+import Forbidden from "../pages/errorPages/Forbidden";
 
 const SiteRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const SiteRoutes = () => {
         <Route path='/venues/:venueId' element={<UserVenueTime />} />
         <Route path='/mybookings' element={<MyBooking />} />
         <Route path='/viewprofile' element={<ViewUser />} />
+        <Route path='/forbidden' element={<Forbidden />} />
       </Routes>
     </>
   );

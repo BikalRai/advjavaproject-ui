@@ -19,6 +19,7 @@ const VenueCard = ({ title, location, price, img, venueId }) => {
 
       const res = await axios.post(
         `http://localhost:8080/api/venues/${id}/timeslots`,
+        {},
         config
       );
 
