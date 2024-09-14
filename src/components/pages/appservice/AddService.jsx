@@ -24,11 +24,21 @@ const AddService = () => {
   const handleServiceSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8080/api/services/add", {
-        serviceName: inputValue.serviceName,
-        description: inputValue.description,
-        image: uploadImage,
-      });
+      const token = localStorage.getItem("authToken");
+
+      const res = await axios.post(
+        "http://localhost:8080/api/services/add",
+        {
+          serviceName: inputValue.serviceName,
+          description: inputValue.description,
+          image: uploadImage,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       console.log(res);
     } catch (error) {

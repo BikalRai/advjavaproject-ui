@@ -15,8 +15,15 @@ const BookingCard = ({
 }) => {
   const deleteBooking = async (id) => {
     try {
+      const token = localStorage.getItem("authToken");
+
       const res = await axios.delete(
-        `http://localhost:8080/api/bookings/delete/${id}`
+        `http://localhost:8080/api/bookings/delete/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       onDelete(id);

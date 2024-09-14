@@ -11,7 +11,13 @@ const AdminVenue = () => {
 
   const getAllVenues = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/venues");
+      const token = localStorage.getItem("authToken");
+
+      const res = await axios.get("http://localhost:8080/api/venues", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setVenues(res.data);
     } catch (error) {

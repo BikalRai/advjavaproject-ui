@@ -12,7 +12,6 @@ const AdminNavHorizontral = () => {
     setModalIsOpen((prev) => !prev);
   };
 
-  console.log(modalIsOpen);
   return (
     <nav className='adminNav__horizontal'>
       <div className='adminNav__horizontal_left'>

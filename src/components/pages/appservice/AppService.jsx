@@ -11,7 +11,13 @@ const AppService = () => {
 
   const getAllServices = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/services");
+      const token = localStorage.getItem("authToken");
+
+      const res = await axios.get("http://localhost:8080/api/services", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setServices(res.data);
 

@@ -45,17 +45,27 @@ const AddVenue = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:8080/api/venues/create", {
-        name: venueDetails.venueName,
-        location: venueDetails.location,
-        description: venueDetails.description,
-        amenities: venueDetails.amenities,
-        openingTime: venueDetails.openingTime,
-        closingTime: venueDetails.closingTime,
-        price: venueDetails.price,
-        slotDurationMinutes: 60,
-        image: uploadImage,
-      });
+      const token = localStorage.getItem("authToken");
+
+      const res = await axios.post(
+        "http://localhost:8080/api/venues/create",
+        {
+          name: venueDetails.venueName,
+          location: venueDetails.location,
+          description: venueDetails.description,
+          amenities: venueDetails.amenities,
+          openingTime: venueDetails.openingTime,
+          closingTime: venueDetails.closingTime,
+          price: venueDetails.price,
+          slotDurationMinutes: 60,
+          image: uploadImage,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       setVenueDetails((prev) => ({
         ...prev,

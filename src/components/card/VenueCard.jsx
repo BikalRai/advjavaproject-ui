@@ -10,8 +10,16 @@ const VenueCard = ({ title, location, price, img, venueId }) => {
 
   const generateTimeSlot = async (id) => {
     try {
+      const token = localStorage.getItem("authToken");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
       const res = await axios.post(
-        `http://localhost:8080/api/venues/${id}/timeslots`
+        `http://localhost:8080/api/venues/${id}/timeslots`,
+        config
       );
 
       if (res) {

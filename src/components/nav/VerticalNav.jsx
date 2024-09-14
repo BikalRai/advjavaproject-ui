@@ -31,7 +31,7 @@ const VerticalNav = () => {
           onClick={() => handleActiveLink("dashboard")}
         >
           <NavLink
-            to='/dashboard'
+            to='/'
             className={activeLink === "dashboard" ? "active" : ""}
             title='dashboard'
           >
