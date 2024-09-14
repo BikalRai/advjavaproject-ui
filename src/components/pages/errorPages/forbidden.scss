@@ -1,0 +1,17 @@
+@import "../../../assets/scss/variables";
+@import "../../../assets/scss/button";
+@import "../../../assets/scss/container";
+
+.forbidden {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+
+  img {
+    width: 50%;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}

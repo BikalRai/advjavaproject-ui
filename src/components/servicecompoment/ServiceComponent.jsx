@@ -10,13 +10,8 @@ const ServiceComponent = () => {
   const getServices = async () => {
     try {
       // get token from localstorage and set it
-      const token = localStorage.getItem("authToken");
 
-      const res = await axios.get("http://localhost:8080/api/services", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.get("http://localhost:8080/api/services");
 
       setServices(res.data);
     } catch (error) {
