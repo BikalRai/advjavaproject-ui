@@ -55,3 +55,46 @@ export const multiLineStyle = {
     },
   },
 };
+
+export const bottomBorderInput = {
+  "& .MuiInputBase-input": {
+    color: "#2a2b2d", // Font color
+  },
+  "& .MuiInput-underline:before": {
+    borderBottomColor: "#2a2b2d", // Default underline color
+  },
+  "&:hover .MuiInput-underline:before": {
+    borderBottomColor: "rgb(39, 212, 131)", // Underline color on hover
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "#2a2b2d", // Underline color when focused
+  },
+  "& .MuiFormLabel-root": {
+    color: "#2a2b2d", // Label color
+  },
+  "& .MuiFormLabel-root.Mui-focused": {
+    color: "#2a2b2d", // Label color when focused
+  },
+};
+
+export const formControlStyles = {
+  m: 1,
+  "& .MuiInputLabel-root": {
+    color: "#dee3e1", // Label color
+  },
+  "& .MuiInputLabel-root.Mui-focused": {
+    color: "#27d483", // Label color when focused
+  },
+  "& .MuiInputBase-input": {
+    color: "#dee3e1", // Input text color
+  },
+  "& .MuiInput-underline:before": {
+    borderBottomColor: "#dee3e1", // Default underline color
+  },
+  "&:hover .MuiInput-underline:before": {
+    borderBottomColor: "#dee3e1", // Underline color on hover
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "#27d483", // Underline color when focused
+  },
+};

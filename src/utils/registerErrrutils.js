@@ -1,7 +1,6 @@
 const initialErrors = {
-  usernameErr: false,
   passwordErr: false,
-  cPassowrdErr: false,
+  passwordLengthErr: false,
   emailErr: false,
   phoneErr: false,
   emailFormatErr: false,
