@@ -1,10 +1,13 @@
-import Forbidden from "../errorPages/Forbidden";
+import "./dashboard.scss";
 
 const DashBoard = () => {
   return (
-    <div>
+    <div className='dashboard'>
       <h1>DASHBOARD</h1>
-      <Forbidden />
+
+      <div className='dashboard__cards'>
+        <div></div>
+      </div>
     </div>
   );
 };

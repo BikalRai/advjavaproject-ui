@@ -2,6 +2,7 @@
 
 .adminLayout {
   min-height: 100dvh;
+  min-width: 385px;
   display: flex;
   flex-direction: column;
 
@@ -23,7 +24,7 @@
     }
 
     &--content {
-      height: 1000px;
+      overflow-x: hidden;
     }
   }
 }
