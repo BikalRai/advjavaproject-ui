@@ -1,22 +1,26 @@
-import { useReducer, useRef, useState } from "react";
-import {
-  MdOutlineMail,
-  MdOutlineVisibility,
-  MdOutlineVisibilityOff,
-} from "react-icons/md";
-// import { RxAvatar } from "react-icons/rx";
+import { useReducer, useState } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
-import "./form.scss";
-import { AiOutlinePhone } from "react-icons/ai";
+
 import { errReducer, initialErrors } from "../../utils/registerErrrutils";
 import axios from "axios";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import {
+  FormControl,
+  IconButton,
+  Input,
+  InputAdornment,
+  InputLabel,
+} from "@mui/material";
+import { formControlStyles } from "../../utils/inputfieldsStyles";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import "./registerForm.scss";
 
 const Register = () => {
   const [userDetails, setUserDetails] = useState({
     // username: "",
     email: "",
-    phone: "",
+    mobile: "",
     password: "",
     cPassword: "",
     showPassword: false,
@@ -25,24 +29,12 @@ const Register = () => {
 
   const [errors, dispatch] = useReducer(errReducer, initialErrors);
 
-  const usernameRef = useRef(null);
-  const passwordRef = useRef(null);
-  const cPasswordRef = useRef(null);
+  const { email, mobile, cPassword, password, showPassword, showCpassword } =
+    userDetails;
 
   const {
-    // username,
-    email,
-    phone,
-    cPassword,
-    password,
-    showPassword,
-    showCpassword,
-  } = userDetails;
-
-  const {
-    // usernameErr,
     passwordErr,
-    cPasswordErr,
+    passwordLengthErr,
     phoneErr,
     emailErr,
     emailFormatErr,
@@ -83,99 +75,64 @@ const Register = () => {
   };
 
   const handleClickShowPassword = () => {
-    if (passwordRef.current) {
-      passwordRef.current.focus();
-    }
-
     setUserDetails((prev) => ({ ...prev, showPassword: !prev.showPassword }));
   };
 
   const handleClickShowCpassword = () => {
-    if (cPasswordRef.current) {
-      cPasswordRef.current.focus();
-    }
-
     setUserDetails((prev) => ({
       ...prev,
       showCpassword: !prev.showCpassword,
     }));
   };
 
-  const handleValidateFields = (field, value, state, dispatch) => {
-    let hasError = false;
-
-    const setError = (errorType, errMsg = "") => {
-      dispatch({ type: "SET_ERROR", field: errorType, errMsg });
-      hasError = true;
-    };
-
-    const clearError = (errorType) => {
-      dispatch({ type: "CLEAR_ERROR", field: errorType });
-    };
-
-    // Clear specific errors for the current field
-    clearError(`${field}Err`);
-    if (field === "email") {
-      clearError("emailFormatErr");
-    } else if (field === "phone") {
-      clearError("phoneFormatErr");
-    } else if (field === "password") {
-      clearError("passwordFormatErr");
-    }
-
-    if (value.trim() === "") {
-      setError(`${field}Err`, "This field cannot be empty");
-    } else {
-      switch (field) {
-        case "email":
-          if (!value.includes("@") || !value.includes(".")) {
-            setError("emailFormatErr", "Invalid email format");
-          }
-          break;
-        case "phone":
-          if (value.length !== 10) {
-            setError("phoneFormatErr", "Phone number must be 10 digits");
-          }
-          break;
-        case "password":
-          if (value.length < 8) {
-            setError("passwordFormatErr", "Password must be 8 characters long");
-          }
-
-          if (!specialChars.some((char) => value.includes(char))) {
-            setError(
-              "passwordFormatErr",
-              "Password must have at least one special character"
-            );
-          }
-          break;
-        case "cPassword":
-          if (value !== state.password) {
-            setError("passwordMatchErr", "Passwords do not match");
-          }
-          break;
-        default:
-          break;
-      }
-    }
-
-    return hasError;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const fields = [
-      // { field: "username", value: username },
-      { field: "email", value: email },
-      { field: "phone", value: phone },
-      { field: "password", value: password },
-      { field: "cPassword", value: cPassword },
-    ];
+    // reset all errors before validation
+    dispatch({ type: "RESET_ERRORS" });
 
-    const hasErrors = fields.some(({ field, value }) => {
-      handleValidateFields(field, value, userDetails, dispatch);
-    });
+    let hasErrors = false;
+
+    // helper function to check for special characters
+    const containsSpecialChar = (password) => {
+      return specialChars.some((char) => password.includes(char));
+    };
+
+    // email validation
+    if (!email.trim()) {
+      dispatch({ type: "SET_ERROR", field: "emailErr" });
+      hasErrors = true;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      dispatch({ type: "SET_ERROR", field: "emailFormatErr" });
+      hasErrors = true;
+    }
+
+    // phone validation
+    if (!mobile.trim()) {
+      dispatch({ type: "SET_ERROR", field: "phoneErr" });
+      hasErrors = true;
+    } else if (mobile.length !== 10) {
+      dispatch({ type: "SET_ERROR", field: "phoneFormatErr" });
+      hasErrors = true;
+    }
+
+    // password validation
+    if (!password.trim()) {
+      dispatch({ type: "SET_ERROR", field: "passwordErr" });
+      hasErrors = true;
+    } else if (password.length < 8) {
+      dispatch({ type: "SET_ERROR", field: "passwordLengthErr" });
+      hasErrors = true;
+    } else if (!containsSpecialChar(password)) {
+      dispatch({ type: "SET_ERROR", field: "passwordFormatErr" });
+      hasErrors = true;
+    }
+
+    // cPassword validation
+    if (password !== cPassword) {
+      dispatch({ type: "SET_ERROR", field: "passwordMatchErr" });
+      hasErrors = true;
+    }
 
     if (hasErrors) {
       return;
@@ -186,7 +143,7 @@ const Register = () => {
         "http://localhost:8080/api/v1/auth/register",
         {
           email: email,
-          mobile: phone,
+          mobile: mobile,
           password: password,
         }
       );
@@ -206,144 +163,118 @@ const Register = () => {
         method='POST'
         onSubmit={handleSubmit}
       >
-        <button
-          className='btn__primary back_btn'
-          type='button'
-          onClick={() => navigate("/")}
-        >
-          <IoMdArrowRoundBack />
-        </button>
-        <div className='fields'>
-          <h1>SIGN UP</h1>
-
-          {/* <div className={`input__field ${username ? "filled" : ""}`}>
-            <div className='field'>
-              <input
-                type='text'
-                id='username'
-                name='username'
-                ref={usernameRef}
-                onChange={handleFunction}
-                value={username}
-              />
-              <RxAvatar className='icon' />
-            </div>
-            <p className='err'>{usernameErr && `Username is required!!`}</p>
-            <label htmlFor='usernameoremail'>Username </label>
-          </div> */}
-
-          <div className={`input__field ${email ? "filled" : ""}`}>
-            <div className='field'>
-              <input
-                type='text'
-                id='email'
-                name='email'
-                ref={usernameRef}
-                onChange={handleFunction}
-                value={email}
-              />
-              <MdOutlineMail className='icon' />
-            </div>
-            <p className='err'>{emailErr && `Email is required`}</p>
-            <p className='err'>{emailFormatErr && "Email requires @ and ."}</p>
-            <label htmlFor='email'>Email </label>
-          </div>
-
-          <div className={`input__field ${phone ? "filled" : ""}`}>
-            <div className='field'>
-              <input
-                type='text'
-                id='phone'
-                name='phone'
-                ref={usernameRef}
-                onChange={handleFunction}
-                value={phone}
-              />
-              <AiOutlinePhone className='icon' />
-            </div>
-            <p className='err'>{phoneErr && `Phone is required !!`}</p>
-            <p className='err'>
-              {phoneFormatErr && "Phone must be at least 10 character"}
-            </p>
-            <label htmlFor='usernameoremail'>Phone </label>
-          </div>
-
-          <div className={`input__field ${password ? "filled" : ""}`}>
-            <div className='field'>
-              <input
-                type={`${showPassword ? "text" : "password"}`}
-                id='password'
-                name='password'
-                ref={passwordRef}
-                onChange={handleFunction}
-                value={password}
-              />
-              {showPassword ? (
-                <MdOutlineVisibilityOff
-                  className='icon'
-                  onClick={handleClickShowPassword}
-                />
-              ) : (
-                <MdOutlineVisibility
-                  className='icon'
-                  onClick={handleClickShowPassword}
-                />
-              )}
-            </div>
-            <label htmlFor='password'>Password</label>
-            <p className='err'>{passwordErr && `Password is required !!`}</p>
-            <p className='err'>
-              {passwordFormatErr &&
-                "Password must be 8 characters long and have a special character"}
-            </p>
-            <p className='err'>
-              {passwordMatchErr && `Passwords do not match`}
-            </p>
-          </div>
-
-          <div className={`input__field ${password ? "filled" : ""}`}>
-            <div className='field'>
-              <input
-                type={`${showCpassword ? "text" : "password"}`}
-                id='cPassword'
-                name='cPassword'
-                ref={cPasswordRef}
-                onChange={handleFunction}
-                value={cPassword}
-              />
-              {showCpassword ? (
-                <MdOutlineVisibilityOff
-                  className='icon'
-                  onClick={handleClickShowCpassword}
-                />
-              ) : (
-                <MdOutlineVisibility
-                  className='icon'
-                  onClick={handleClickShowCpassword}
-                />
-              )}
-            </div>
-            <label htmlFor='password'>Confirm Password</label>
-            <p className='err'>
-              {cPasswordErr && `Confirm Password is required!!`}
-            </p>
-          </div>
-          <button type='submit' className='btn btn__primary'>
-            SIGN UP
+        <div className='form__els--head'>
+          <h1>Sign Up to KickSpot</h1>
+          <button
+            className='btn__primary back_btn'
+            type='button'
+            onClick={() => navigate("/")}
+          >
+            <IoMdArrowRoundBack />
           </button>
-
-          <div className='login__links'>
-            <p>
-              {`Don't have an account?`} <Link to='/'>Sign In</Link>
-            </p>
-          </div>
         </div>
-        <div className='image'>
-          <div className='overlay'>
-            <h2>Welcome To</h2>
-            <h1>KickSpot</h1>
-            <h3>Sign up to gain access</h3>
-          </div>
+        <FormControl sx={formControlStyles} variant='standard'>
+          <InputLabel htmlFor='email'>Email</InputLabel>
+          <Input
+            id='email'
+            type='text'
+            name='email'
+            onChange={handleFunction}
+            value={email}
+          />
+          {emailErr && <span className='err'>Email Field cannot be empty</span>}
+          {emailFormatErr && (
+            <span className='err'>Email must contain @ and .</span>
+          )}
+        </FormControl>
+        <FormControl sx={formControlStyles} variant='standard'>
+          <InputLabel htmlFor='mobile'>Mobile</InputLabel>
+          <Input
+            id='mobile'
+            type='text'
+            name='mobile'
+            onChange={handleFunction}
+            value={mobile}
+          />
+          {phoneErr && (
+            <span className='err'>Mobile Field cannot be empty</span>
+          )}
+          {phoneFormatErr && (
+            <span className='err'>Mobile number must be of length 10</span>
+          )}
+        </FormControl>
+        <FormControl sx={formControlStyles} variant='standard'>
+          <InputLabel htmlFor='password'>Password</InputLabel>
+          <Input
+            id='password'
+            type={showPassword ? "text" : "password"}
+            name='password'
+            onChange={handleFunction}
+            value={password}
+            endAdornment={
+              <InputAdornment position='end'>
+                <IconButton
+                  aria-label='toggle password visibility'
+                  onClick={handleClickShowPassword}
+                >
+                  {showPassword ? (
+                    <VisibilityOff className='visibilityIcon' />
+                  ) : (
+                    <Visibility className='visibilityIcon' />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+          {passwordErr && (
+            <span className='err'>Password Field cannot be empty</span>
+          )}
+          {passwordLengthErr && (
+            <span className='err'>
+              Password must be at least 8 characters long
+            </span>
+          )}
+          {passwordFormatErr && (
+            <span className='err'>
+              Password must contain a special character
+            </span>
+          )}
+        </FormControl>
+        <FormControl sx={formControlStyles} variant='standard'>
+          <InputLabel htmlFor='cPassword'>Confirm Password</InputLabel>
+          <Input
+            id='cPassword'
+            type={showCpassword ? "text" : "password"}
+            name='cPassword'
+            onChange={handleFunction}
+            value={cPassword}
+            endAdornment={
+              <InputAdornment position='end'>
+                <IconButton
+                  aria-label='toggle password visibility'
+                  onClick={handleClickShowCpassword}
+                >
+                  {showCpassword ? (
+                    <VisibilityOff className='visibilityIcon' />
+                  ) : (
+                    <Visibility className='visibilityIcon' />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+          {passwordMatchErr && (
+            <span className='err'>The two passwords do not match</span>
+          )}
+        </FormControl>
+        <button type='submit' className='btn btn__primary'>
+          SIGN UP
+        </button>
+
+        <div className='links'>
+          <p>
+            {`Don't have an account? `} <Link to='/login'>Sign In</Link>
+          </p>
         </div>
       </form>
     </div>

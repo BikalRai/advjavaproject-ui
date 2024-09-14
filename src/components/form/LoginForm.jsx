@@ -1,11 +1,19 @@
-import { useContext, useRef, useState } from "react";
-import { RxAvatar } from "react-icons/rx";
-import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
+import { useContext, useState } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../utils/AuthProvider";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { jwtDecode } from "jwt-decode";
+import {
+  FormControl,
+  IconButton,
+  Input,
+  InputAdornment,
+  InputLabel,
+} from "@mui/material";
+import { formControlStyles } from "../../utils/inputfieldsStyles";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import "./form.scss";
 
 const LoginForm = () => {
@@ -18,14 +26,14 @@ const LoginForm = () => {
     emptyPasswordError: false,
   });
 
-  const usernameRef = useRef(null);
-  const passwordRef = useRef(null);
+  const handleClickShowPassword = () => {
+    setLoginDetails((prev) => ({ ...prev, showPassword: !prev.showPassword }));
+  };
 
   const {
     emailOrMobile,
     password,
     showPassword,
-    loginError,
     emptyUserError,
     emptyPasswordError,
   } = loginDetails;
@@ -42,14 +50,6 @@ const LoginForm = () => {
 
   const handlePassword = ({ target: { value } }) => {
     setLoginDetails((prev) => ({ ...prev, password: value }));
-  };
-
-  const handleClickShowPassword = () => {
-    if (passwordRef.current) {
-      passwordRef.current.focus();
-    }
-
-    setLoginDetails((prev) => ({ ...prev, showPassword: !prev.showPassword }));
   };
 
   const handleSubmit = async (e) => {
@@ -83,13 +83,6 @@ const LoginForm = () => {
     }
 
     if (isError) return;
-
-    if (usernameRef.current) {
-      usernameRef.current.blur();
-    }
-    if (passwordRef.current) {
-      passwordRef.current.blur();
-    }
 
     // user login and setting token
     try {
@@ -145,78 +138,65 @@ const LoginForm = () => {
         method='POST'
         onSubmit={handleSubmit}
       >
-        <button
-          type='button'
-          className='btn__secondary back_btn'
-          onClick={() => navigate("/")}
-        >
-          <IoMdArrowRoundBack />
-        </button>
-        <div className='image'>
-          <div className='overlay'>
-            <h2>Welcome To</h2>
-            <h1>KickSpot</h1>
-            <h3>Sign in to Continue access</h3>
-          </div>
-        </div>
-        <div className='fields'>
-          <h1>Sign In</h1>
-          <p className='err'>
-            {loginError && `Username or Email does not exist!!`}
-          </p>
-
-          {/* <hr /> */}
-
-          <div className={`input__field ${emailOrMobile ? "filled" : ""}`}>
-            <div className='field'>
-              <input
-                type='text'
-                id='usernameoremail'
-                name='usernameoremail'
-                ref={usernameRef}
-                onChange={handleUsernameOrEmail}
-                value={emailOrMobile}
-              />
-              <RxAvatar className='icon' />
-            </div>
-            {emptyUserError && <p>Email or Mobile Required</p>}
-            <label htmlFor='usernameoremail'>Email or Mobile</label>
-          </div>
-
-          <div className={`input__field ${password ? "filled" : ""}`}>
-            <div className='field'>
-              <input
-                type={`${showPassword ? "text" : "password"}`}
-                id='password'
-                name='password'
-                ref={passwordRef}
-                onChange={handlePassword}
-                value={password}
-              />
-              {showPassword ? (
-                <MdOutlineVisibilityOff
-                  className='icon'
-                  onClick={handleClickShowPassword}
-                />
-              ) : (
-                <MdOutlineVisibility
-                  className='icon'
-                  onClick={handleClickShowPassword}
-                />
-              )}
-            </div>
-            {emptyPasswordError && <p>Password Required</p>}
-            <label htmlFor='password'>Password</label>
-          </div>
-          <button type='submit' className='btn btn__primary'>
-            SIGN IN
+        <div className='form__els--head'>
+          <h1>Login to KickSpot</h1>
+          <button
+            type='button'
+            className='btn__primary back_btn'
+            onClick={() => navigate("/")}
+          >
+            <IoMdArrowRoundBack />
           </button>
+        </div>
 
-          <div className='login__links'>
+        <div className='form__els--inputs'>
+          <FormControl sx={formControlStyles} variant='standard'>
+            <InputLabel htmlFor='emailOrMobile'>Email or Mobile</InputLabel>
+            <Input
+              id='emailOrMobile'
+              type='text'
+              onChange={handleUsernameOrEmail}
+              value={loginDetails.emailOrMobile}
+            />
+            {emptyUserError && (
+              <span className='err'>Email or mobile cannot be empty</span>
+            )}
+          </FormControl>
+          <FormControl sx={formControlStyles} variant='standard'>
+            <InputLabel htmlFor='password'>Password</InputLabel>
+            <Input
+              id='password'
+              type={showPassword ? "text" : "password"}
+              onChange={handlePassword}
+              value={loginDetails.password}
+              endAdornment={
+                <InputAdornment position='end'>
+                  <IconButton
+                    aria-label='toggle password visibility'
+                    onClick={handleClickShowPassword}
+                  >
+                    {showPassword ? (
+                      <VisibilityOff className='visibilityIcon' />
+                    ) : (
+                      <Visibility className='visibilityIcon' />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+            {emptyPasswordError && (
+              <span className='err'>Password cannot be empty</span>
+            )}
+          </FormControl>
+
+          <button className='btn__primary'>LOGIN</button>
+
+          <div className='form__els--inputs-links'>
             <p>
-              {`Don't have an account?`} <Link to='/signup'>Sign Up</Link>
+              {`Don't have an accout? `}
+              <Link to='/signup'>Sign up</Link>
             </p>
-            {/* <Link to='/'>Forgot Password?</Link> */}
+            <Link>Forgot password?</Link>
           </div>
         </div>
       </form>

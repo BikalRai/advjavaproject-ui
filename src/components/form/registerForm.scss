@@ -1,5 +1,6 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/button";
+
 .form {
   min-height: 100dvh;
   display: grid;
@@ -10,14 +11,14 @@
     width: 100%;
     min-width: 385px;
     max-width: 800px;
-    // border: 2px solid $primary-color;
-    // display: flex;
     padding: $base-normal-padding;
     border-radius: $base-border-radius;
     box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.7),
       -5px -5px 15px -5px rgba(0, 0, 0, 0.2);
-    // background-color: $primary-light;
     overflow: hidden;
+
+    display: grid;
+    gap: $base-padding;
 
     @media (min-width: 768px) {
       min-width: 600px;
@@ -34,34 +35,26 @@
       }
     }
 
-    &--inputs {
-      width: 100%;
-      display: grid;
-      gap: $base-padding;
+    a {
+      color: $primary-color;
+      transition: $base-transition-spd;
 
-      &-links {
-        color: $primary-light;
-        font-size: $font-size-sm;
-        display: flex;
-        justify-content: space-between;
-
-        a {
-          color: $primary-color;
-          transition: $base-transition-spd;
-
-          &:hover {
-            color: $primary-light;
-          }
-        }
-      }
-
-      .visibilityIcon {
+      &:hover {
         color: $primary-light;
       }
+    }
 
-      .err {
-        color: $primary-danger;
-      }
+    .visibilityIcon {
+      color: $primary-light;
+    }
+
+    .err {
+      color: $primary-danger;
+    }
+
+    .links {
+      color: $primary-light;
+      font-size: $font-size-md;
     }
   }
 }
