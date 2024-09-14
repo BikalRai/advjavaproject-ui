@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import PropType from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
@@ -8,6 +9,8 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState("");
   const [roles, setRoles] = useState([]);
   const [user, setUser] = useState({});
+
+  const navigate = useNavigate();
 
   const logout = () => {
     const token = localStorage.getItem("authToken");
@@ -20,6 +23,8 @@ const AuthProvider = ({ children }) => {
       setUser({});
       setToken("");
     }
+
+    navigate("/");
   };
   return (
     <AuthContext.Provider

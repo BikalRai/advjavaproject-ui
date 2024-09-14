@@ -31,9 +31,16 @@ const ViewUser = () => {
     };
 
     try {
+      const token = localStorage.getItem("authToken");
+
       const res = await axios.put(
-        `http://localhost:8080/api/updateUser/${user.id}`,
-        payload
+        `http://localhost:8080/api/users/updateUser/${user.id}`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       console.log("User updated:", res.data);
       setImage(null); // Clear image after submission

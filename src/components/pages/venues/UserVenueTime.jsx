@@ -32,7 +32,13 @@ const UserVenueTime = () => {
 
   const getAllVenueTimeSlots = async (id) => {
     try {
-      const timeRes = await axios.get(`http://localhost:8080/api/time/${id}`);
+      const token = localStorage.getItem("authToken");
+
+      const timeRes = await axios.get(`http://localhost:8080/api/time/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setTimeSlots(timeRes.data);
     } catch (error) {

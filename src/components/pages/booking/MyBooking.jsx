@@ -3,11 +3,13 @@ import BookingCard from "../../card/BookingCard";
 import axios from "axios";
 import { AuthContext } from "../../../utils/AuthProvider";
 import "./mybooking.scss";
+import { useNavigate } from "react-router-dom";
 
 const MyBooking = () => {
   const [userBookings, setUserBookings] = useState([]);
 
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const getAllUserBookings = async (userId) => {
     try {
@@ -24,7 +26,9 @@ const MyBooking = () => {
 
       setUserBookings(res.data);
     } catch (error) {
-      console.log(error);
+      if (error.response.status === 403) {
+        navigate("/forbidden");
+      }
     }
   };
 

@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import VenueCard from "../../card/VenueCard";
 import "./uservenues.scss";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const UserVenue = () => {
   const [venues, setVenues] = useState([]);
+
+  const navigate = useNavigate();
 
   const getAllVenues = async () => {
     try {
@@ -19,7 +22,9 @@ const UserVenue = () => {
       console.log(res.data);
       setVenues(res?.data);
     } catch (error) {
-      console.log(error.message);
+      if (error.response.status === 403) {
+        navigate("/forbidden");
+      }
     }
   };
 
