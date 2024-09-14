@@ -11,10 +11,17 @@ const MyBooking = () => {
 
   const getAllUserBookings = async (userId) => {
     try {
+      const token = localStorage.getItem("authToken");
+
       const res = await axios.get(
-        `http://localhost:8080/api/bookings/${userId}/bookings`
+        `http://localhost:8080/api/bookings/${userId}/bookings`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
-      console.log(res.data);
+
       setUserBookings(res.data);
     } catch (error) {
       console.log(error);

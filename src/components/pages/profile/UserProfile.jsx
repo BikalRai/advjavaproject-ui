@@ -65,7 +65,13 @@ const UserProfile = () => {
 
   const getUserData = async (userId) => {
     try {
-      const res = await axios.get(`http://localhost:8080/api/users/${userId}`);
+      const token = localStorage.getItem("authToken");
+
+      const res = await axios.get(`http://localhost:8080/api/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setUserDetails((prev) => ({
         ...prev,

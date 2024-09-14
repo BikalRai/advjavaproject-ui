@@ -13,8 +13,15 @@ const UserVenueTime = () => {
 
   const getAllVenueData = async (id) => {
     try {
+      const token = localStorage.getItem("authToken");
+
       const venueRes = await axios.get(
-        `http://localhost:8080/api/venues/${id}`
+        `http://localhost:8080/api/venues/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       setVenueDetails(venueRes.data);

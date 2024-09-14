@@ -19,6 +19,8 @@ const TimeCard = ({
 
   const createBooking = async () => {
     try {
+      const token = localStorage.getItem("authToken");
+
       const res = await axios.post(
         "http://localhost:8080/api/bookings/create",
         {
@@ -28,6 +30,11 @@ const TimeCard = ({
           timeSlotId: timeId,
           userId: user.id,
           venueId: venueId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
