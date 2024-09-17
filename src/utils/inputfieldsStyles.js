@@ -98,3 +98,30 @@ export const formControlStyles = {
     borderBottomColor: "#27d483", // Underline color when focused
   },
 };
+
+export const formControlOutlinedStyles = {
+  m: 1,
+  "& .MuiInputLabel-root": {
+    color: "#dee3e1", // Label color
+  },
+  "& .MuiInputLabel-root.Mui-focused": {
+    color: "#27d483", // Label color when focused
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "#dee3e1", // Default border color
+    },
+    "&:hover fieldset": {
+      borderColor: "#dee3e1", // Border color on hover
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#27d483", // Border color when focused
+    },
+  },
+  "& .MuiOutlinedInput-input": {
+    color: "#dee3e1", // Input text color
+  },
+  "& .MuiIconButton-root": {
+    color: "#dee3e1", // Icon color
+  },
+};

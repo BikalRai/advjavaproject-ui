@@ -11,17 +11,17 @@ import { AuthContext } from "../../utils/AuthProvider";
 const VerticalNav = () => {
   const [activeLink, setActiveLink] = useState("dashboard");
 
-  const { logout } = useContext(AuthContext);
-  const navigate = useNavigate();
+  // const { logout } = useContext(AuthContext);
+  // const navigate = useNavigate();
 
   const handleActiveLink = (linkName) => {
     setActiveLink(linkName);
   };
 
-  const handleLogout = () => {
-    logout();
-    navigate("/");
-  };
+  // const handleLogout = () => {
+  //   logout();
+  //   navigate("/");
+  // };
 
   return (
     <nav className='verticalNav'>
@@ -92,10 +92,10 @@ const VerticalNav = () => {
           </NavLink>
         </li>
       </ul>
-      <button type='button' onClick={handleLogout} className='btn__primary'>
+      {/* <button type='button' onClick={handleLogout} className='btn__primary'>
         Logout
       </button>
-      <IoLogOut className='logout__icon' title='logout' />
+      <IoLogOut className='logout__icon' title='logout' /> */}
     </nav>
   );
 };
