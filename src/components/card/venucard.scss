@@ -10,6 +10,10 @@
   &__img {
     height: 140px;
     margin-bottom: $base-font-size;
+
+    img {
+      width: 100%;
+    }
   }
 
   &__content {

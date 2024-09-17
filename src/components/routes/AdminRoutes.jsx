@@ -5,6 +5,7 @@ import AdminVenue from "../pages/venues/AdminVenue";
 import AddVenue from "../pages/venues/AddVenue";
 import DashBoard from "../pages/home/DashBoard";
 import AdminUsers from "../pages/admin/AdminUsers";
+import AdminUseradd from "../pages/admin/AdminUseradd";
 
 const AdminRoutes = () => {
   return (
@@ -16,7 +17,8 @@ const AdminRoutes = () => {
         <Route path='services/add' element={<AddService />} />
         <Route path='venues' element={<AdminVenue />} />
         <Route path='venues/add' element={<AddVenue />} />
-        <Route path='/users' element={<AdminUsers />} />
+        <Route path='users' element={<AdminUsers />} />
+        <Route path='users/add' element={<AdminUseradd />} />
       </Routes>
     </div>
   );

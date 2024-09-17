@@ -1,0 +1,33 @@
+@import "../../../assets/scss/variables";
+
+.add {
+  padding: $base-padding;
+  display: grid;
+  gap: $base-normal-padding;
+
+  @media (min-width: 800px) {
+    padding: $base-normal-padding;
+    gap: $base-normal-padding;
+  }
+
+  h1 {
+    color: $primary-color;
+    font-size: $font-size-lg;
+  }
+
+  form {
+    display: grid;
+    gap: $base-padding;
+
+    @media (min-width: 800px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: $base-normal-padding;
+    }
+
+    .buttons {
+      display: flex;
+      align-items: center;
+      gap: $base-padding;
+    }
+  }
+}

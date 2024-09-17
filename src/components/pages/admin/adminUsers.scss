@@ -2,13 +2,30 @@
 
 .adminUsers {
   padding: $base-padding;
+  display: grid;
+  gap: $base-padding;
 
   @media (min-width: 800px) {
     padding: $base-normal-padding;
+    gap: $base-normal-padding;
   }
 
-  h1 {
-    color: $primary-color;
-    font-size: $font-size-xl;
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+      color: $primary-color;
+      font-size: $font-size-xl;
+    }
+
+    a {
+      text-decoration: none;
+
+      .icon {
+        font-size: $font-size-lg;
+      }
+    }
   }
 }
