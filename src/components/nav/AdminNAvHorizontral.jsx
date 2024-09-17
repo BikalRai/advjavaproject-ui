@@ -31,19 +31,11 @@ const AdminNavHorizontral = () => {
         </form>
       </div>
       <div className='adminNav__horizontal--userdetails'>
-        <div className='adminNav__horizontal--userdetails-details'>
-          <p>Logged in as:</p>
-          <p className='name'>Full Name</p>
-        </div>
         <button className='btn__modal' onClick={handleModalIsOpen}>
           <UserAvatar />
         </button>
 
-        <ModalUser
-          // className={`${modalIsOpen ? "open" : "close"}`}
-          isOpen={modalIsOpen}
-          modalState={handleModalIsOpen}
-        />
+        <ModalUser isOpen={modalIsOpen} modalState={handleModalIsOpen} />
       </div>
     </nav>
   );
