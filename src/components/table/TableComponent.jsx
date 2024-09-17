@@ -1,9 +1,42 @@
+import { useEffect, useState } from "react";
 import { RiEditCircleFill } from "react-icons/ri";
 import { MdDeleteForever } from "react-icons/md";
 import PropType from "prop-types";
+import axios from "axios";
 import "./tableComponent.scss";
 
 const TableComponent = ({ allUsers, deleteFunc }) => {
+  const [userBookingsMap, setUserBookingsMap] = useState({});
+
+  const getUserBookings = async (userId) => {
+    try {
+      const token = localStorage.getItem("authToken");
+      const res = await axios.get(
+        `http://localhost:8080/api/bookings/${userId}/bookings`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // Set the fetched booking data in the state
+      setUserBookingsMap((prevBookingsMap) => ({
+        ...prevBookingsMap,
+        [userId]: res.data.length, // Store the length of bookings for this user
+      }));
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  // Fetch bookings for all users when the component mounts
+  useEffect(() => {
+    allUsers.forEach((user) => {
+      getUserBookings(user.id);
+    });
+  }, [allUsers]);
+
   return (
     <div className='table__container'>
       <table className='table'>
@@ -33,7 +66,11 @@ const TableComponent = ({ allUsers, deleteFunc }) => {
                   alt={`${user.firstName} ${user.lastName}`}
                 />
               </td>
-              <td>11</td>
+              <td>
+                {userBookingsMap[user.id] !== undefined
+                  ? userBookingsMap[user.id]
+                  : 0}
+              </td>
               <td className='actions'>
                 <RiEditCircleFill className='icon' title='Edit' />
                 <MdDeleteForever
@@ -44,36 +81,6 @@ const TableComponent = ({ allUsers, deleteFunc }) => {
               </td>
             </tr>
           ))}
-          {/* <tr>
-            <td>1</td>
-            <td>Bikal</td>
-            <td>Rai</td>
-            <td>bikalrai2785@gmail.com</td>
-            <td>9818761745</td>
-            <td>
-              <img src='' alt='' />
-            </td>
-            <td>11</td>
-            <td className='actions'>
-              <RiEditCircleFill className='icon' title='Edit' />
-              <MdDeleteForever className='icon' title='Delete' />
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Bikal</td>
-            <td>Rai</td>
-            <td>bikalrai2785@gmail.com</td>
-            <td>9818761745</td>
-            <td>
-              <img src='' alt='' />
-            </td>
-            <td>11</td>
-            <td className='actions'>
-              <RiEditCircleFill className='icon' />
-              <MdDeleteForever className='icon' />
-            </td>
-          </tr> */}
         </tbody>
       </table>
     </div>
