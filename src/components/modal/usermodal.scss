@@ -1,4 +1,5 @@
 @import "../../assets/scss/variables";
+@import "../../assets/scss/button";
 
 .modalUser {
   background-color: $primary-bg;
@@ -39,7 +40,8 @@
     transition: 0.4s;
 
     &:hover,
-    &:hover a {
+    &:hover a,
+    &:hover button {
       color: $primary-color;
     }
 
@@ -51,6 +53,12 @@
 
     &--icon {
       font-size: $base-font-size;
+    }
+
+    .btn {
+      background-color: transparent;
+      color: $primary-light;
+      border: none;
     }
   }
 }
