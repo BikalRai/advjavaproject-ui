@@ -4,9 +4,11 @@ import { MdDeleteForever } from "react-icons/md";
 import PropType from "prop-types";
 import axios from "axios";
 import "./tableComponent.scss";
+import { useNavigate } from "react-router-dom";
 
 const TableComponent = ({ allUsers, deleteFunc }) => {
   const [userBookingsMap, setUserBookingsMap] = useState({});
+  const navigate = useNavigate();
 
   const getUserBookings = async (userId) => {
     try {
@@ -72,7 +74,12 @@ const TableComponent = ({ allUsers, deleteFunc }) => {
                   : 0}
               </td>
               <td className='actions'>
-                <RiEditCircleFill className='icon' title='Edit' />
+                <RiEditCircleFill
+                  className='icon'
+                  title='Edit'
+                  onClick={() => navigate(`/users/edit/${user.id}`)}
+                />
+
                 <MdDeleteForever
                   className='icon'
                   title='Delete'

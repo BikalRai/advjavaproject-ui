@@ -1,0 +1,36 @@
+@import "../../assets/scss/variables";
+
+.floatingInput {
+  position: relative;
+  padding: $base-padding;
+  border: 1px solid $primary-light;
+  border-radius: $base-border-radius;
+
+  input {
+    width: 100%;
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: $primary-light;
+  }
+
+  label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    transition: transform $base-transition-spd, font-size $base-transition-spd;
+    background-color: transparent;
+    color: $primary-light;
+    pointer-events: none;
+    padding: 0 5px;
+  }
+
+  /* Apply floating behavior */
+  &.float-label label {
+    transform: translate(0, -2.6rem); // Float the label up
+    font-size: $font-size-sm;
+    background-color: $primary-dark; // Optional: adjust label background on float
+  }
+}

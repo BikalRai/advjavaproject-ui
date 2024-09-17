@@ -1,0 +1,72 @@
+@import "../../../assets/scss/variables";
+@import "../../../assets/scss/button";
+
+.edit {
+  padding: $base-padding;
+  display: grid;
+  gap: $base-padding;
+
+  @media (min-width: 800px) {
+    padding: $base-normal-padding;
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+      color: $primary-color;
+      font-size: $font-size-xl;
+      font-weight: 600;
+    }
+  }
+
+  form {
+    background-color: $primary-dark;
+    padding: $base-normal-padding;
+    display: grid;
+    gap: $base-padding;
+
+    .form__field {
+      padding: $base-padding;
+      position: relative;
+      border-radius: $base-border-radius;
+      border: 1px solid $primary-light;
+
+      label {
+        color: $primary-light;
+        pointer-events: none;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: $base-transition-spd;
+      }
+
+      input {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: $primary-light;
+        background-color: red;
+        font-size: $font-size-lg;
+        padding: 8px 0;
+      }
+
+      &:focus-within {
+        label {
+          background-color: $primary-dark;
+          transform: translate(0, -2.6rem);
+          font-size: $font-size-sm;
+        }
+      }
+
+      /* Float label when input has a value */
+      input:not(:placeholder-shown) + label {
+        background-color: $primary-dark;
+        transform: translate(0, -2.6rem);
+        font-size: $font-size-sm;
+      }
+    }
+  }
+}

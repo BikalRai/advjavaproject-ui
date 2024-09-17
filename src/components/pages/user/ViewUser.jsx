@@ -16,8 +16,6 @@ const ViewUser = () => {
 
   const [image, setImage] = useState(null);
 
-  console.log(image);
-
   const { user, setUser } = useContext(AuthContext);
   console.log(user.id, "id");
 
