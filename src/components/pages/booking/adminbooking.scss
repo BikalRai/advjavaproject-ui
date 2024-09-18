@@ -1,0 +1,14 @@
+@import "../../../assets/scss/variables";
+
+.adminBooking {
+  padding: $base-padding;
+
+  @media (min-width: 800px) {
+    padding: $base-normal-padding;
+  }
+
+  h1 {
+    color: $primary-color;
+    font-size: $font-size-xl;
+  }
+}
