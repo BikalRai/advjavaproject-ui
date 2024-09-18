@@ -1,0 +1,84 @@
+@import "../../assets/scss/variables";
+
+.bookingTable {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  display: grid;
+  gap: $base-padding;
+  padding-top: $base-padding;
+
+  .table {
+    color: $primary-dark;
+    border-radius: $base-border-radius;
+    border-collapse: collapse;
+    background-color: $primary-light;
+    box-shadow: 0px 0px 3px rgba(255, 255, 255, 0.2),
+      5px 5px 10px -9px rgba(0, 0, 0, 0.2),
+      -5px -5px 10px -9px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    min-width: 800px;
+
+    thead {
+      background-color: $primary-light;
+      color: $primary-dark;
+
+      tr {
+        cursor: pointer;
+        th {
+          padding: $base-padding;
+          white-space: nowrap;
+        }
+      }
+    }
+
+    tbody {
+      background-color: $primary-dark;
+      color: $primary-light;
+      tr {
+        text-align: center;
+        transition: $base-transition-spd;
+
+        td {
+          padding: $base-padding;
+          white-space: nowrap;
+
+          img {
+            width: 50px;
+            height: 50px;
+            transition: $base-transition-spd;
+
+            &:hover {
+              transform: scale(2);
+            }
+          }
+        }
+
+        &:hover {
+          color: $primary-dark;
+          font-weight: 500;
+          background-color: $primary-color;
+          transform: translateY(-2px);
+        }
+
+        .actions {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: $base-font-size * 0.5;
+
+          .icon {
+            font-size: $font-size-xl;
+            cursor: pointer;
+            transition: $base-transition-spd;
+
+            &:hover {
+              color: $primary-light;
+            }
+          }
+        }
+      }
+    }
+  }
+}
