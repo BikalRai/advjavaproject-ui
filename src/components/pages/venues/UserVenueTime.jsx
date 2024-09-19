@@ -3,13 +3,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import TimeCard from "../../card/TimeCard";
 import "./venueDetails.scss";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const UserVenueTime = () => {
   const [venueDetails, setVenueDetails] = useState({});
   const [timeslots, setTimeSlots] = useState([]);
 
   const { venueId } = useParams();
+  const navigate = useNavigate();
 
   const getAllVenueData = async (id) => {
     try {
@@ -53,6 +54,8 @@ const UserVenueTime = () => {
         slot.id === timeId ? { ...slot, available: false } : slot
       )
     );
+
+    navigate("/mybookings");
   };
 
   useEffect(() => {

@@ -48,6 +48,7 @@ const BookingCard = ({
         </div>
 
         <div className='bookingCard__details--action'>
+          <button className='btn__primary'>Pay now</button>
           <MdDeleteForever
             className='icon'
             title='Cancel Booking'
