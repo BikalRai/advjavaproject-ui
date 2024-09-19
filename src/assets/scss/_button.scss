@@ -39,4 +39,18 @@
       border-color: none;
     }
   }
+
+  &__dark {
+    @include btn();
+    color: $primary-light;
+    background-color: $primary-dark;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: $base-transition-spd;
+
+    &:hover {
+      background-color: $primary-dark-70;
+    }
+  }
 }

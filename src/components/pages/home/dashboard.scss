@@ -1,4 +1,5 @@
 @import "../../../assets/scss/variables";
+@import "../../../assets/scss/button";
 
 .dashboard {
   padding: $base-padding;
@@ -10,5 +11,60 @@
   h1 {
     color: $primary-color;
     font-size: $font-size-xl;
+  }
+
+  &__cards {
+    margin-top: $base-normal-padding;
+    display: grid;
+    gap: $base-normal-padding;
+
+    @media (min-width: 600px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 800px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1100px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  canvas {
+    margin-top: 3rem;
+    background-color: $primary-dark-70;
+    height: 400px !important;
+    width: 100% !important;
+  }
+
+  &__newUsers {
+    margin-top: 3rem;
+    background-color: $primary-light;
+    padding: $base-padding;
+    border-radius: $base-border-radius;
+
+    &--head {
+      display: flex;
+      justify-content: space-between;
+
+      h3 {
+        color: $primary-dark;
+        display: flex;
+        align-items: center;
+        gap: $font-size-sm;
+
+        span {
+          &:last-child {
+            font-size: $font-size-md;
+            color: $primary-dark-70;
+          }
+        }
+      }
+
+      a {
+        text-decoration: none;
+      }
+    }
   }
 }

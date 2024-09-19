@@ -1,0 +1,49 @@
+@import "../../assets/scss/variables";
+
+.dashboardCard {
+  background-color: $primary-light;
+
+  background-size: 200% 200%;
+  color: $primary-dark;
+  padding: $base-normal-padding;
+  font-weight: 500;
+  border: 1px solid $primary-dark;
+  border-radius: $base-border-radius;
+  transition: $base-transition-spd;
+
+  &__title {
+    font-size: $font-size-md;
+    font-weight: 600;
+  }
+
+  &__body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &--count {
+      font-size: $font-size-lg;
+      font-weight: 700;
+    }
+
+    svg {
+      fill: $primary-dark;
+      font-size: $font-size-xxxl;
+    }
+  }
+
+  &__foot {
+    .digits {
+      color: $primary-color;
+      font-weight: 700;
+    }
+  }
+
+  &:hover {
+    box-shadow: 1px 1px 3px -2px $primary-light,
+      5px 5px 10px -6px $primary-dark-70, -5px -5px 10px -6px $primary-dark-70;
+    background-position: right;
+    border: none;
+    transform: translateY(-10px);
+  }
+}
