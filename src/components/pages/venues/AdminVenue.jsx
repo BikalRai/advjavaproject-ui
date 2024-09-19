@@ -27,8 +27,14 @@ const AdminVenue = () => {
 
   const handleDeleteVenue = async (id) => {
     try {
+      const token = localStorage.getItem("authToken");
       const res = await axios.delete(
-        `http://localhost:8080/api/venues/delete/${id}`
+        `http://localhost:8080/api/venues/delete/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       setVenues((prev) => prev.filter((venue) => venue.id !== id));
