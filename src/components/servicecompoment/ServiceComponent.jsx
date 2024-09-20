@@ -49,7 +49,7 @@ const ServiceComponent = () => {
           navigationHandleFunc={handleVenueService}
         />
         <Card
-          img='/images/service1.png'
+          img='/images/service2.jpg'
           header='Match'
           desc='Look for or accept matches to play against other teams'
           btnText='Browse Matches'
