@@ -1,12 +1,17 @@
-import PropType from 'prop-types';
-import './buttons.scss';
+import PropType from "prop-types";
+import "./buttons.scss";
 
-const PrimaryButton = ({ btnText }) => {
-  return <button className="primary__btn btn btn__primary">{btnText}</button>;
+const PrimaryButton = ({ btnText, onClickFunc }) => {
+  return (
+    <button className='primary__btn btn btn__primary' onClick={onClickFunc}>
+      {btnText}
+    </button>
+  );
 };
 
 PrimaryButton.propTypes = {
   btnText: PropType.string,
+  onClickFunc: PropType.func,
 };
 
 export default PrimaryButton;

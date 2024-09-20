@@ -9,7 +9,10 @@ export default function AccordionUsage() {
     <div className='faq'>
       <h2>FAQ</h2>
       <Accordion
-        sx={{ backgroundColor: "#393e46", color: "#f3f6ed" }}
+        sx={{
+          backgroundColor: "#393e46",
+          color: "#f3f6ed",
+        }}
         defaultExpanded
       >
         <AccordionSummary
@@ -19,7 +22,9 @@ export default function AccordionUsage() {
         >
           How to browse for different venues?
         </AccordionSummary>
-        <AccordionDetails sx={{ color: "rgb(39, 212, 131)" }}>
+        <AccordionDetails
+          sx={{ color: "rgb(39, 212, 131)", borderTop: "1px solid #27d483" }}
+        >
           Click on browse venues in the services section, where you can find it
           in the card. Once you have clicked on the button, you can start
           browsing the various different venues available.
@@ -33,7 +38,9 @@ export default function AccordionUsage() {
         >
           How to create a booking?
         </AccordionSummary>
-        <AccordionDetails sx={{ color: "rgb(39, 212, 131)" }}>
+        <AccordionDetails
+          sx={{ color: "rgb(39, 212, 131)", borderTop: "1px solid #27d483" }}
+        >
           Once you have selected the venue that you want to play in, then you
           can click the venue to go into their page and see all the available
           timings.
@@ -47,7 +54,9 @@ export default function AccordionUsage() {
         >
           What is the cancellation policy?
         </AccordionSummary>
-        <AccordionDetails sx={{ color: "rgb(39, 212, 131)" }}>
+        <AccordionDetails
+          sx={{ color: "rgb(39, 212, 131)", borderTop: "1px solid #27d483" }}
+        >
           All different venues have their own cancellation policies, but to
           cancel your booking, you have to at least pay a penalty.
         </AccordionDetails>
@@ -60,7 +69,9 @@ export default function AccordionUsage() {
         >
           What to cancel a booking?
         </AccordionSummary>
-        <AccordionDetails sx={{ color: "rgb(39, 212, 131)" }}>
+        <AccordionDetails
+          sx={{ color: "rgb(39, 212, 131)", borderTop: "1px solid #27d483" }}
+        >
           Go to mybookings section and then you can cancel the booking.
         </AccordionDetails>
       </Accordion>

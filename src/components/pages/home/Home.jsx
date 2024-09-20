@@ -2,7 +2,7 @@ import AccordionUsage from "../../accordion/Faq";
 import EventCarousel from "../../carousel/EventCarousel";
 import Hero from "../../hero/Hero";
 import HomeContact from "../../homeContact/HomeContact";
-import HomeMatchComponent from "../../matchComponent/HomeMatchComponent";
+// import HomeMatchComponent from "../../matchComponent/HomeMatchComponent";
 import ServiceComponent from "../../servicecompoment/ServiceComponent";
 import "./home.scss";
 
@@ -12,7 +12,7 @@ const Home = () => {
       <Hero />
       <div className='container'>
         <ServiceComponent />
-        <HomeMatchComponent />
+        {/* <HomeMatchComponent /> */}
         <h2>Events</h2>
         <EventCarousel />
         <AccordionUsage />
