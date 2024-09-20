@@ -17,7 +17,6 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import "./form.scss";
 import { PacmanLoader } from "react-spinners";
 import { spinnerOverride } from "../../utils/spinnerCssOverride";
-import { LoadingContext } from "../../utils/LoadingProvider";
 import InfoModal from "../modal/InfoModal";
 
 const LoginForm = () => {
@@ -33,8 +32,6 @@ const LoginForm = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const { loading, setLoading } = useContext(LoadingContext);
 
   const handleClickShowPassword = () => {
     setLoginDetails((prev) => ({ ...prev, showPassword: !prev.showPassword }));
@@ -55,6 +52,8 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
   console.log(location, "LOCATION!!!");
+
+  const [loading, setLoading] = useState(false);
 
   const handleUsernameOrEmail = ({ target: { value } }) => {
     setLoginDetails((prev) => ({ ...prev, emailOrMobile: value }));
@@ -142,14 +141,13 @@ const LoginForm = () => {
   };
 
   useEffect(() => {
-    if (location.state.success) {
+    if (location.state?.success) {
       handleOpen();
-
       setTimeout(() => {
         handleClose();
       }, 3000);
     }
-  }, []);
+  }, [location]);
 
   return (
     <div className='form'>

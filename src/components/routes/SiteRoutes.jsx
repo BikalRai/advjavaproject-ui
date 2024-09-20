@@ -8,6 +8,7 @@ import MyBooking from "../pages/booking/MyBooking";
 import ViewUser from "../pages/user/ViewUser";
 import Forbidden from "../pages/errorPages/Forbidden";
 import PaymentDetails from "../pages/payment/PaymentDetails";
+import About from "../pages/about/About";
 
 const SiteRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const SiteRoutes = () => {
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<LoginForm />} />
         <Route path='/signup' element={<Register />} />
+        <Route path='/about' element={<About />} />
         <Route path='/venues' element={<UserVenue />} />
         <Route path='/venues/:venueId' element={<UserVenueTime />} />
         <Route path='/mybookings' element={<MyBooking />} />
