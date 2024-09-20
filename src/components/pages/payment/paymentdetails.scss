@@ -1,0 +1,55 @@
+@import "../../../assets/scss/variables";
+@import "../../../assets/scss/container";
+
+.paymentDetails {
+  margin-top: 3rem;
+  padding: $base-normal-padding;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__form {
+    background-color: $primary-light;
+    border-radius: $base-border-radius;
+    display: grid;
+    gap: $base-padding;
+    padding: $base-normal-padding;
+    box-shadow: 2px 2px 10px -5px rgba(255, 255, 255, 0.6),
+      5px 5px 15px -7px rgba(0, 0, 0, 0.6),
+      -5px -5px 15px -7px rgba(0, 0, 0, 0.6);
+
+    h3 {
+      color: $primary-dark;
+    }
+    p {
+      color: $primary-dark;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: $base-padding;
+
+      strong {
+        color: $primary-dark-70;
+      }
+    }
+
+    &--actions {
+      display: flex;
+      align-items: center;
+      gap: $base-padding;
+
+      .btn__primary {
+        color: $primary-dark;
+      }
+
+      .btn__secondary {
+        color: $primary-dark;
+        border-color: $primary-dark;
+
+        &:hover {
+          background-color: $primary-dark;
+        }
+      }
+    }
+  }
+}

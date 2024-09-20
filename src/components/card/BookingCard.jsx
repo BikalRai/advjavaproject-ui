@@ -1,7 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import { MdDeleteForever } from "react-icons/md";
 import PropType from "prop-types";
-import "./bookingcard.scss";
 import axios from "axios";
+import "./bookingcard.scss";
 
 const BookingCard = ({
   venueName,
@@ -13,6 +14,8 @@ const BookingCard = ({
   bookingId,
   onDelete,
 }) => {
+  const navigate = useNavigate();
+
   const deleteBooking = async (id) => {
     try {
       const token = localStorage.getItem("authToken");
@@ -33,6 +36,20 @@ const BookingCard = ({
     }
   };
 
+  const handlePayNow = () => {
+    navigate("/payment-details", {
+      state: {
+        venueName,
+        location,
+        date,
+        startTime,
+        endTime,
+        price,
+        bookingId,
+      },
+    });
+  };
+
   return (
     <div className='bookingCard'>
       <div className='bookingCard__details'>
@@ -48,7 +65,9 @@ const BookingCard = ({
         </div>
 
         <div className='bookingCard__details--action'>
-          <button className='btn__primary'>Pay now</button>
+          <button className='btn__primary' onClick={handlePayNow}>
+            Pay now
+          </button>
           <MdDeleteForever
             className='icon'
             title='Cancel Booking'
