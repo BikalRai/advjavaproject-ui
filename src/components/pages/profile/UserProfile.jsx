@@ -5,6 +5,8 @@ import ProfileField from "../../inputfield/ProfileField";
 import "./userprofile.scss";
 import { BiSolidImageAdd } from "react-icons/bi";
 import { AuthContext } from "../../../utils/AuthProvider";
+import { PacmanLoader } from "react-spinners";
+import { spinnerOverride } from "../../../utils/spinnerCssOverride";
 
 const UserProfile = () => {
   const [userDetails, setUserDetails] = useState({
@@ -25,6 +27,7 @@ const UserProfile = () => {
   const [imgBase64, setImgBase64] = useState("");
 
   const { setUser } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
   const usernameArr = userDetails.username.split(" ");
   const firstName = usernameArr[0];
@@ -64,6 +67,7 @@ const UserProfile = () => {
   };
 
   const getUserData = async (userId) => {
+    setLoading(true);
     try {
       const token = localStorage.getItem("authToken");
 
@@ -91,11 +95,14 @@ const UserProfile = () => {
       console.log(res?.data);
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const res = await axios.put(`http://localhost:8080/api/updateUser/${1}`, {
@@ -111,11 +118,10 @@ const UserProfile = () => {
       console.log(res);
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
-
-  console.log(userDetails);
-  console.log(userDetails.email);
 
   useEffect(() => {
     getUserData(1);
@@ -123,41 +129,51 @@ const UserProfile = () => {
 
   return (
     <div className='userProfile'>
-      <h1>Your Profile</h1>
-      <div className='container'>
-        <button type='button' className='btn__secondary back'>
-          <IoMdArrowRoundBack className=' back__btn' />
-        </button>
+      {loading ? (
+        <PacmanLoader color='#fff' size={40} cssOverride={spinnerOverride} />
+      ) : (
+        <>
+          <h1>Your Profile</h1>
+          <div className='container'>
+            <button type='button' className='btn__secondary back'>
+              <IoMdArrowRoundBack className=' back__btn' />
+            </button>
 
-        <form className='userProfile__details' onSubmit={handleSubmit}>
-          <div className='userProfile__details--avatar'>
-            <div
-              className='userProfile__img--form-upload'
-              title='Click to change picture'
-            >
-              <input type='file' onChange={handleImageUpload} />
-              {img ? (
-                <img src={img} alt='User avatar' className='avatar__default' />
-              ) : (
-                <BiSolidImageAdd className='avatar__default--icon' />
-              )}
-            </div>
+            <form className='userProfile__details' onSubmit={handleSubmit}>
+              <div className='userProfile__details--avatar'>
+                <div
+                  className='userProfile__img--form-upload'
+                  title='Click to change picture'
+                >
+                  <input type='file' onChange={handleImageUpload} />
+                  {img ? (
+                    <img
+                      src={img}
+                      alt='User avatar'
+                      className='avatar__default'
+                    />
+                  ) : (
+                    <BiSolidImageAdd className='avatar__default--icon' />
+                  )}
+                </div>
+              </div>
+              {Object.keys(userDetails).map((field) => (
+                <ProfileField
+                  key={field}
+                  name={field}
+                  id={field}
+                  handleFunc={handleFunction}
+                  value={userDetails[field]}
+                  isEditable={isReadOnly[field]}
+                  setIsEditable={handleEditState}
+                />
+              ))}
+
+              <button className='btn__primary'>Update</button>
+            </form>
           </div>
-          {Object.keys(userDetails).map((field) => (
-            <ProfileField
-              key={field}
-              name={field}
-              id={field}
-              handleFunc={handleFunction}
-              value={userDetails[field]}
-              isEditable={isReadOnly[field]}
-              setIsEditable={handleEditState}
-            />
-          ))}
-
-          <button className='btn__primary'>Update</button>
-        </form>
-      </div>
+        </>
+      )}
     </div>
   );
 };

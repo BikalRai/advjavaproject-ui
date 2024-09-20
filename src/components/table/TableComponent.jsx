@@ -3,14 +3,18 @@ import { RiEditCircleFill } from "react-icons/ri";
 import { MdDeleteForever } from "react-icons/md";
 import PropType from "prop-types";
 import axios from "axios";
-import "./tableComponent.scss";
 import { useNavigate } from "react-router-dom";
+import "./tableComponent.scss";
+import { PacmanLoader } from "react-spinners";
+import { spinnerOverride } from "../../utils/spinnerCssOverride";
 
 const TableComponent = ({ allUsers, deleteFunc }) => {
   const [userBookingsMap, setUserBookingsMap] = useState({});
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const getUserBookings = async (userId) => {
+    setLoading(true);
     try {
       const token = localStorage.getItem("authToken");
       const res = await axios.get(
@@ -29,6 +33,8 @@ const TableComponent = ({ allUsers, deleteFunc }) => {
       }));
     } catch (error) {
       console.log(error.response);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -41,55 +47,61 @@ const TableComponent = ({ allUsers, deleteFunc }) => {
 
   return (
     <div className='table__container'>
-      <table className='table'>
-        <thead>
-          <tr>
-            <th>User ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Mobile</th>
-            <th>Image</th>
-            <th>No. of bookings</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {allUsers.map((user) => (
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.firstName}</td>
-              <td>{user.lastName}</td>
-              <td>{user.email}</td>
-              <td>{user.mobile}</td>
-              <td>
-                <img
-                  src={`data:image/jpeg;base64,${user.image}`}
-                  alt={`${user.firstName} ${user.lastName}`}
-                />
-              </td>
-              <td>
-                {userBookingsMap[user.id] !== undefined
-                  ? userBookingsMap[user.id]
-                  : 0}
-              </td>
-              <td className='actions'>
-                <RiEditCircleFill
-                  className='icon'
-                  title='Edit'
-                  onClick={() => navigate(`/users/edit/${user.id}`)}
-                />
+      {loading ? (
+        <PacmanLoader color='#fff' size={40} cssOverride={spinnerOverride} />
+      ) : (
+        <>
+          <table className='table'>
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Image</th>
+                <th>No. of bookings</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {allUsers.map((user) => (
+                <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>{user.firstName}</td>
+                  <td>{user.lastName}</td>
+                  <td>{user.email}</td>
+                  <td>{user.mobile}</td>
+                  <td>
+                    <img
+                      src={`data:image/jpeg;base64,${user.image}`}
+                      alt={`${user.firstName} ${user.lastName}`}
+                    />
+                  </td>
+                  <td>
+                    {userBookingsMap[user.id] !== undefined
+                      ? userBookingsMap[user.id]
+                      : 0}
+                  </td>
+                  <td className='actions'>
+                    <RiEditCircleFill
+                      className='icon'
+                      title='Edit'
+                      onClick={() => navigate(`/users/edit/${user.id}`)}
+                    />
 
-                <MdDeleteForever
-                  className='icon'
-                  title='Delete'
-                  onClick={() => deleteFunc(user.id)}
-                />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                    <MdDeleteForever
+                      className='icon'
+                      title='Delete'
+                      onClick={() => deleteFunc(user.id)}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
     </div>
   );
 };

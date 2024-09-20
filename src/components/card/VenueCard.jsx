@@ -3,12 +3,17 @@ import PropType from "prop-types";
 import "./venucard.scss";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useState } from "react";
+import { PropagateLoader } from "react-spinners";
+import { spinnerOverride } from "../../utils/spinnerCssOverride";
 
 const VenueCard = ({ title, location, price, img, venueId }) => {
   const navigate = useNavigate();
-  console.log(venueId);
+
+  const [loading, setLoading] = useState(false);
 
   const generateTimeSlot = async (id) => {
+    setLoading(true);
     try {
       const token = localStorage.getItem("authToken");
       const config = {
@@ -23,38 +28,45 @@ const VenueCard = ({ title, location, price, img, venueId }) => {
         config
       );
 
-      if (res) {
+      if (res.data) {
         navigate(`/venues/${id}`);
-        console.log(res.data);
       }
 
       console.log(res);
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className='venueCard'>
-      <div className='venueCard__img'>
-        <img src={`data:image/jpeg;base64, ${img}`} alt={title} />
-      </div>
-      <div className='venueCard__content'>
-        <h3 className='venueCard__content--title'>{title}</h3>
-        <p className='venueCard__content--bodytext'>Location: {location}</p>
-        <p className='venueCard__content--bodytext'>rating: ⭐⭐⭐</p>
-        <p className='venueCard__content--bodytext'>Price: rs. {price}</p>
-        <div className='venueCard__content--actions'>
-          <button
-            className='btn__primary'
-            onClick={() => generateTimeSlot(venueId)}
-          >
-            Click to view times
-          </button>
-          <FaRegHeart />
+    <>
+      {loading ? (
+        <PropagateLoader color='#fff' size={40} cssOverride={spinnerOverride} />
+      ) : (
+        <div className='venueCard'>
+          <div className='venueCard__img'>
+            <img src={`data:image/jpeg;base64, ${img}`} alt={title} />
+          </div>
+          <div className='venueCard__content'>
+            <h3 className='venueCard__content--title'>{title}</h3>
+            <p className='venueCard__content--bodytext'>Location: {location}</p>
+            <p className='venueCard__content--bodytext'>rating: ⭐⭐⭐</p>
+            <p className='venueCard__content--bodytext'>Price: rs. {price}</p>
+            <div className='venueCard__content--actions'>
+              <button
+                className='btn__primary'
+                onClick={() => generateTimeSlot(venueId)}
+              >
+                Click to view times
+              </button>
+              <FaRegHeart />
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

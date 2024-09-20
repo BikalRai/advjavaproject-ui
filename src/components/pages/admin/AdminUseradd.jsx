@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Box,
   FormControl,
@@ -16,10 +17,11 @@ import {
   formControlOutlinedStyles,
 } from "../../../utils/inputfieldsStyles";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import axios from "axios";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import "./adduser.scss";
+import { PacmanLoader } from "react-spinners";
+import { spinnerOverride } from "../../../utils/spinnerCssOverride";
 
 const style = {
   position: "absolute",
@@ -52,6 +54,8 @@ const AdminUseradd = () => {
 
   const handleClose = () => setOpen(false);
 
+  const [loading, setLoading] = useState(false);
+
   const handleRoleChange = ({ target: { value } }) => {
     setRole(value);
   };
@@ -68,6 +72,7 @@ const AdminUseradd = () => {
     e.preventDefault();
 
     try {
+      setLoading(true);
       const token = localStorage.getItem("authToken");
 
       await axios.post(
@@ -101,6 +106,8 @@ const AdminUseradd = () => {
     } catch (error) {
       console.log(error.response);
       setSuccessful(false);
+    } finally {
+      setLoading(false);
       handleOpen();
 
       setTimeout(() => {
@@ -111,108 +118,114 @@ const AdminUseradd = () => {
 
   return (
     <div className='add'>
-      <div>
-        <Modal
-          open={open}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'
-        >
-          <Box sx={style}>
-            <Typography id='modal-modal-title' variant='h6' component='h2'>
-              {successful ? "SUCCESSFUL" : "Oops ... Something went wrong"}
-            </Typography>
-          </Box>
-        </Modal>
-      </div>
-      <h1>Add User</h1>
-      <form method='POST' onSubmit={handleFormSubmit}>
-        <TextField
-          id='outlined-basic'
-          label='First Name'
-          variant='outlined'
-          sx={textFieldStyle}
-          name='firstName'
-          onChange={handleUserDetailsChange}
-          value={userDetails.firstName}
-        />
-        <TextField
-          id='outlined-basic'
-          label='Last Name'
-          variant='outlined'
-          sx={textFieldStyle}
-          name='lastName'
-          onChange={handleUserDetailsChange}
-          value={userDetails.lastName}
-        />
-        <TextField
-          id='outlined-basic'
-          label='Email'
-          variant='outlined'
-          sx={textFieldStyle}
-          name='email'
-          onChange={handleUserDetailsChange}
-          value={userDetails.email}
-        />
-        <TextField
-          id='outlined-basic'
-          label='Mobile'
-          variant='outlined'
-          sx={textFieldStyle}
-          name='mobile'
-          onChange={handleUserDetailsChange}
-          value={userDetails.mobile}
-        />
-        <FormControl sx={formControlOutlinedStyles} variant='outlined'>
-          <InputLabel htmlFor='outlined-adornment-password'>
-            Password
-          </InputLabel>
-          <OutlinedInput
-            id='outlined-adornment-password'
-            type={showPassword ? "text" : "password"}
-            endAdornment={
-              <InputAdornment position='end'>
-                <IconButton
-                  aria-label='toggle password visibility'
-                  onClick={handleClickShowPassword}
-                >
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label='Password'
-            name='password'
-            onChange={handleUserDetailsChange}
-            value={userDetails.password}
-          />
-        </FormControl>
-
-        <Box sx={{ minWidth: 120 }}>
-          <FormControl fullWidth sx={textFieldStyle}>
-            <InputLabel id='demo-simple-select-label'>Role</InputLabel>
-            <Select
-              labelId='demo-simple-select-label'
-              id='demo-simple-select'
-              value={role}
-              label='Age'
-              onChange={handleRoleChange}
+      {loading ? (
+        <PacmanLoader color='#fff' size={40} cssOverride={spinnerOverride} />
+      ) : (
+        <>
+          <div>
+            <Modal
+              open={open}
+              aria-labelledby='modal-modal-title'
+              aria-describedby='modal-modal-description'
             >
-              <MenuItem value='ROLE_USER'>User</MenuItem>
-              <MenuItem value='ROLE_STAFF'>Empolyee</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
+              <Box sx={style}>
+                <Typography id='modal-modal-title' variant='h6' component='h2'>
+                  {successful ? "SUCCESSFUL" : "Oops ... Something went wrong"}
+                </Typography>
+              </Box>
+            </Modal>
+          </div>
+          <h1>Add User</h1>
+          <form method='POST' onSubmit={handleFormSubmit}>
+            <TextField
+              id='outlined-basic'
+              label='First Name'
+              variant='outlined'
+              sx={textFieldStyle}
+              name='firstName'
+              onChange={handleUserDetailsChange}
+              value={userDetails.firstName}
+            />
+            <TextField
+              id='outlined-basic'
+              label='Last Name'
+              variant='outlined'
+              sx={textFieldStyle}
+              name='lastName'
+              onChange={handleUserDetailsChange}
+              value={userDetails.lastName}
+            />
+            <TextField
+              id='outlined-basic'
+              label='Email'
+              variant='outlined'
+              sx={textFieldStyle}
+              name='email'
+              onChange={handleUserDetailsChange}
+              value={userDetails.email}
+            />
+            <TextField
+              id='outlined-basic'
+              label='Mobile'
+              variant='outlined'
+              sx={textFieldStyle}
+              name='mobile'
+              onChange={handleUserDetailsChange}
+              value={userDetails.mobile}
+            />
+            <FormControl sx={formControlOutlinedStyles} variant='outlined'>
+              <InputLabel htmlFor='outlined-adornment-password'>
+                Password
+              </InputLabel>
+              <OutlinedInput
+                id='outlined-adornment-password'
+                type={showPassword ? "text" : "password"}
+                endAdornment={
+                  <InputAdornment position='end'>
+                    <IconButton
+                      aria-label='toggle password visibility'
+                      onClick={handleClickShowPassword}
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label='Password'
+                name='password'
+                onChange={handleUserDetailsChange}
+                value={userDetails.password}
+              />
+            </FormControl>
 
-        <div className='buttons'>
-          <button className='btn__primary'>Add</button>
-          <button
-            type='button'
-            className='btn__secondary'
-            onClick={() => navigate("/users")}
-          >
-            Cancel
-          </button>
-        </div>
-      </form>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth sx={textFieldStyle}>
+                <InputLabel id='demo-simple-select-label'>Role</InputLabel>
+                <Select
+                  labelId='demo-simple-select-label'
+                  id='demo-simple-select'
+                  value={role}
+                  label='Age'
+                  onChange={handleRoleChange}
+                >
+                  <MenuItem value='ROLE_USER'>User</MenuItem>
+                  <MenuItem value='ROLE_STAFF'>Empolyee</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+
+            <div className='buttons'>
+              <button className='btn__primary'>Add</button>
+              <button
+                type='button'
+                className='btn__secondary'
+                onClick={() => navigate("/users")}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </>
+      )}
     </div>
   );
 };

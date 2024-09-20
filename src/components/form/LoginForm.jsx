@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../utils/AuthProvider";
 import { IoMdArrowRoundBack } from "react-icons/io";
@@ -15,6 +15,10 @@ import {
 import { formControlStyles } from "../../utils/inputfieldsStyles";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import "./form.scss";
+import { PacmanLoader } from "react-spinners";
+import { spinnerOverride } from "../../utils/spinnerCssOverride";
+import { LoadingContext } from "../../utils/LoadingProvider";
+import InfoModal from "../modal/InfoModal";
 
 const LoginForm = () => {
   const [loginDetails, setLoginDetails] = useState({
@@ -25,6 +29,12 @@ const LoginForm = () => {
     emptyUserError: false,
     emptyPasswordError: false,
   });
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const { loading, setLoading } = useContext(LoadingContext);
 
   const handleClickShowPassword = () => {
     setLoginDetails((prev) => ({ ...prev, showPassword: !prev.showPassword }));
@@ -43,6 +53,8 @@ const LoginForm = () => {
     useContext(AuthContext);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location, "LOCATION!!!");
 
   const handleUsernameOrEmail = ({ target: { value } }) => {
     setLoginDetails((prev) => ({ ...prev, emailOrMobile: value }));
@@ -83,7 +95,7 @@ const LoginForm = () => {
     }
 
     if (isError) return;
-
+    setLoading(true);
     // user login and setting token
     try {
       const res = await axios.post(
@@ -117,89 +129,103 @@ const LoginForm = () => {
             },
           }
         );
-        console.log(userRes, "user RES");
+
         setUser(userRes.data);
 
         navigate("/");
       }
-
-      console.log(res);
-      console.log(token);
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
+  useEffect(() => {
+    if (location.state.success) {
+      handleOpen();
+
+      setTimeout(() => {
+        handleClose();
+      }, 3000);
+    }
+  }, []);
+
   return (
     <div className='form'>
-      <form
-        className='form__els'
-        name='login'
-        method='POST'
-        onSubmit={handleSubmit}
-      >
-        <div className='form__els--head'>
-          <h1>Login to KickSpot</h1>
-          <button
-            type='button'
-            className='btn__primary back_btn'
-            onClick={() => navigate("/")}
-          >
-            <IoMdArrowRoundBack />
-          </button>
-        </div>
-
-        <div className='form__els--inputs'>
-          <FormControl sx={formControlStyles} variant='standard'>
-            <InputLabel htmlFor='emailOrMobile'>Email or Mobile</InputLabel>
-            <Input
-              id='emailOrMobile'
-              type='text'
-              onChange={handleUsernameOrEmail}
-              value={loginDetails.emailOrMobile}
-            />
-            {emptyUserError && (
-              <span className='err'>Email or mobile cannot be empty</span>
-            )}
-          </FormControl>
-          <FormControl sx={formControlStyles} variant='standard'>
-            <InputLabel htmlFor='password'>Password</InputLabel>
-            <Input
-              id='password'
-              type={showPassword ? "text" : "password"}
-              onChange={handlePassword}
-              value={loginDetails.password}
-              endAdornment={
-                <InputAdornment position='end'>
-                  <IconButton
-                    aria-label='toggle password visibility'
-                    onClick={handleClickShowPassword}
-                  >
-                    {showPassword ? (
-                      <VisibilityOff className='visibilityIcon' />
-                    ) : (
-                      <Visibility className='visibilityIcon' />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-            {emptyPasswordError && (
-              <span className='err'>Password cannot be empty</span>
-            )}
-          </FormControl>
-
-          <button className='btn__primary'>LOGIN</button>
-
-          <div className='form__els--inputs-links'>
-            <p>
-              {`Don't have an accout? `}
-              <Link to='/signup'>Sign up</Link>
-            </p>
-            <Link>Forgot password?</Link>
+      {loading ? (
+        <PacmanLoader color='#fff' size={40} cssOverride={spinnerOverride} />
+      ) : (
+        <form
+          className='form__els'
+          name='login'
+          method='POST'
+          onSubmit={handleSubmit}
+        >
+          <div className='form__els--head'>
+            <h1>Login to KickSpot</h1>
+            <button
+              type='button'
+              className='btn__primary back_btn'
+              onClick={() => navigate("/")}
+            >
+              <IoMdArrowRoundBack />
+            </button>
           </div>
-        </div>
-      </form>
+
+          <div className='form__els--inputs'>
+            <FormControl sx={formControlStyles} variant='standard'>
+              <InputLabel htmlFor='emailOrMobile'>Email or Mobile</InputLabel>
+              <Input
+                id='emailOrMobile'
+                type='text'
+                onChange={handleUsernameOrEmail}
+                value={loginDetails.emailOrMobile}
+              />
+              {emptyUserError && (
+                <span className='err'>Email or mobile cannot be empty</span>
+              )}
+            </FormControl>
+            <FormControl sx={formControlStyles} variant='standard'>
+              <InputLabel htmlFor='password'>Password</InputLabel>
+              <Input
+                id='password'
+                type={showPassword ? "text" : "password"}
+                onChange={handlePassword}
+                value={loginDetails.password}
+                endAdornment={
+                  <InputAdornment position='end'>
+                    <IconButton
+                      aria-label='toggle password visibility'
+                      onClick={handleClickShowPassword}
+                    >
+                      {showPassword ? (
+                        <VisibilityOff className='visibilityIcon' />
+                      ) : (
+                        <Visibility className='visibilityIcon' />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+              {emptyPasswordError && (
+                <span className='err'>Password cannot be empty</span>
+              )}
+            </FormControl>
+
+            <button className='btn__primary'>LOGIN</button>
+
+            <div className='form__els--inputs-links'>
+              <p>
+                {`Don't have an accout? `}
+                <Link to='/signup'>Sign up</Link>
+              </p>
+              <Link>Forgot password?</Link>
+            </div>
+          </div>
+        </form>
+      )}
+      <InfoModal open={open} handleClose={handleClose} />
     </div>
   );
 };
