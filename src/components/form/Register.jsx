@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useContext, useReducer, useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -14,6 +14,9 @@ import {
 } from "@mui/material";
 import { formControlStyles } from "../../utils/inputfieldsStyles";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { LoadingContext } from "../../utils/LoadingProvider";
+import { PacmanLoader } from "react-spinners";
+import { spinnerOverride } from "../../utils/spinnerCssOverride";
 import "./registerForm.scss";
 
 const Register = () => {
@@ -67,6 +70,8 @@ const Register = () => {
   ];
 
   const navigate = useNavigate();
+
+  const { loading, setLoading } = useContext(LoadingContext);
 
   const handleFunction = ({ target }) => {
     const { name, value } = target;
@@ -138,6 +143,7 @@ const Register = () => {
       return;
     }
 
+    setLoading(true);
     try {
       const res = await axios.post(
         "http://localhost:8080/api/v1/auth/register",
@@ -148,7 +154,14 @@ const Register = () => {
         }
       );
 
-      navigate("/login");
+      setTimeout(() => {
+        navigate("/login", {
+          state: {
+            success: true,
+          },
+        });
+        setLoading(false);
+      }, 1000);
       console.log(res);
     } catch (error) {
       console.log(error.message);
@@ -157,126 +170,132 @@ const Register = () => {
 
   return (
     <div className='form'>
-      <form
-        className='form__els'
-        name='register'
-        method='POST'
-        onSubmit={handleSubmit}
-      >
-        <div className='form__els--head'>
-          <h1>Sign Up to KickSpot</h1>
-          <button
-            className='btn__primary back_btn'
-            type='button'
-            onClick={() => navigate("/")}
-          >
-            <IoMdArrowRoundBack />
+      {loading ? (
+        <PacmanLoader color='#fff' size={40} cssOverride={spinnerOverride} />
+      ) : (
+        <form
+          className='form__els'
+          name='register'
+          method='POST'
+          onSubmit={handleSubmit}
+        >
+          <div className='form__els--head'>
+            <h1>Sign Up to KickSpot</h1>
+            <button
+              className='btn__primary back_btn'
+              type='button'
+              onClick={() => navigate("/")}
+            >
+              <IoMdArrowRoundBack />
+            </button>
+          </div>
+          <FormControl sx={formControlStyles} variant='standard'>
+            <InputLabel htmlFor='email'>Email</InputLabel>
+            <Input
+              id='email'
+              type='text'
+              name='email'
+              onChange={handleFunction}
+              value={email}
+            />
+            {emailErr && (
+              <span className='err'>Email Field cannot be empty</span>
+            )}
+            {emailFormatErr && (
+              <span className='err'>Email must contain @ and .</span>
+            )}
+          </FormControl>
+          <FormControl sx={formControlStyles} variant='standard'>
+            <InputLabel htmlFor='mobile'>Mobile</InputLabel>
+            <Input
+              id='mobile'
+              type='text'
+              name='mobile'
+              onChange={handleFunction}
+              value={mobile}
+            />
+            {phoneErr && (
+              <span className='err'>Mobile Field cannot be empty</span>
+            )}
+            {phoneFormatErr && (
+              <span className='err'>Mobile number must be of length 10</span>
+            )}
+          </FormControl>
+          <FormControl sx={formControlStyles} variant='standard'>
+            <InputLabel htmlFor='password'>Password</InputLabel>
+            <Input
+              id='password'
+              type={showPassword ? "text" : "password"}
+              name='password'
+              onChange={handleFunction}
+              value={password}
+              endAdornment={
+                <InputAdornment position='end'>
+                  <IconButton
+                    aria-label='toggle password visibility'
+                    onClick={handleClickShowPassword}
+                  >
+                    {showPassword ? (
+                      <VisibilityOff className='visibilityIcon' />
+                    ) : (
+                      <Visibility className='visibilityIcon' />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+            {passwordErr && (
+              <span className='err'>Password Field cannot be empty</span>
+            )}
+            {passwordLengthErr && (
+              <span className='err'>
+                Password must be at least 8 characters long
+              </span>
+            )}
+            {passwordFormatErr && (
+              <span className='err'>
+                Password must contain a special character
+              </span>
+            )}
+          </FormControl>
+          <FormControl sx={formControlStyles} variant='standard'>
+            <InputLabel htmlFor='cPassword'>Confirm Password</InputLabel>
+            <Input
+              id='cPassword'
+              type={showCpassword ? "text" : "password"}
+              name='cPassword'
+              onChange={handleFunction}
+              value={cPassword}
+              endAdornment={
+                <InputAdornment position='end'>
+                  <IconButton
+                    aria-label='toggle password visibility'
+                    onClick={handleClickShowCpassword}
+                  >
+                    {showCpassword ? (
+                      <VisibilityOff className='visibilityIcon' />
+                    ) : (
+                      <Visibility className='visibilityIcon' />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+            {passwordMatchErr && (
+              <span className='err'>The two passwords do not match</span>
+            )}
+          </FormControl>
+          <button type='submit' className='btn btn__primary'>
+            SIGN UP
           </button>
-        </div>
-        <FormControl sx={formControlStyles} variant='standard'>
-          <InputLabel htmlFor='email'>Email</InputLabel>
-          <Input
-            id='email'
-            type='text'
-            name='email'
-            onChange={handleFunction}
-            value={email}
-          />
-          {emailErr && <span className='err'>Email Field cannot be empty</span>}
-          {emailFormatErr && (
-            <span className='err'>Email must contain @ and .</span>
-          )}
-        </FormControl>
-        <FormControl sx={formControlStyles} variant='standard'>
-          <InputLabel htmlFor='mobile'>Mobile</InputLabel>
-          <Input
-            id='mobile'
-            type='text'
-            name='mobile'
-            onChange={handleFunction}
-            value={mobile}
-          />
-          {phoneErr && (
-            <span className='err'>Mobile Field cannot be empty</span>
-          )}
-          {phoneFormatErr && (
-            <span className='err'>Mobile number must be of length 10</span>
-          )}
-        </FormControl>
-        <FormControl sx={formControlStyles} variant='standard'>
-          <InputLabel htmlFor='password'>Password</InputLabel>
-          <Input
-            id='password'
-            type={showPassword ? "text" : "password"}
-            name='password'
-            onChange={handleFunction}
-            value={password}
-            endAdornment={
-              <InputAdornment position='end'>
-                <IconButton
-                  aria-label='toggle password visibility'
-                  onClick={handleClickShowPassword}
-                >
-                  {showPassword ? (
-                    <VisibilityOff className='visibilityIcon' />
-                  ) : (
-                    <Visibility className='visibilityIcon' />
-                  )}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-          {passwordErr && (
-            <span className='err'>Password Field cannot be empty</span>
-          )}
-          {passwordLengthErr && (
-            <span className='err'>
-              Password must be at least 8 characters long
-            </span>
-          )}
-          {passwordFormatErr && (
-            <span className='err'>
-              Password must contain a special character
-            </span>
-          )}
-        </FormControl>
-        <FormControl sx={formControlStyles} variant='standard'>
-          <InputLabel htmlFor='cPassword'>Confirm Password</InputLabel>
-          <Input
-            id='cPassword'
-            type={showCpassword ? "text" : "password"}
-            name='cPassword'
-            onChange={handleFunction}
-            value={cPassword}
-            endAdornment={
-              <InputAdornment position='end'>
-                <IconButton
-                  aria-label='toggle password visibility'
-                  onClick={handleClickShowCpassword}
-                >
-                  {showCpassword ? (
-                    <VisibilityOff className='visibilityIcon' />
-                  ) : (
-                    <Visibility className='visibilityIcon' />
-                  )}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-          {passwordMatchErr && (
-            <span className='err'>The two passwords do not match</span>
-          )}
-        </FormControl>
-        <button type='submit' className='btn btn__primary'>
-          SIGN UP
-        </button>
 
-        <div className='links'>
-          <p>
-            {`Don't have an account? `} <Link to='/login'>Sign In</Link>
-          </p>
-        </div>
-      </form>
+          <div className='links'>
+            <p>
+              {`Don't have an account? `} <Link to='/login'>Sign In</Link>
+            </p>
+          </div>
+        </form>
+      )}
     </div>
   );
 };

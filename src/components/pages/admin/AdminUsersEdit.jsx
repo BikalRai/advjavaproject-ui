@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import FloatingLabelInput from "../../inputfield/FloatingLabelInput";
 import axios from "axios";
-import "./useredit.scss";
 import ImageUploader from "../../imageUpload/ImageUploader";
 import { Box, Modal, Typography } from "@mui/material";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import "./useredit.scss";
+import { PacmanLoader } from "react-spinners";
+import { spinnerOverride } from "../../../utils/spinnerCssOverride";
 
 const style = {
   position: "absolute",
@@ -38,11 +40,14 @@ const AdminUsersEdit = () => {
   const [image, setImage] = useState("");
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
+
   const handleInput = ({ target: { name, value } }) => {
     setEditUserDetails((prev) => ({ ...prev, [name]: value }));
   };
 
   const getUserById = async (userId) => {
+    setLoading(true);
     try {
       const token = localStorage.getItem("authToken");
 
@@ -63,15 +68,17 @@ const AdminUsersEdit = () => {
       }));
     } catch (error) {
       console.log(error.response);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
       const token = localStorage.getItem("authToken");
-      const res = await axios.put(
+      await axios.put(
         `http://localhost:8080/api/users/updateUser/${id}`,
         {
           firstName: editUserDetails.firstName,
@@ -93,10 +100,10 @@ const AdminUsersEdit = () => {
         handleClose();
         navigate("/users");
       }, 1000);
-
-      console.log(res);
     } catch (error) {
       console.log(error.response);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -107,60 +114,66 @@ const AdminUsersEdit = () => {
   console.log(userById, "by id");
   return (
     <div className='edit' onSubmit={handleFormSubmit}>
-      <div className='edit__head'>
-        <h1>Edit</h1>
-        <button className='btn__primary'>
-          <IoMdArrowRoundBack />
-        </button>
-      </div>
-      <div>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'
-        >
-          <Box sx={style}>
-            <Typography
-              id='modal-modal-title'
-              variant='h6'
-              component='h2'
-              sx={{ color: "#dee3e1" }}
+      {loading ? (
+        <PacmanLoader color='#fff' size={40} cssOverride={spinnerOverride} />
+      ) : (
+        <>
+          <div className='edit__head'>
+            <h1>Edit</h1>
+            <button className='btn__primary'>
+              <IoMdArrowRoundBack />
+            </button>
+          </div>
+          <div>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby='modal-modal-title'
+              aria-describedby='modal-modal-description'
             >
-              Successfully updated the user details
-            </Typography>
-          </Box>
-        </Modal>
-      </div>
-      <form method='PUT'>
-        <FloatingLabelInput
-          label='First Name'
-          fieldName='firstName'
-          inputValue={editUserDetails.firstName}
-          setInputValue={handleInput}
-        />
-        <FloatingLabelInput
-          label='Last Name'
-          fieldName='lastName'
-          inputValue={editUserDetails.lastName}
-          setInputValue={handleInput}
-        />
-        <FloatingLabelInput
-          label='Email'
-          fieldName='email'
-          inputValue={editUserDetails.email}
-          setInputValue={handleInput}
-        />
-        <FloatingLabelInput
-          label='Mobile'
-          fieldName='mobile'
-          inputValue={editUserDetails.mobile}
-          setInputValue={handleInput}
-        />
-        <ImageUploader setImage={setImage} />
+              <Box sx={style}>
+                <Typography
+                  id='modal-modal-title'
+                  variant='h6'
+                  component='h2'
+                  sx={{ color: "#dee3e1" }}
+                >
+                  Successfully updated the user details
+                </Typography>
+              </Box>
+            </Modal>
+          </div>
+          <form method='PUT'>
+            <FloatingLabelInput
+              label='First Name'
+              fieldName='firstName'
+              inputValue={editUserDetails.firstName}
+              setInputValue={handleInput}
+            />
+            <FloatingLabelInput
+              label='Last Name'
+              fieldName='lastName'
+              inputValue={editUserDetails.lastName}
+              setInputValue={handleInput}
+            />
+            <FloatingLabelInput
+              label='Email'
+              fieldName='email'
+              inputValue={editUserDetails.email}
+              setInputValue={handleInput}
+            />
+            <FloatingLabelInput
+              label='Mobile'
+              fieldName='mobile'
+              inputValue={editUserDetails.mobile}
+              setInputValue={handleInput}
+            />
+            <ImageUploader setImage={setImage} />
 
-        <button className='btn__primary'>SUBMIT</button>
-      </form>
+            <button className='btn__primary'>SUBMIT</button>
+          </form>
+        </>
+      )}
     </div>
   );
 };

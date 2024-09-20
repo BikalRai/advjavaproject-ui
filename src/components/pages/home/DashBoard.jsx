@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DashboardCard from "../../card/DashboardCard";
 import axios from "axios";
 import { dateIsToday } from "../../../utils/dateChecker";
@@ -11,6 +11,7 @@ import { AiFillSchedule } from "react-icons/ai";
 import LineGraph from "../../chart/Line";
 import { countUsersByMonth } from "../../../utils/graphUtils";
 import "./dashboard.scss";
+import { LoadingContext } from "../../../utils/LoadingProvider";
 
 const DashBoard = () => {
   const [dashboardItems, setDashboarditems] = useState({
@@ -22,9 +23,10 @@ const DashBoard = () => {
 
   const [userCountsByMonth, setUserCountsByMonth] = useState(Array(12).fill(0));
 
-  console.log(countUsersByMonth, "first!!");
+  const { setLoading } = useContext(LoadingContext);
 
   const getData = async () => {
+    setLoading(true);
     try {
       const token = localStorage.getItem("authToken");
       const config = {
@@ -62,6 +64,8 @@ const DashBoard = () => {
       console.log(dashboardItems);
     } catch (error) {
       console.log(error.response);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -132,12 +136,9 @@ const DashBoard = () => {
     ],
   };
 
-  console.log(userCountsByMonth, "COUNT!!!!");
-
   return (
     <div className='dashboard'>
       <h1>DASHBOARD</h1>
-
       <div className='dashboard__cards'>
         <DashboardCard
           title='Total Users'

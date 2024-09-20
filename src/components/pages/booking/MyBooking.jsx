@@ -4,6 +4,7 @@ import axios from "axios";
 import { AuthContext } from "../../../utils/AuthProvider";
 import "./mybooking.scss";
 import { useNavigate } from "react-router-dom";
+import { LoadingContext } from "../../../utils/LoadingProvider";
 
 const MyBooking = () => {
   const [userBookings, setUserBookings] = useState([]);
@@ -11,12 +12,15 @@ const MyBooking = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const { setLoading } = useContext(LoadingContext);
+
   const getAllUserBookings = async (userId) => {
+    setLoading(true);
     try {
       const token = localStorage.getItem("authToken");
 
       const res = await axios.get(
-        `http://localhost:8080/api/bookings/${userId}/bookings`,
+        `http://localhost:8080/api/bookings/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -29,6 +33,8 @@ const MyBooking = () => {
       if (error.response.status === 403) {
         navigate("/forbidden");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
