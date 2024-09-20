@@ -39,13 +39,13 @@
     gap: $font-size-md;
 
     &--header {
-      font-size: $font-size-sm;
+      font-size: $font-size-lg;
       font-weight: 600;
     }
 
     &--desc,
     &--time {
-      font-size: $font-size-sm;
+      font-size: $font-size-md;
     }
 
     &--day {

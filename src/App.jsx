@@ -39,26 +39,6 @@ function App() {
           <SiteRoutes />
         </UserAppLayout>
       )}
-      {/* {!loggedInStatus ? (
-        <UserAppLayout>
-          <SiteRoutes />
-        </UserAppLayout>
-      ) : roles.includes("ROLE_USER") ? (
-        <UserAppLayout>
-          <SiteRoutes />
-        </UserAppLayout>
-      ) : (
-        <AdminLayout>
-          <AdminRoutes />
-        </AdminLayout>
-      )} */}
-
-      {/* <UserProfile /> */}
-      {/* <AdminNavHorizontral /> */}
-      {/* <VerticalNav /> */}
-      {/* <AdminLayout /> */}
-      {/* <Register /> */}
-      {/* <LoginForm /> */}
     </div>
   );
 }
