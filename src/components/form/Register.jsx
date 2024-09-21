@@ -1,4 +1,4 @@
-import { useContext, useReducer, useState } from "react";
+import { useReducer, useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -15,9 +15,6 @@ import {
 } from "@mui/material";
 import { formControlStyles } from "../../utils/inputfieldsStyles";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { LoadingContext } from "../../utils/LoadingProvider";
-import { PacmanLoader } from "react-spinners";
-import { spinnerOverride } from "../../utils/spinnerCssOverride";
 import "./registerForm.scss";
 
 const Register = () => {
