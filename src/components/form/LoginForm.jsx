@@ -194,9 +194,9 @@ const LoginForm = () => {
                       onClick={handleClickShowPassword}
                     >
                       {showPassword ? (
-                        <Visibility className='visibilityIcon' />
-                      ) : (
                         <VisibilityOff className='visibilityIcon' />
+                      ) : (
+                        <Visibility className='visibilityIcon' />
                       )}
                     </IconButton>
                   </InputAdornment>
