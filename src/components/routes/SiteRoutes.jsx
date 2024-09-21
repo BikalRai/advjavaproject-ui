@@ -9,6 +9,9 @@ import ViewUser from "../pages/user/ViewUser";
 import Forbidden from "../pages/errorPages/Forbidden";
 import PaymentDetails from "../pages/payment/PaymentDetails";
 import About from "../pages/about/About";
+import PasswordResetRequest from "../pages/passwordReset/PasswordResetRequest";
+import PasswordEmailVerification from "../pages/passwordReset/PasswordEmailVerification";
+import ResetPassword from "../pages/passwordReset/ResetPassword";
 
 const SiteRoutes = () => {
   return (
@@ -23,6 +26,15 @@ const SiteRoutes = () => {
         <Route path='/mybookings' element={<MyBooking />} />
         <Route path='/viewprofile' element={<ViewUser />} />
         <Route path='/payment-details' element={<PaymentDetails />} />
+        <Route
+          path='/password-reset-request'
+          element={<PasswordResetRequest />}
+        />
+        <Route
+          path='/otp-verification'
+          element={<PasswordEmailVerification />}
+        />
+        <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/forbidden' element={<Forbidden />} />
       </Routes>
     </>

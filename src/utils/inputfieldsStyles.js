@@ -3,10 +3,10 @@ export const textFieldStyle = {
     borderColor: "#f3f6ed", // Default border color
   },
   "&:hover .MuiOutlinedInput-notchedOutline": {
-    borderColor: "rgb(39, 212, 131)", // Border color on hover
+    borderColor: "#27d483", // Border color on hover
   },
   "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-    borderColor: "rgb(39, 212, 131)", // Border color when focused
+    borderColor: "#27d483", // Border color when focused
   },
   "& .MuiSelect-select": {
     color: "#f3f6ed", // Text color of selected value

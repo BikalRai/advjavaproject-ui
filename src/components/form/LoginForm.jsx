@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../utils/AuthProvider";
 import { IoMdArrowRoundBack } from "react-icons/io";
@@ -15,10 +15,9 @@ import {
 } from "@mui/material";
 import { formControlStyles } from "../../utils/inputfieldsStyles";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import "./form.scss";
 import { PacmanLoader } from "react-spinners";
 import { spinnerOverride } from "../../utils/spinnerCssOverride";
-import InfoModal from "../modal/InfoModal";
+import "./form.scss";
 
 const LoginForm = () => {
   const [loginDetails, setLoginDetails] = useState({
@@ -29,10 +28,6 @@ const LoginForm = () => {
     emptyUserError: false,
     emptyPasswordError: false,
   });
-
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   const handleClickShowPassword = () => {
     setLoginDetails((prev) => ({ ...prev, showPassword: !prev.showPassword }));
@@ -52,7 +47,6 @@ const LoginForm = () => {
     useContext(AuthContext);
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [loading, setLoading] = useState(false);
 
@@ -148,17 +142,6 @@ const LoginForm = () => {
     }
   };
 
-  useEffect(() => {
-    if (location.state?.success) {
-      handleOpen();
-      setTimeout(() => {
-        handleClose();
-      }, 3000);
-    }
-  }, [location]);
-
-  console.log(loginError);
-
   return (
     <div className='form'>
       {loading ? (
@@ -211,9 +194,9 @@ const LoginForm = () => {
                       onClick={handleClickShowPassword}
                     >
                       {showPassword ? (
-                        <VisibilityOff className='visibilityIcon' />
-                      ) : (
                         <Visibility className='visibilityIcon' />
+                      ) : (
+                        <VisibilityOff className='visibilityIcon' />
                       )}
                     </IconButton>
                   </InputAdornment>
@@ -231,12 +214,11 @@ const LoginForm = () => {
                 {`Don't have an accout? `}
                 <Link to='/signup'>Sign up</Link>
               </p>
-              <Link>Forgot password?</Link>
+              <Link to='/password-reset-request'>Forgot password?</Link>
             </div>
           </div>
         </form>
       )}
-      <InfoModal open={open} handleClose={handleClose} />
     </div>
   );
 };

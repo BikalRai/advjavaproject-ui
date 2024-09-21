@@ -31,7 +31,11 @@ const UserAppLayout = ({ children }) => {
   return (
     <div className='user__layout'>
       <div className={`nav ${stickyNav ? "stickyNav" : ""}`}>
-        {location.pathname === "/login" || location.pathname === "/signup" ? (
+        {location.pathname === "/login" ||
+        location.pathname === "/signup" ||
+        location.pathname === "/password-reset-request" ||
+        location.pathname === "/otp-verification" ||
+        location.pathname === "/reset-password" ? (
           ""
         ) : (
           <Navbar />
@@ -39,7 +43,11 @@ const UserAppLayout = ({ children }) => {
       </div>
       <div className='content'>{children}</div>
       <div className='footer'>
-        {location.pathname === "/login" || location.pathname === "/signup" ? (
+        {location.pathname === "/login" ||
+        location.pathname === "/signup" ||
+        location.pathname === "/password-reset-request" ||
+        location.pathname === "/otp-verification" ||
+        location.pathname === "/reset-password" ? (
           ""
         ) : (
           <Footer />
