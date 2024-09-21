@@ -155,11 +155,7 @@ const Register = () => {
       );
 
       setTimeout(() => {
-        navigate("/login", {
-          state: {
-            success: true,
-          },
-        });
+        navigate("/login");
         setLoading(false);
       }, 1000);
       console.log(res);
