@@ -6,6 +6,7 @@ import { errReducer, initialErrors } from "../../utils/registerErrrutils";
 import axios from "axios";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import {
+  Alert,
   FormControl,
   IconButton,
   Input,
@@ -46,6 +47,8 @@ const Register = () => {
     passwordMatchErr,
   } = errors;
 
+  const [takenErrorMsg, setTakenErrorMsg] = useState("");
+
   const specialChars = [
     "@",
     "!",
@@ -70,8 +73,6 @@ const Register = () => {
   ];
 
   const navigate = useNavigate();
-
-  const { loading, setLoading } = useContext(LoadingContext);
 
   const handleFunction = ({ target }) => {
     const { name, value } = target;
@@ -143,32 +144,28 @@ const Register = () => {
       return;
     }
 
-    setLoading(true);
     try {
-      const res = await axios.post(
-        "http://localhost:8080/api/v1/auth/register",
-        {
-          email: email,
-          mobile: mobile,
-          password: password,
-        }
-      );
+      await axios.post("http://localhost:8080/api/v1/auth/register", {
+        email: email,
+        mobile: mobile,
+        password: password,
+      });
 
-      setTimeout(() => {
-        navigate("/login");
-        setLoading(false);
-      }, 1000);
-      console.log(res);
+      navigate("/login");
     } catch (error) {
-      console.log(error.message);
+      console.log(error.response);
+      if (error.response) {
+        if (error.response.status === 403 || error.response.status === 409) {
+          setTakenErrorMsg("Email / Mobile already registered");
+        }
+      }
     }
   };
 
   return (
     <div className='form'>
-      {loading ? (
-        <PacmanLoader color='#fff' size={40} cssOverride={spinnerOverride} />
-      ) : (
+      <>
+        {takenErrorMsg && <Alert severity='error'>{takenErrorMsg}</Alert>}
         <form
           className='form__els'
           name='register'
@@ -291,7 +288,7 @@ const Register = () => {
             </p>
           </div>
         </form>
-      )}
+      </>
     </div>
   );
 };
