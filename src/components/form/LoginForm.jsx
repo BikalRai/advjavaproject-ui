@@ -6,6 +6,7 @@ import { AuthContext } from "../../utils/AuthProvider";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { jwtDecode } from "jwt-decode";
 import {
+  Alert,
   FormControl,
   IconButton,
   Input,
@@ -43,6 +44,7 @@ const LoginForm = () => {
     showPassword,
     emptyUserError,
     emptyPasswordError,
+    loginError,
   } = loginDetails;
 
   // auth provider context
@@ -51,7 +53,6 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location, "LOCATION!!!");
 
   const [loading, setLoading] = useState(false);
 
@@ -134,7 +135,14 @@ const LoginForm = () => {
         navigate("/");
       }
     } catch (error) {
-      console.log(error.message);
+      if (error.response) {
+        if (error.response.status === 403) {
+          setLoginDetails((prev) => ({
+            ...prev,
+            loginError: true,
+          }));
+        }
+      }
     } finally {
       setLoading(false);
     }
@@ -149,6 +157,8 @@ const LoginForm = () => {
     }
   }, [location]);
 
+  console.log(loginError);
+
   return (
     <div className='form'>
       {loading ? (
@@ -160,6 +170,9 @@ const LoginForm = () => {
           method='POST'
           onSubmit={handleSubmit}
         >
+          {loginError && (
+            <Alert severity='warning'>Login credentials does not exist</Alert>
+          )}
           <div className='form__els--head'>
             <h1>Login to KickSpot</h1>
             <button
